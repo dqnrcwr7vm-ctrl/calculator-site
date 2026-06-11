@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://calculator-site-4wv.pages.dev/sitemap.xml
