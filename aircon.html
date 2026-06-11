@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에어컨 전기요금 계산기 (2026 여름) - 하루 사용시간으로 누진요금 확인</title>
+<meta name="description" content="에어컨 전기요금 계산기. 소비전력과 하루 사용 시간만 넣으면 여름철 누진제 구간과 에어컨 때문에 늘어나는 한 달 요금을 바로 계산합니다.">
+<style>
+  :root {
+    --ink: #1f2a24;
+    --paper: #fbfaf7;
+    --line: #d9d4c8;
+    --accent: #1e6b50;
+    --accent-soft: #e8f1ec;
+    --warn: #8a5a14;
+    --hot: #b3431e;
+    --muted: #6b6f68;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
+  nav.top { font-size: 14px; }
+  nav.top a { color: var(--muted); text-decoration: none; }
+  nav.top a:hover { color: var(--accent); }
+  header { padding: 24px 0 8px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 2px 12px;
+    margin-bottom: 14px;
+  }
+  h1 { font-size: 28px; line-height: 1.35; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin-top: 10px; font-size: 15px; }
+
+  .calc {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-top: 26px;
+    box-shadow: 0 2px 10px rgba(31,42,36,0.05);
+  }
+  .field { margin-bottom: 20px; }
+  label.title { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  .preset-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .preset-row button {
+    border: 1.5px solid var(--line);
+    background: #fff;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .preset-row button.on {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .num-input { position: relative; }
+  .num-input input {
+    width: 100%;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 12px 64px 12px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .num-input input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+  .num-input .unit {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    font-size: 14px; color: var(--muted); font-weight: 600;
+  }
+
+  .slider-row { display: flex; align-items: center; gap: 14px; }
+  .slider-row input[type="range"] { flex: 1; accent-color: var(--accent); height: 28px; }
+  .slider-val {
+    min-width: 86px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 17px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 10px;
+    padding: 7px 4px;
+  }
+
+  button.go {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 15px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  button.go:hover { background: #16573f; }
+  button.go:focus-visible { outline: 3px solid #9cc6b4; }
+
+  .result { display: none; margin-top: 26px; }
+  .result.show { display: block; }
+
+  .diff-card {
+    background: #fff;
+    border: 1px solid var(--ink);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .diff-head {
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 18px;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+  }
+  .diff-head .s { opacity: .75; letter-spacing: 0; }
+  .diff-main {
+    text-align: center;
+    padding: 24px 18px 18px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .diff-main .lbl { font-size: 14px; color: var(--muted); }
+  .diff-main .amt { font-size: 34px; font-weight: 800; color: var(--hot); margin-top: 2px; }
+  .diff-main .amt small { font-size: 17px; }
+  .compare { display: flex; border-bottom: 1px dashed var(--line); }
+  .compare .half { flex: 1; text-align: center; padding: 15px 8px; }
+  .compare .half + .half { border-left: 1px dashed var(--line); }
+  .compare .when { font-size: 13px; color: var(--muted); }
+  .compare .pay { font-size: 19px; font-weight: 800; margin-top: 2px; }
+  .rows { padding: 14px 18px 16px; }
+  .rows .row {
+    display: flex; justify-content: space-between;
+    font-size: 14.5px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f0ede5;
+  }
+  .rows .row:last-child { border-bottom: 0; }
+  .rows .row .k { color: var(--muted); }
+  .rows .row .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .tier-bar { padding: 0 18px 18px; }
+  .tier-bar .bar {
+    display: flex; height: 14px; border-radius: 999px; overflow: hidden;
+    background: #eeece5; border: 1px solid var(--line);
+  }
+  .tier-bar .seg1 { background: #9cc6b4; }
+  .tier-bar .seg2 { background: #e0b15c; }
+  .tier-bar .seg3 { background: #d96a44; }
+  .tier-bar .cap { font-size: 12.5px; color: var(--muted); display: flex; justify-content: space-between; margin-top: 5px; }
+  .tier-label { font-size: 13.5px; margin-top: 8px; }
+  .tier-label strong { color: var(--hot); }
+
+  .note-special {
+    margin-top: 12px;
+    font-size: 13.5px;
+    background: #fdf0ea;
+    border: 1px solid #ecc4b0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #843517;
+    display: none;
+  }
+  .note-special.show { display: block; }
+
+  section.article { margin-top: 48px; }
+  section.article h2 {
+    font-size: 21px;
+    margin: 36px 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: -0.01em;
+  }
+  section.article p { margin-bottom: 14px; font-size: 15.5px; }
+  table.rate {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 14px 0 18px;
+    background: #fff;
+  }
+  table.rate th, table.rate td {
+    border: 1px solid var(--line);
+    padding: 9px 10px;
+    text-align: left;
+  }
+  table.rate th { background: var(--accent-soft); font-size: 13.5px; }
+  table.rate td { font-variant-numeric: tabular-nums; }
+
+  details.faq {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  details.faq summary {
+    cursor: pointer; font-weight: 700; font-size: 15px;
+    padding: 14px 16px; list-style: none;
+  }
+  details.faq summary::before { content: "Q. "; color: var(--accent); }
+  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
+
+  .disclaimer {
+    margin-top: 40px; font-size: 13px; color: var(--muted);
+    border-top: 1px solid var(--line); padding-top: 16px;
+  }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
+  footer a { color: var(--muted); }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 23px; }
+    .diff-main .amt { font-size: 28px; }
+    .compare .pay { font-size: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top"><a href="/">&larr; 모든 계산기 보기</a></nav>
+
+  <header>
+    <span class="eyebrow">여름철(7~8월) 누진제 기준</span>
+    <h1>에어컨 전기요금 계산기</h1>
+    <p class="sub">에어컨 종류와 하루 사용 시간만 고르면, 누진제를 반영해 "에어컨 때문에 한 달에 얼마가 더 나오는지"를 계산해 드립니다.</p>
+  </header>
+
+  <div class="calc">
+    <div class="field">
+      <label class="title">에어컨 소비전력</label>
+      <div class="preset-row" id="presets">
+        <button type="button" data-w="750">벽걸이형 (약 750W)</button>
+        <button type="button" data-w="1800" class="on">스탠드형 (약 1,800W)</button>
+        <button type="button" data-w="2500">대형/2in1 (약 2,500W)</button>
+      </div>
+      <div class="num-input">
+        <input type="text" id="watt" inputmode="numeric" value="1,800" autocomplete="off">
+        <span class="unit">W</span>
+      </div>
+      <p class="hint">정확한 수치는 에어컨 옆면 스티커의 '정격 냉방 소비전력'에서 확인할 수 있어요. 인버터형은 설정 온도에 도달하면 전력이 줄어서 실제로는 이보다 덜 나옵니다.</p>
+    </div>
+
+    <div class="field">
+      <label class="title" for="hours">하루 사용 시간</label>
+      <div class="slider-row">
+        <input type="range" id="hours" min="1" max="24" step="1" value="8">
+        <div class="slider-val" id="hoursVal">8시간</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="title" for="baseUsage">에어컨 빼고, 평소 한 달 전기 사용량</label>
+      <div class="num-input">
+        <input type="text" id="baseUsage" inputmode="numeric" value="250" autocomplete="off">
+        <span class="unit">kWh</span>
+      </div>
+      <p class="hint">전기요금 고지서나 한전ON 앱에서 봄철(4~5월) 사용량을 보면 가장 정확해요. 모르면 그대로 두세요. 4인 가구 평균이 대략 250kWh입니다.</p>
+    </div>
+
+    <button class="go" id="calcBtn" type="button">한 달 요금 계산하기</button>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="diff-card">
+      <div class="diff-head"><span>여름 한 달 예상</span><span class="s">30일 기준</span></div>
+      <div class="diff-main">
+        <div class="lbl">에어컨 때문에 늘어나는 금액</div>
+        <div class="amt" id="diffAmt">+0<small> 원</small></div>
+      </div>
+      <div class="compare">
+        <div class="half">
+          <div class="when">에어컨 없을 때</div>
+          <div class="pay" id="beforeAmt">0원</div>
+        </div>
+        <div class="half">
+          <div class="when">에어컨 포함</div>
+          <div class="pay" id="afterAmt">0원</div>
+        </div>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="k">에어컨 한 달 사용량</span><span class="v" id="rAcUsage">-</span></div>
+        <div class="row"><span class="k">총 사용량 (평소 + 에어컨)</span><span class="v" id="rTotalUsage">-</span></div>
+        <div class="row"><span class="k">적용 누진 구간</span><span class="v" id="rTier">-</span></div>
+      </div>
+      <div class="tier-bar">
+        <div class="bar">
+          <div class="seg1" id="seg1" style="width:0%"></div>
+          <div class="seg2" id="seg2" style="width:0%"></div>
+          <div class="seg3" id="seg3" style="width:0%"></div>
+        </div>
+        <div class="cap"><span>0</span><span>300kWh</span><span>450kWh</span><span>600+</span></div>
+        <div class="tier-label" id="tierLabel"></div>
+      </div>
+    </div>
+    <div class="note-special" id="tier3Note">⚠️ 3단계 구간(450kWh 초과)에 진입했어요. 이 구간부터는 1kWh당 307.3원으로 1단계의 2.5배가 넘습니다. 사용 시간을 1~2시간만 줄여도 체감이 큽니다.</div>
+  </div>
+
+  <section class="article">
+    <h2>에어컨 요금, 왜 쓴 만큼보다 가파르게 오르나요?</h2>
+    <p>주택용 전기요금은 누진제라서, 많이 쓸수록 1kWh당 단가 자체가 올라갑니다. 여름철(7~8월)에는 300kWh 이하 / 300~450kWh / 450kWh 초과의 3단계 구간이 적용되는데, 1단계 단가가 120원인 반면 3단계는 307.3원이에요. 평소 사용량이 이미 250kWh쯤 되는 집이라면, 에어컨이 추가하는 전력은 처음부터 2~3단계의 비싼 단가로 계산되는 셈이죠. "에어컨 좀 틀었다고 요금이 두 배"가 되는 이유가 이겁니다.</p>
+    <p>고지서 금액에는 전력량요금 외에도 누진 구간별 기본요금, 기후환경요금(kWh당 9원), 연료비조정액(kWh당 5원)이 더해지고, 마지막에 부가가치세 10%와 전력산업기반기금 2.7%가 붙습니다. 이 계산기는 그 전체 구조를 반영한 예상 청구액을 보여줍니다.</p>
+
+    <h2>2026년 여름철 주택용(저압) 요금표</h2>
+    <table class="rate">
+      <thead>
+        <tr><th>구간 (7~8월)</th><th>기본요금</th><th>전력량요금</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>300kWh 이하</td><td>910원</td><td>120.0원/kWh</td></tr>
+        <tr><td>300kWh 초과 ~ 450kWh</td><td>1,600원</td><td>214.6원/kWh</td></tr>
+        <tr><td>450kWh 초과</td><td>7,300원</td><td>307.3원/kWh</td></tr>
+      </tbody>
+    </table>
+    <p class="hint">기타 계절(9~6월)에는 구간이 200/400kWh로 더 낮게 적용됩니다. 즉 같은 사용량이라도 여름이 아닌 달에는 요금이 더 나올 수 있어요.</p>
+
+    <h2>전기요금 아끼는 현실적인 방법</h2>
+    <p>설정 온도는 26~27도가 효율이 가장 좋습니다. 온도를 1도 낮출 때마다 소비전력이 약 7% 늘어나요. 인버터 에어컨이라면 껐다 켰다 반복하는 것보다 적정 온도로 계속 틀어두는 쪽이 오히려 전기를 덜 씁니다. 초기 냉각에 전력이 집중되기 때문이에요. 여기에 선풍기나 서큘레이터를 같이 돌리면 체감온도가 1~2도 내려가서 설정 온도를 높일 수 있고, 필터를 2주에 한 번 청소하면 냉방 효율이 5~10% 좋아집니다.</p>
+
+    <h2>자주 묻는 질문</h2>
+    <details class="faq">
+      <summary>인버터형인데 계산 결과보다 적게 나올까요?</summary>
+      <p>대체로 그렇습니다. 인버터 에어컨은 설정 온도에 도달하면 소비전력을 크게 낮추기 때문에, 정격 소비전력 기준인 이 계산 결과는 '상한선'에 가깝습니다. 연속으로 틀어두는 사용 패턴이라면 실제 사용량은 계산값의 50~70% 수준인 경우가 많아요. 반면 정속형(2011년 이전 구형)은 계산값에 가깝게 나옵니다.</p>
+    </details>
+    <details class="faq">
+      <summary>우리 집 평소 사용량은 어디서 확인하나요?</summary>
+      <p>전기요금 고지서의 '사용량(kWh)' 항목, 또는 한전ON(online.kepco.co.kr) 사이트나 앱에서 월별 사용량을 볼 수 있습니다. 에어컨을 안 쓰는 4~5월 사용량을 넣으면 가장 정확합니다. 아파트 관리비에 포함돼 나오는 경우 관리비 고지서의 전기 항목을 확인하세요.</p>
+    </details>
+    <details class="faq">
+      <summary>7월 고지서인데 왜 여름 요금이 일부만 적용됐죠?</summary>
+      <p>전기요금은 검침일 기준으로 계산돼서, 검침 주기가 6월 중순~7월 중순처럼 걸쳐 있으면 기타 계절 요금과 여름 요금이 날짜 비율대로 섞여 적용됩니다. 8월 고지서부터 온전한 여름 요금이 반영되는 집이 많아요.</p>
+    </details>
+    <details class="faq">
+      <summary>에어컨 두 대를 쓰면 어떻게 계산하나요?</summary>
+      <p>두 대의 소비전력을 더해서 입력하거나, 사용 시간이 다르다면 각각 계산한 사용량(kWh)을 합쳐 보세요. 누진제는 집 전체 사용량 기준이라, 두 대를 쓰면 더 비싼 구간에 빨리 도달한다는 점이 핵심입니다.</p>
+    </details>
+  </section>
+
+  <p class="disclaimer">본 계산기는 한국전력 주택용(저압) 여름철 요금 체계를 기준으로 한 참고용 예상액을 제공합니다. 주택용 고압, 복지할인, 검침일에 따른 계절 혼합 적용 등 개별 사정에 따라 실제 청구액과 다를 수 있습니다. 정확한 요금은 한전ON에서 확인하세요.</p>
+
+  <footer>
+    문의: contact@example.com · <a href="/privacy.html">개인정보처리방침</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var wattInput = document.getElementById('watt');
+  var hoursInput = document.getElementById('hours');
+  var hoursVal = document.getElementById('hoursVal');
+  var baseInput = document.getElementById('baseUsage');
+
+  // 숫자 입력 콤마 처리
+  function numify(el) {
+    el.addEventListener('input', function () {
+      var raw = this.value.replace(/[^0-9]/g, '');
+      this.value = raw ? Number(raw).toLocaleString('ko-KR') : '';
+    });
+  }
+  numify(wattInput);
+  numify(baseInput);
+
+  // 프리셋 버튼
+  document.getElementById('presets').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    this.querySelectorAll('button').forEach(function (b) { b.className = ''; });
+    btn.className = 'on';
+    wattInput.value = Number(btn.dataset.w).toLocaleString('ko-KR');
+  });
+
+  hoursInput.addEventListener('input', function () {
+    hoursVal.textContent = this.value + '시간';
+  });
+
+  // 여름철(7~8월) 주택용 저압 요금 계산
+  function bill(kwh) {
+    var energy, base;
+    if (kwh <= 300) {
+      energy = kwh * 120.0;
+      base = 910;
+    } else if (kwh <= 450) {
+      energy = 300 * 120.0 + (kwh - 300) * 214.6;
+      base = 1600;
+    } else {
+      energy = 300 * 120.0 + 150 * 214.6 + (kwh - 450) * 307.3;
+      base = 7300;
+    }
+    var climate = kwh * 9;
+    var fuel = kwh * 5;
+    var sub = base + energy + climate + fuel;
+    var vat = Math.round(sub * 0.1);
+    var fund = Math.floor(sub * 0.027 / 10) * 10;
+    return Math.floor((sub + vat + fund) / 10) * 10;
+  }
+
+  function tierOf(kwh) {
+    if (kwh <= 300) return 1;
+    if (kwh <= 450) return 2;
+    return 3;
+  }
+
+  function won(n) { return n.toLocaleString('ko-KR') + '원'; }
+
+  document.getElementById('calcBtn').addEventListener('click', function () {
+    var w = Number(wattInput.value.replace(/[^0-9]/g, ''));
+    var h = Number(hoursInput.value);
+    var baseKwh = Number(baseInput.value.replace(/[^0-9]/g, ''));
+    if (!w || w <= 0) { wattInput.focus(); return; }
+    if (isNaN(baseKwh)) baseKwh = 0;
+
+    var acKwh = Math.round(w / 1000 * h * 30);
+    var totalKwh = baseKwh + acKwh;
+
+    var before = bill(baseKwh);
+    var after = bill(totalKwh);
+    var diff = after - before;
+    var tier = tierOf(totalKwh);
+
+    document.getElementById('diffAmt').innerHTML = '+' + diff.toLocaleString('ko-KR') + '<small> 원</small>';
+    document.getElementById('beforeAmt').textContent = won(before);
+    document.getElementById('afterAmt').textContent = won(after);
+    document.getElementById('rAcUsage').textContent = acKwh.toLocaleString('ko-KR') + ' kWh';
+    document.getElementById('rTotalUsage').textContent = totalKwh.toLocaleString('ko-KR') + ' kWh';
+    document.getElementById('rTier').textContent = tier + '단계' + (tier === 3 ? ' (최고 구간)' : '');
+
+    // 누진 게이지 (600kWh 만점 기준)
+    var cap = 600;
+    var s1 = Math.min(totalKwh, 300) / cap * 100;
+    var s2 = Math.min(Math.max(totalKwh - 300, 0), 150) / cap * 100;
+    var s3 = Math.min(Math.max(totalKwh - 450, 0), 150) / cap * 100;
+    document.getElementById('seg1').style.width = s1 + '%';
+    document.getElementById('seg2').style.width = s2 + '%';
+    document.getElementById('seg3').style.width = s3 + '%';
+    document.getElementById('tierLabel').innerHTML =
+      '총 ' + totalKwh + 'kWh 중 에어컨이 <strong>' + acKwh + 'kWh</strong>를 차지합니다.';
+
+    document.getElementById('tier3Note').className = 'note-special' + (tier === 3 ? ' show' : '');
+
+    var result = document.getElementById('result');
+    result.className = 'result show';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>
