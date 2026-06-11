@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4대보험 계산기 (2026년 요율) - 내 월급에서 얼마 떼는지 바로 확인</title>
+<meta name="description" content="2026년 4대보험 계산기. 월급만 입력하면 국민연금(9.5%), 건강보험(7.19%), 장기요양, 고용보험까지 근로자 부담과 회사 부담을 나눠서 계산합니다.">
+<style>
+  :root {
+    --ink: #1f2a24; --paper: #fbfaf7; --line: #d9d4c8;
+    --accent: #1e6b50; --accent-soft: #e8f1ec; --warn: #8a5a14; --muted: #6b6f68;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.7;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
+  nav.top { font-size: 14px; }
+  nav.top a { color: var(--muted); text-decoration: none; }
+  nav.top a:hover { color: var(--accent); }
+  header { padding: 24px 0 8px; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; letter-spacing: 0.08em;
+    color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 999px; padding: 2px 12px; margin-bottom: 14px;
+  }
+  h1 { font-size: 28px; line-height: 1.35; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin-top: 10px; font-size: 15px; }
+  .calc {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 24px 22px; margin-top: 26px; box-shadow: 0 2px 10px rgba(31,42,36,0.05);
+  }
+  .field { margin-bottom: 18px; }
+  label.title { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .money-input { position: relative; }
+  .money-input input {
+    width: 100%; font-size: 19px; font-weight: 700;
+    padding: 12px 50px 12px 14px; border: 1.5px solid var(--line);
+    border-radius: 10px; background: var(--paper); color: var(--ink);
+  }
+  .money-input input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+  .money-input .unit {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    font-size: 14px; color: var(--muted); font-weight: 600;
+  }
+  button.go {
+    width: 100%; background: var(--accent); color: #fff;
+    font-size: 17px; font-weight: 700; padding: 15px;
+    border: 0; border-radius: 10px; cursor: pointer; margin-top: 4px;
+  }
+  button.go:hover { background: #16573f; }
+  .err { color: #b3431e; font-size: 14px; font-weight: 700; margin-top: 10px; display: none; }
+  .err.show { display: block; }
+
+  .result { display: none; margin-top: 26px; }
+  .result.show { display: block; }
+  .pay-card { background: #fff; border: 1px solid var(--ink); border-radius: 4px; overflow: hidden; }
+  .pay-head {
+    background: var(--ink); color: #fff; padding: 12px 18px;
+    font-size: 14px; letter-spacing: 0.12em; font-weight: 700;
+    display: flex; justify-content: space-between;
+  }
+  .pay-head .s { opacity: .75; letter-spacing: 0; }
+  .pay-main { text-align: center; padding: 24px 18px 18px; border-bottom: 1px dashed var(--line); }
+  .pay-main .lbl { font-size: 14px; color: var(--muted); }
+  .pay-main .amt { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; margin-top: 2px; color: var(--accent); }
+  .pay-main .amt small { font-size: 17px; }
+  .pay-main .after { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .pay-main .after strong { color: var(--ink); font-size: 16px; }
+  table.detail {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+  }
+  table.detail th, table.detail td {
+    border-top: 1px solid #f0ede5; padding: 10px 14px; text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  table.detail th { text-align: left; color: var(--muted); font-weight: 400; }
+  table.detail thead th { font-weight: 700; color: var(--ink); background: var(--accent-soft); border-top: 0; font-size: 13.5px; }
+  table.detail td.val { font-weight: 700; }
+  table.detail tr.sum th, table.detail tr.sum td { font-weight: 800; color: var(--accent); border-top: 2px solid var(--line); }
+
+  section.article { margin-top: 48px; }
+  section.article h2 {
+    font-size: 21px; margin: 36px 0 12px; padding-left: 12px;
+    border-left: 4px solid var(--accent); letter-spacing: -0.01em;
+  }
+  section.article p { margin-bottom: 14px; font-size: 15.5px; }
+  table.rate {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+    margin: 14px 0 18px; background: #fff;
+  }
+  table.rate th, table.rate td { border: 1px solid var(--line); padding: 9px 10px; text-align: left; }
+  table.rate th { background: var(--accent-soft); font-size: 13.5px; }
+  details.faq { background: #fff; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px; }
+  details.faq summary { cursor: pointer; font-weight: 700; font-size: 15px; padding: 14px 16px; list-style: none; }
+  details.faq summary::before { content: "Q. "; color: var(--accent); }
+  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
+  .disclaimer { margin-top: 40px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
+  footer a { color: var(--muted); }
+  @media (max-width: 480px) { h1 { font-size: 23px; } .pay-main .amt { font-size: 28px; } table.detail th, table.detail td { padding: 9px 10px; font-size: 13px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top"><a href="/">&larr; 모든 계산기 보기</a></nav>
+
+  <header>
+    <span class="eyebrow">2026년 요율 기준</span>
+    <h1>4대보험 계산기</h1>
+    <p class="sub">월급만 입력하면 국민연금, 건강보험, 장기요양, 고용보험을 근로자 부담과 회사 부담으로 나눠 계산합니다. 2026년 인상된 요율이 반영돼 있어요.</p>
+  </header>
+
+  <div class="calc">
+    <div class="field">
+      <label class="title" for="monthly">월급 (세전, 비과세 제외)</label>
+      <div class="money-input">
+        <input type="text" id="monthly" inputmode="numeric" placeholder="예: 3,000,000" autocomplete="off">
+        <span class="unit">원</span>
+      </div>
+      <p class="hint">식대(월 20만 원 한도) 등 비과세 수당은 빼고 입력하면 더 정확합니다. 잘 모르면 세전 월급 그대로 넣어도 큰 차이는 없어요.</p>
+    </div>
+    <button class="go" id="calcBtn" type="button">4대보험료 계산하기</button>
+    <p class="err" id="errMsg"></p>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="pay-card">
+      <div class="pay-head"><span>4대보험료 내역</span><span class="s">2026년 요율</span></div>
+      <div class="pay-main">
+        <div class="lbl">내 월급에서 빠지는 금액 (근로자 부담)</div>
+        <div class="amt" id="totalAmt">0<small> 원</small></div>
+        <div class="after">4대보험 공제 후: <strong id="afterAmt">-</strong> <span style="font-size:12.5px">(소득세 별도)</span></div>
+      </div>
+      <table class="detail">
+        <thead>
+          <tr><th>항목 (요율)</th><th>근로자 부담</th><th>회사 부담</th></tr>
+        </thead>
+        <tbody>
+          <tr><th id="npsLabel">국민연금 (4.75%)</th><td class="val" id="nps1">-</td><td id="nps2">-</td></tr>
+          <tr><th>건강보험 (3.595%)</th><td class="val" id="hi1">-</td><td id="hi2">-</td></tr>
+          <tr><th>장기요양 (건보료의 13.14%)</th><td class="val" id="ltc1">-</td><td id="ltc2">-</td></tr>
+          <tr><th>고용보험 (0.9%)</th><td class="val" id="ei1">-</td><td id="ei2">-</td></tr>
+          <tr><th>산재보험 (업종별)</th><td>없음</td><td>전액 회사</td></tr>
+          <tr class="sum"><th>합계</th><td id="sum1">-</td><td id="sum2">-</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <section class="article">
+    <h2>2026년, 4대보험이 어떻게 바뀌었나요?</h2>
+    <p>올해부터 국민연금 보험료율이 9.0%에서 9.5%로 올랐습니다. 2025년 연금개혁에 따라 2033년 13%까지 매년 0.5%p씩 인상되는 일정의 첫해예요. 근로자와 회사가 절반씩 부담하므로 내 월급에서 빠지는 몫은 4.75%입니다. 건강보험료율도 7.09%에서 7.19%로 인상됐고, 건강보험료에 연동되는 장기요양보험료도 함께 늘었습니다. 고용보험(실업급여분 1.8%, 근로자 0.9%)과 산재보험은 작년 수준을 유지했어요.</p>
+    <p>"연봉은 그대로인데 실수령액이 줄었다"면 이 요율 인상 때문일 가능성이 큽니다. 월급 300만 원 기준으로 작년보다 매달 1만 원 가까이 공제가 늘어난 셈이에요.</p>
+
+    <h2>2026년 요율표</h2>
+    <table class="rate">
+      <thead><tr><th>항목</th><th>전체 요율</th><th>근로자</th><th>회사</th></tr></thead>
+      <tbody>
+        <tr><td>국민연금</td><td>9.5%</td><td>4.75%</td><td>4.75%</td></tr>
+        <tr><td>건강보험</td><td>7.19%</td><td>3.595%</td><td>3.595%</td></tr>
+        <tr><td>장기요양보험</td><td colspan="3">건강보험료의 13.14% (근로자·회사 절반씩)</td></tr>
+        <tr><td>고용보험 (실업급여)</td><td>1.8%</td><td>0.9%</td><td>0.9% + 고용안정사업분</td></tr>
+        <tr><td>산재보험</td><td colspan="3">업종별 상이, 전액 회사 부담</td></tr>
+      </tbody>
+    </table>
+    <p class="hint">국민연금은 기준소득월액 상·하한이 있어 월 637만 원(2026년 6월까지)을 넘는 소득에는 보험료가 더 붙지 않습니다. 이 계산기에 상한이 반영돼 있어요.</p>
+
+    <h2>자주 묻는 질문</h2>
+    <details class="faq">
+      <summary>실수령액과는 어떻게 다른가요?</summary>
+      <p>실수령액은 여기서 계산한 4대보험료에 더해 근로소득세와 지방소득세까지 뗀 금액입니다. 소득세는 부양가족 수에 따라 달라져서(간이세액표 기준) 이 계산기에서는 다루지 않아요. 4대보험료가 공제의 큰 덩어리이므로, 여기 결과에서 소득세를 추가로 빼면 실수령액에 가까워집니다.</p>
+    </details>
+    <details class="faq">
+      <summary>고지서 금액과 조금 다르게 나와요.</summary>
+      <p>건강보험과 국민연금은 전년도 소득 기준의 '보수월액'으로 부과됐다가 다음 해 4월에 정산하는 구조라, 올해 월급 기준 계산과 차이가 날 수 있습니다. 또 비과세 수당 포함 여부에 따라서도 달라져요. 4월 급여명세서에서 '건강보험 정산' 항목으로 추가 납부나 환급이 발생하는 게 이 때문입니다.</p>
+    </details>
+    <details class="faq">
+      <summary>아르바이트도 4대보험에 가입해야 하나요?</summary>
+      <p>주 15시간(월 60시간) 이상 일하면 원칙적으로 4대보험 가입 대상입니다. 그 미만이라도 산재보험은 모든 근로자에게 적용돼요. "4대보험 안 들어주는 조건"은 근로자에게 실업급여·연금 가입기간 손해로 돌아오니 신중하세요.</p>
+    </details>
+    <details class="faq">
+      <summary>국민연금이 매년 오른다는데 언제까지 오르나요?</summary>
+      <p>2026년 9.5%를 시작으로 매년 0.5%p씩 인상되어 2033년 13%에 도달하는 일정입니다. 근로자 부담 기준으로는 매년 0.25%p씩 늘어나는 셈이라, 같은 월급이어도 실수령액이 조금씩 줄어드는 효과가 몇 년간 이어집니다.</p>
+    </details>
+  </section>
+
+  <p class="disclaimer">본 계산기는 2026년 고시 요율 기준의 참고용 계산 결과를 제공합니다. 보수월액 정산, 비과세 범위, 사업장 업종(산재요율) 등에 따라 실제 공제액과 다를 수 있습니다. 정확한 금액은 4대사회보험 정보연계센터 또는 급여명세서를 확인하세요.</p>
+
+  <footer>
+    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var monthlyEl = document.getElementById('monthly');
+  monthlyEl.addEventListener('input', function () {
+    var raw = this.value.replace(/[^0-9]/g, '');
+    this.value = raw ? Number(raw).toLocaleString('ko-KR') : '';
+  });
+
+  function won(n) { return Math.floor(n).toLocaleString('ko-KR') + '원'; }
+  // 10원 미만 절사 (보험료 고지 관행)
+  function trunc10(n) { return Math.floor(n / 10) * 10; }
+
+  document.getElementById('calcBtn').addEventListener('click', function () {
+    var err = document.getElementById('errMsg');
+    err.className = 'err';
+    var pay = Number(monthlyEl.value.replace(/[^0-9]/g, ''));
+    if (!pay) { err.textContent = '월급을 입력해주세요.'; err.className = 'err show'; return; }
+
+    // 국민연금: 기준소득월액 상한 637만 / 하한 40만 (2026.6까지)
+    var npsBase = Math.min(Math.max(pay, 400000), 6370000);
+    var nps = trunc10(npsBase * 0.0475);
+    var npsCapped = pay > 6370000;
+
+    var hi = trunc10(pay * 0.03595);          // 건강보험 근로자 3.595%
+    var ltc = trunc10(hi * 0.1314);            // 장기요양 = 건보료의 13.14%
+    var ei = trunc10(pay * 0.009);             // 고용보험 근로자 0.9%
+
+    var workerSum = nps + hi + ltc + ei;
+    var companySum = workerSum; // 동률 부담분 기준 (산재·고용안정분 제외)
+
+    document.getElementById('totalAmt').innerHTML = workerSum.toLocaleString('ko-KR') + '<small> 원</small>';
+    document.getElementById('afterAmt').textContent = won(pay - workerSum);
+    document.getElementById('npsLabel').textContent = '국민연금 (4.75%)' + (npsCapped ? ' · 상한 적용' : '');
+    document.getElementById('nps1').textContent = won(nps);
+    document.getElementById('nps2').textContent = won(nps);
+    document.getElementById('hi1').textContent = won(hi);
+    document.getElementById('hi2').textContent = won(hi);
+    document.getElementById('ltc1').textContent = won(ltc);
+    document.getElementById('ltc2').textContent = won(ltc);
+    document.getElementById('ei1').textContent = won(ei);
+    document.getElementById('ei2').textContent = won(ei) + ' +α';
+    document.getElementById('sum1').textContent = won(workerSum);
+    document.getElementById('sum2').textContent = won(companySum) + ' +α';
+
+    var result = document.getElementById('result');
+    result.className = 'result show';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>

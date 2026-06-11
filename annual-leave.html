@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연차수당 계산기 - 미사용 연차, 돈으로 얼마인지 바로 확인 (2026)</title>
+<meta name="description" content="연차수당 계산기. 월급과 남은 연차 일수만 넣으면 1일 통상임금 기준 연차수당을 바로 계산합니다. 연차 발생 개수 기준표 포함.">
+<style>
+  :root {
+    --ink: #1f2a24; --paper: #fbfaf7; --line: #d9d4c8;
+    --accent: #1e6b50; --accent-soft: #e8f1ec; --warn: #8a5a14; --muted: #6b6f68;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.7;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
+  nav.top { font-size: 14px; }
+  nav.top a { color: var(--muted); text-decoration: none; }
+  nav.top a:hover { color: var(--accent); }
+  header { padding: 24px 0 8px; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; letter-spacing: 0.08em;
+    color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 999px; padding: 2px 12px; margin-bottom: 14px;
+  }
+  h1 { font-size: 28px; line-height: 1.35; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin-top: 10px; font-size: 15px; }
+  .calc {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 24px 22px; margin-top: 26px; box-shadow: 0 2px 10px rgba(31,42,36,0.05);
+  }
+  .field { margin-bottom: 18px; }
+  label.title { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .money-input { position: relative; }
+  .money-input input {
+    width: 100%; font-size: 19px; font-weight: 700;
+    padding: 12px 50px 12px 14px; border: 1.5px solid var(--line);
+    border-radius: 10px; background: var(--paper); color: var(--ink);
+  }
+  .money-input input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+  .money-input .unit {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    font-size: 14px; color: var(--muted); font-weight: 600;
+  }
+  button.go {
+    width: 100%; background: var(--accent); color: #fff;
+    font-size: 17px; font-weight: 700; padding: 15px;
+    border: 0; border-radius: 10px; cursor: pointer; margin-top: 4px;
+  }
+  button.go:hover { background: #16573f; }
+  .err { color: #b3431e; font-size: 14px; font-weight: 700; margin-top: 10px; display: none; }
+  .err.show { display: block; }
+  .result { display: none; margin-top: 26px; }
+  .result.show { display: block; }
+  .pay-card { background: #fff; border: 1px solid var(--ink); border-radius: 4px; overflow: hidden; }
+  .pay-head {
+    background: var(--ink); color: #fff; padding: 12px 18px;
+    font-size: 14px; letter-spacing: 0.12em; font-weight: 700;
+    display: flex; justify-content: space-between;
+  }
+  .pay-head .s { opacity: .75; letter-spacing: 0; }
+  .pay-main { text-align: center; padding: 26px 18px 20px; border-bottom: 1px dashed var(--line); }
+  .pay-main .lbl { font-size: 14px; color: var(--muted); }
+  .pay-main .amt { font-size: 35px; font-weight: 800; letter-spacing: -0.02em; margin-top: 2px; color: var(--accent); }
+  .pay-main .amt small { font-size: 18px; }
+  .rows { padding: 14px 18px 18px; }
+  .rows .row {
+    display: flex; justify-content: space-between; font-size: 14.5px;
+    padding: 7px 0; border-bottom: 1px solid #f0ede5;
+  }
+  .rows .row:last-child { border-bottom: 0; }
+  .rows .row .k { color: var(--muted); }
+  .rows .row .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+  section.article { margin-top: 48px; }
+  section.article h2 {
+    font-size: 21px; margin: 36px 0 12px; padding-left: 12px;
+    border-left: 4px solid var(--accent); letter-spacing: -0.01em;
+  }
+  section.article p { margin-bottom: 14px; font-size: 15.5px; }
+  table.rate {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+    margin: 14px 0 18px; background: #fff;
+  }
+  table.rate th, table.rate td { border: 1px solid var(--line); padding: 9px 10px; text-align: left; }
+  table.rate th { background: var(--accent-soft); font-size: 13.5px; }
+  details.faq { background: #fff; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px; }
+  details.faq summary { cursor: pointer; font-weight: 700; font-size: 15px; padding: 14px 16px; list-style: none; }
+  details.faq summary::before { content: "Q. "; color: var(--accent); }
+  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
+  .disclaimer { margin-top: 40px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
+  footer a { color: var(--muted); }
+  @media (max-width: 480px) { h1 { font-size: 23px; } .pay-main .amt { font-size: 29px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top"><a href="/">&larr; 모든 계산기 보기</a></nav>
+
+  <header>
+    <span class="eyebrow">근로기준법 기준</span>
+    <h1>연차수당 계산기</h1>
+    <p class="sub">못 쓴 연차, 돈으로 받으면 얼마일까요? 월급과 남은 연차 일수만 넣으면 1일 통상임금 기준으로 계산해 드립니다.</p>
+  </header>
+
+  <div class="calc">
+    <div class="field">
+      <label class="title" for="monthly">월 통상임금 (세전, 기본급+고정수당)</label>
+      <div class="money-input">
+        <input type="text" id="monthly" inputmode="numeric" placeholder="예: 3,000,000" autocomplete="off">
+        <span class="unit">원</span>
+      </div>
+      <p class="hint">매달 고정적으로 받는 금액입니다. 기본급에 식대·직책수당처럼 정기적으로 나오는 수당을 더하고, 성과급·야근수당처럼 달마다 변하는 금액은 빼세요.</p>
+    </div>
+
+    <div class="field">
+      <label class="title" for="days">미사용 연차 일수</label>
+      <div class="money-input">
+        <input type="text" id="days" inputmode="numeric" placeholder="예: 5" autocomplete="off">
+        <span class="unit">일</span>
+      </div>
+    </div>
+
+    <button class="go" id="calcBtn" type="button">연차수당 계산하기</button>
+    <p class="err" id="errMsg"></p>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="pay-card">
+      <div class="pay-head"><span>연차수당 예상액</span><span class="s">세전 · 주 40시간 기준</span></div>
+      <div class="pay-main">
+        <div class="lbl">받을 수 있는 연차수당</div>
+        <div class="amt" id="totalAmt">0<small> 원</small></div>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="k">시간급 통상임금 (월급 ÷ 209시간)</span><span class="v" id="rHourly">-</span></div>
+        <div class="row"><span class="k">1일 통상임금 (시간급 × 8시간)</span><span class="v" id="rDaily">-</span></div>
+        <div class="row"><span class="k">미사용 연차</span><span class="v" id="rDays">-</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="article">
+    <h2>연차수당, 어떻게 계산되나요?</h2>
+    <p>연차유급휴가를 기한 안에 쓰지 못하고 소멸되면, 회사는 그만큼을 수당으로 보상해야 합니다. 계산 공식은 <strong>"1일 통상임금 × 미사용 연차 일수"</strong>예요. 1일 통상임금은 월 통상임금을 209시간(주 40시간 근무 기준 한 달 환산 시간)으로 나눠 시간급을 구한 뒤 8시간을 곱한 값입니다. 예를 들어 월 통상임금이 300만 원이면 시간급은 약 14,354원, 1일 통상임금은 약 114,832원이고, 연차 5일이 남았다면 약 57만 원을 받게 됩니다.</p>
+    <p>여기서 헷갈리기 쉬운 게 '통상임금'의 범위입니다. 기본급과 매달 고정적으로 지급되는 수당(식대, 직책수당, 정기 상여 등)은 포함되고, 연장·야간근로수당이나 변동 성과급처럼 일한 결과에 따라 달라지는 금액은 제외됩니다. 고정 수당이 많은 분일수록 연차수당도 커지는 구조예요.</p>
+
+    <h2>내 연차는 몇 개 발생하나요?</h2>
+    <table class="rate">
+      <thead><tr><th>근속 기간</th><th>발생 연차</th></tr></thead>
+      <tbody>
+        <tr><td>1년 미만</td><td>1개월 개근 시 1일씩 (최대 11일)</td></tr>
+        <tr><td>1년 이상 (1년간 80% 이상 출근)</td><td>15일</td></tr>
+        <tr><td>3년 차부터</td><td>2년마다 1일씩 가산 (15→16→17...)</td></tr>
+        <tr><td>한도</td><td>최대 25일</td></tr>
+      </tbody>
+    </table>
+    <p class="hint">연차 제도는 5인 이상 사업장에 적용됩니다. 4주 평균 주 15시간 미만 근로자는 제외돼요.</p>
+
+    <h2>자주 묻는 질문</h2>
+    <details class="faq">
+      <summary>연차수당은 언제 받나요?</summary>
+      <p>연차가 소멸된 다음 임금 지급일에 지급하는 것이 원칙입니다. 회계연도 기준 운영 회사라면 보통 연초 급여에 전년도 미사용분이 함께 나오고, 퇴직 시에는 남은 연차 전부를 수당으로 정산받습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>회사가 "연차 쓰라고 했는데 안 쓴 거니까 못 준다"고 합니다.</summary>
+      <p>회사가 '연차사용촉진제도'를 법이 정한 절차(서면 통보 시기·방식)대로 운영했다면 미사용 연차의 보상 의무가 면제될 수 있습니다. 다만 절차 요건이 까다로워서, 이메일 한 통 보낸 정도로는 인정되지 않는 경우가 많아요. 회사가 촉진 절차를 제대로 밟았는지가 쟁점이라면 고용노동부 상담(1350)을 받아보세요.</p>
+    </details>
+    <details class="faq">
+      <summary>퇴사할 때 남은 연차는 어떻게 되나요?</summary>
+      <p>전부 수당으로 정산받습니다. 퇴직 시점의 미사용 연차는 사용촉진제도와 무관하게 보상 대상이에요. 퇴직금과 함께 14일 이내 지급이 원칙이고, 받지 못하면 임금체불로 진정할 수 있습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>연차수당에도 세금이 붙나요?</summary>
+      <p>네, 연차수당은 근로소득이라 소득세와 4대보험료가 공제됩니다. 이 계산기의 결과는 세전 금액입니다.</p>
+    </details>
+  </section>
+
+  <p class="disclaimer">본 계산기는 주 40시간(월 209시간) 근무 기준의 표준 공식에 따른 세전 참고액을 제공합니다. 단시간 근로자, 교대제 등 근무 형태와 회사 임금 구성에 따라 실제 금액과 다를 수 있습니다. 정확한 사항은 회사 인사팀 또는 고용노동부(1350)로 확인하세요.</p>
+
+  <footer>
+    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  function numify(el) {
+    el.addEventListener('input', function () {
+      var raw = this.value.replace(/[^0-9]/g, '');
+      this.value = raw ? Number(raw).toLocaleString('ko-KR') : '';
+    });
+  }
+  var monthlyEl = document.getElementById('monthly');
+  var daysEl = document.getElementById('days');
+  numify(monthlyEl); numify(daysEl);
+
+  function won(n) { return Math.floor(n).toLocaleString('ko-KR') + '원'; }
+
+  document.getElementById('calcBtn').addEventListener('click', function () {
+    var err = document.getElementById('errMsg');
+    err.className = 'err';
+    var monthly = Number(monthlyEl.value.replace(/[^0-9]/g, ''));
+    var days = Number(daysEl.value.replace(/[^0-9]/g, ''));
+    if (!monthly) { err.textContent = '월 통상임금을 입력해주세요.'; err.className = 'err show'; return; }
+    if (!days) { err.textContent = '미사용 연차 일수를 입력해주세요.'; err.className = 'err show'; return; }
+
+    var hourly = monthly / 209;
+    var daily = hourly * 8;
+    var total = daily * days;
+
+    document.getElementById('totalAmt').innerHTML = Math.floor(total).toLocaleString('ko-KR') + '<small> 원</small>';
+    document.getElementById('rHourly').textContent = won(hourly);
+    document.getElementById('rDaily').textContent = won(daily);
+    document.getElementById('rDays').textContent = days + '일';
+
+    var result = document.getElementById('result');
+    result.className = 'result show';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>
