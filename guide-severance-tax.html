@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퇴직금 세금 얼마나 떼나요? - 퇴직소득세 구조와 IRP로 아끼는 법 (2026)</title>
+<meta name="description" content="퇴직금에서 떼는 퇴직소득세의 구조, 근속연수가 길수록 세금이 줄어드는 이유, IRP 계좌로 받으면 생기는 절세 효과까지 쉽게 정리했습니다.">
+<style>
+  :root {
+    --ink: #1f2a24;
+    --paper: #fbfaf7;
+    --line: #d9d4c8;
+    --accent: #1e6b50;
+    --accent-soft: #e8f1ec;
+    --warn: #8a5a14;
+    --muted: #6b6f68;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.8;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
+  nav.top { font-size: 14px; }
+  nav.top a { color: var(--muted); text-decoration: none; }
+  nav.top a:hover { color: var(--accent); }
+  header { padding: 24px 0 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 2px 12px;
+    margin-bottom: 14px;
+  }
+  h1 { font-size: 27px; line-height: 1.4; letter-spacing: -0.01em; }
+  .meta { color: var(--muted); font-size: 13.5px; margin: 12px 0 18px; }
+
+  article h2 {
+    font-size: 21px;
+    margin: 38px 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: -0.01em;
+  }
+  article p { margin-bottom: 15px; font-size: 15.5px; }
+  article strong { color: var(--ink); }
+  article ul, article ol { margin: 0 0 15px 22px; font-size: 15.5px; }
+  article li { margin-bottom: 8px; }
+
+  .keybox {
+    background: var(--accent-soft);
+    border: 1px solid #c5dcd1;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    color: #195741;
+    margin: 18px 0;
+  }
+  .keybox strong { color: #114433; }
+
+  table.info {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 14px 0 18px;
+    background: #fff;
+  }
+  table.info th, table.info td {
+    border: 1px solid var(--line);
+    padding: 9px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  table.info th { background: var(--accent-soft); font-size: 13.5px; white-space: nowrap; }
+
+  .tool-cta {
+    display: block;
+    background: #fff;
+    border: 1.5px solid var(--accent);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 22px 0;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .tool-cta:hover { background: var(--accent-soft); }
+  .tool-cta .t { font-weight: 800; color: var(--accent); font-size: 15.5px; }
+  .tool-cta .d { font-size: 14px; color: var(--muted); margin-top: 2px; }
+
+  details.faq {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  details.faq summary {
+    cursor: pointer; font-weight: 700; font-size: 15px;
+    padding: 14px 16px; list-style: none;
+  }
+  details.faq summary::before { content: "Q. "; color: var(--accent); }
+  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
+
+  .disclaimer {
+    margin-top: 40px; font-size: 13px; color: var(--muted);
+    border-top: 1px solid var(--line); padding-top: 16px;
+  }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
+  footer a { color: var(--muted); }
+  @media (max-width: 480px) { h1 { font-size: 22px; } }
+
+.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
+.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
+.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
+.cl-navlinks::-webkit-scrollbar{display:none;}
+.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
+.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
+</style>
+<link rel="canonical" href="https://calcloude.com/guide-severance-tax.html">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/#calc">🧮 계산기</a><a href="/blog.html">가이드</a></nav></div></div>
+
+  <header>
+    <span class="eyebrow">세금 가이드</span>
+    <h1>퇴직금 세금, 얼마나 떼나요 — 퇴직소득세의 구조와 IRP 절세법</h1>
+    <p class="meta">2026년 기준</p>
+  </header>
+
+  <article>
+    <p>퇴직금 계산을 해보고 나면 다음 궁금증은 하나로 모입니다. "그래서 세금 떼면 실제로 얼마 받는 거지?" 결론부터 말하면, 퇴직소득세는 일반 월급에 붙는 소득세보다 구조적으로 가볍습니다. 다만 근속연수와 금액에 따라 편차가 커서, 원리를 알아두면 내 경우를 가늠할 수 있어요.</p>
+
+    <div class="keybox">
+      <strong>핵심 요약</strong> — 퇴직소득세는 <strong>근속연수가 길수록, 금액이 작을수록</strong> 가벼워집니다. 수년 근속에 수천만 원 수준의 퇴직금이라면 실효세율이 한 자릿수 초반인 경우가 많고, <strong>IRP 계좌로 받으면 세금을 당장 떼지 않고 미룰 수 있습니다.</strong>
+    </div>
+
+    <h2>왜 월급 세금보다 가벼운가요?</h2>
+    <p>퇴직금은 수년~수십 년 일한 대가가 한 번에 나오는 돈입니다. 이걸 한 해 소득으로 보고 일반 세율을 매기면 누진세율 최고 구간을 두들겨 맞게 되겠죠. 그래서 세법은 퇴직소득을 "여러 해에 나눠 번 것"으로 되돌려 계산합니다. 핵심 장치는 두 가지예요.</p>
+    <ul>
+      <li><strong>근속연수공제</strong> — 일한 연수에 비례해 일정 금액을 먼저 빼줍니다. 오래 일했을수록 공제가 커져요.</li>
+      <li><strong>연분연승</strong> — 공제 후 금액을 근속연수로 나눠 '1년치'로 환산해 세율을 적용한 뒤, 다시 연수를 곱합니다. 누진세율의 충격을 연 단위로 분산시키는 거예요.</li>
+    </ul>
+    <p>이 구조 덕분에 같은 1억 원이라도 5년 만에 받으면 세금이 무겁고, 20년 만에 받으면 가볍습니다. "근속이 길수록 유리하다"는 말이 여기서 나옵니다.</p>
+
+    <h2>대략 어느 정도인가요?</h2>
+    <p>정확한 세액은 근속연수·금액 조합마다 다르지만 감을 잡자면 이렇습니다. 10년 근속에 퇴직금 5,000만 원 수준이면 실효세율은 대체로 한 자릿수 초반(수십~백수십만 원대)에 머뭅니다. 반면 근속이 짧은데 금액이 큰 임원 퇴직금 같은 경우는 세율이 확 올라가요. 내 정확한 세액이 필요하다면 국세청 홈택스의 <strong>'퇴직소득 세액계산 프로그램'</strong>(세금 모의계산 메뉴)에 입사일·퇴사일·퇴직금을 넣으면 공식 그대로 계산해 줍니다.</p>
+    <p>세전 퇴직금이 얼마인지부터 알아야 세금 계산도 시작됩니다. 아직이라면 1분이면 돼요.</p>
+
+    <a class="tool-cta" href="/severance.html">
+      <span class="t">🧮 퇴직금 계산기 →</span>
+      <span class="d">입사일·퇴사일·월급으로 세전 퇴직금부터 확인하세요.</span>
+    </a>
+
+    <h2>IRP로 받으면 뭐가 좋은가요?</h2>
+    <p>55세 미만 퇴직자의 퇴직금은 원칙적으로 IRP(개인형 퇴직연금) 계좌로 지급됩니다. 이때 중요한 게 <strong>과세이연</strong>이에요. IRP로 들어간 퇴직금은 세금을 떼지 않은 전액이 입금되고, 실제로 돈을 꺼낼 때 과세됩니다.</p>
+    <ul>
+      <li><strong>일시금으로 바로 빼면</strong> — 미뤄둔 퇴직소득세를 그대로 냅니다. 절세 효과는 없지만 손해도 없어요.</li>
+      <li><strong>55세 이후 연금으로 받으면</strong> — 퇴직소득세의 <strong>70%만</strong>(연금 수령 11년 차부터는 60%) 연금소득세로 냅니다. 즉 세금의 30~40%를 깎아주는 셈이라, 노후 자금 목적이라면 연금 수령이 확실히 유리합니다.</li>
+    </ul>
+    <p>당장 목돈이 필요 없다면 IRP에 그대로 두고 운용하는 선택지도 있다는 것, 기억해두세요. 세금을 떼지 않은 원금 전체가 굴러간다는 점도 복리 면에서 이점입니다.</p>
+
+    <h2>실수령액 흐름 정리</h2>
+    <table class="info">
+      <tbody>
+        <tr><th>받는 방식</th><td><strong>일시금</strong>: 퇴직소득세 원천징수 후 입금 / <strong>IRP</strong>: 세전 전액 입금, 인출 시 과세</td></tr>
+        <tr><th>세금 확인</th><td>퇴사 후 회사가 주는 '퇴직소득원천징수영수증'에서 세액 확인 가능</td></tr>
+        <tr><th>정확한 계산</th><td>홈택스 → 세금 모의계산 → 퇴직소득 세액계산</td></tr>
+        <tr><th>절세 포인트</th><td>55세 이후 연금 수령 시 퇴직소득세 30~40% 감면</td></tr>
+      </tbody>
+    </table>
+
+    <h2>자주 묻는 질문</h2>
+    <details class="faq">
+      <summary>퇴직금도 종합소득세 신고에 합산되나요?</summary>
+      <p>아니요. 퇴직소득은 분류과세라서 근로·사업소득 등과 합산되지 않고 별도로 끝납니다. 회사가 원천징수하면 납세 의무가 종결되므로, 5월 종합소득세 신고 때 퇴직금을 더해서 신고할 필요가 없습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>건강보험료나 국민연금도 떼나요?</summary>
+      <p>아니요. 퇴직금에는 4대보험료가 부과되지 않습니다. 떼는 건 퇴직소득세와 그 10%인 지방소득세뿐이에요. 그래서 같은 금액이라도 월급보다 공제 항목이 단출합니다.</p>
+    </details>
+    <details class="faq">
+      <summary>IRP 계좌는 아무 은행에서나 만들면 되나요?</summary>
+      <p>은행, 증권사, 보험사 어디서든 만들 수 있고 퇴사 전에 미리 만들어 회사에 계좌번호를 알려주면 됩니다. 금융사별로 수수료와 운용 상품 차이가 있으니, 수수료가 낮고 상품 선택 폭이 넓은 곳(최근에는 증권사 IRP가 수수료 무료인 경우가 많음)을 비교해보세요.</p>
+    </details>
+    <details class="faq">
+      <summary>중간정산 받은 적이 있으면 세금이 달라지나요?</summary>
+      <p>달라질 수 있습니다. 근속연수공제가 중간정산 이후 기간 기준으로 계산되면 공제가 줄어들 수 있는데, '정산특례'를 신청하면 전체 근속기간 기준으로 다시 계산해 세금을 줄일 수 있는 경우가 있어요. 중간정산 이력이 있다면 회사 또는 세무 전문가에게 정산특례 적용 여부를 꼭 확인하세요.</p>
+    </details>
+  </article>
+
+  <p class="disclaimer">본 글은 2026년 기준 퇴직소득세 제도의 일반적인 구조 안내이며, 정확한 세액은 개인의 근속연수·금액·수령 방식에 따라 달라집니다. 구체적인 계산은 홈택스 모의계산 또는 세무 전문가를 통해 확인하세요.</p>
+
+  <footer>
+    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>
+  </footer>
+</div>
+</body>
+</html>

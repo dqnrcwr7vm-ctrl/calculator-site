@@ -2,7 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://calcloude.com/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://calcloude.com/gov.html</loc>
+    <lastmod>2026-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://calcloude.com/tax.html</loc>
+    <lastmod>2026-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://calcloude.com/labor.html</loc>
+    <lastmod>2026-06-15</lastmod>
   </url>
   <url>
     <loc>https://calcloude.com/property-tax.html</loc>

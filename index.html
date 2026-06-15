@@ -3,237 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>생활 계산기 모음 - 재산세·부가세 등 복잡한 계산을 한 번에</title>
-<meta name="description" content="재산세, 부가세 등 생활 속 복잡한 세금과 금액 계산을 입력 한 번으로 해결하는 무료 계산기 모음입니다.">
-<style>
-  :root {
-    --ink: #1f2a24;
-    --paper: #fbfaf7;
-    --line: #d9d4c8;
-    --accent: #1e6b50;
-    --accent-soft: #e8f1ec;
-    --muted: #6b6f68;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.7;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
-  header h1 { font-size: 30px; letter-spacing: -0.01em; }
-  header .sub { color: var(--muted); margin-top: 10px; font-size: 16px; }
-
-  .season {
-    margin-top: 22px;
-    background: var(--accent-soft);
-    border: 1px solid #c5dcd1;
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 14.5px;
-    color: #195741;
-  }
-
-  .grid { margin-top: 28px; display: grid; gap: 14px; }
-  a.card {
-    display: block;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 20px 22px;
-    text-decoration: none;
-    color: var(--ink);
-    transition: border-color .15s, box-shadow .15s;
-  }
-  a.card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 3px 14px rgba(30,107,80,0.10);
-  }
-  .card .tag {
-    display: inline-block;
-    font-size: 12px;
-    color: var(--accent);
-    background: var(--accent-soft);
-    border-radius: 999px;
-    padding: 2px 10px;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-  .card h2 { font-size: 19px; letter-spacing: -0.01em; }
-  .card p { font-size: 14.5px; color: var(--muted); margin-top: 6px; }
-  .card .go { font-size: 14px; color: var(--accent); font-weight: 700; margin-top: 10px; display: inline-block; }
-
-  .card.soon {
-    border-style: dashed;
-    background: transparent;
-    cursor: default;
-  }
-  .card.soon:hover { border-color: var(--line); box-shadow: none; }
-  .card.soon .tag { color: var(--muted); background: #eeece5; }
-  .card.soon h2 { color: var(--muted); }
-
-  section.about { margin-top: 48px; }
-  section.about h2 {
-    font-size: 20px;
-    margin: 0 0 12px;
-    padding-left: 12px;
-    border-left: 4px solid var(--accent);
-  }
-  section.about p { font-size: 15px; margin-bottom: 12px; color: #3c443f; }
-
-  footer {
-    margin-top: 44px;
-    font-size: 13px;
-    color: var(--muted);
-    border-top: 1px solid var(--line);
-    padding-top: 16px;
-  }
-  footer a { color: var(--muted); }
-</style>
+<title>calcloude - 정부지원·세금·노무 정보와 계산기</title>
+<meta name="description" content="근로장려금, 청년적금 등 정부지원 정책부터 재산세·퇴직금·실업급여 계산기까지. 알아두면 돈이 되는 정보를 한 곳에 정리합니다.">
 <link rel="canonical" href="https://calcloude.com/">
+<style>
+:root {
+  --ink:#1f2a24; --paper:#fbfaf7; --line:#d9d4c8;
+  --accent:#1e6b50; --soft:#e8f1ec; --muted:#6b6f68;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;}
+
+/* 상단 네비게이션 */
+.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
+.topbar-inner{max-width:860px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:18px;height:56px;}
+.brand{font-weight:800;font-size:19px;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+.navlinks{display:flex;gap:4px;overflow-x:auto;flex:1;-webkit-overflow-scrolling:touch;}
+.navlinks::-webkit-scrollbar{display:none;}
+.navlinks a{color:var(--ink);text-decoration:none;font-size:14.5px;font-weight:600;padding:8px 12px;border-radius:8px;white-space:nowrap;}
+.navlinks a:hover{background:var(--soft);color:var(--accent);}
+
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 64px;}
+
+/* 속보 띠 */
+.breaking{background:var(--ink);color:#fff;border-radius:0 0 12px 12px;padding:11px 18px;display:flex;align-items:center;gap:12px;font-size:14px;overflow:hidden;}
+.breaking .label{background:#d96a44;color:#fff;font-weight:800;font-size:12px;padding:3px 9px;border-radius:6px;flex-shrink:0;}
+.breaking a{color:#fff;text-decoration:none;white-space:nowrap;opacity:.95;}
+.breaking a:hover{text-decoration:underline;}
+
+/* 히어로 */
+.hero{padding:34px 0 10px;}
+.hero h1{font-size:27px;letter-spacing:-0.02em;line-height:1.35;}
+.hero p{color:var(--muted);margin-top:10px;font-size:15.5px;}
+
+/* 섹션 공통 */
+.sec{margin-top:38px;}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--accent);padding-bottom:8px;margin-bottom:16px;}
+.sec-head h2{font-size:20px;letter-spacing:-0.01em;}
+.sec-head a{font-size:13.5px;color:var(--accent);text-decoration:none;font-weight:700;}
+
+/* 정책 글 리스트 (정부지원) */
+.policy-list{display:grid;gap:10px;}
+a.policy{display:flex;align-items:baseline;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 18px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s;}
+a.policy:hover{border-color:var(--accent);box-shadow:0 3px 14px rgba(30,107,80,.08);}
+a.policy[data-hot]{border-color:#e8a020;background:#fffdf5;}
+.policy .ptext{flex:1;}
+.policy .ptag{font-size:11.5px;font-weight:700;color:#1e5e9a;background:#e8f0fb;border-radius:999px;padding:2px 9px;}
+.policy .ptag.hot{color:#a04800;background:#fef0d8;}
+.policy h3{font-size:15.5px;line-height:1.45;margin-top:7px;letter-spacing:-0.01em;}
+.policy .date{font-size:12.5px;color:var(--muted);flex-shrink:0;}
+
+/* 계산기 그리드 */
+.calc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+a.calc{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s;}
+a.calc:hover{border-color:var(--accent);box-shadow:0 3px 14px rgba(30,107,80,.10);}
+.calc .ico{font-size:22px;}
+.calc h3{font-size:15.5px;margin-top:8px;letter-spacing:-0.01em;}
+.calc p{font-size:13px;color:var(--muted);margin-top:4px;}
+
+/* 가이드 카드 */
+.guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+a.guide{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--ink);transition:border-color .15s;}
+a.guide:hover{border-color:var(--accent);}
+.guide .gtag{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--soft);border-radius:999px;padding:2px 9px;}
+.guide h3{font-size:14.5px;line-height:1.45;margin-top:8px;}
+
+.about{margin-top:44px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;}
+.about h2{font-size:18px;margin-bottom:10px;padding-left:12px;border-left:4px solid var(--accent);}
+.about p{font-size:14.5px;color:#3c443f;margin-bottom:10px;}
+
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;}
+footer a{color:var(--muted);}
+
+@media(max-width:560px){
+  .hero h1{font-size:23px;}
+  .calc-grid,.guide-grid{grid-template-columns:1fr;}
+  .breaking .label{display:none;}
+}
+</style>
 </head>
 <body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="brand">calcloude</a>
+    <nav class="navlinks">
+      <a href="/gov.html">🏛 정부지원</a>
+      <a href="/tax.html">🧾 세금</a>
+      <a href="/labor.html">👷 노무</a>
+      <a href="/#calc">🧮 계산기</a>
+      <a href="/blog.html">가이드</a>
+    </nav>
+  </div>
+</div>
+
+<div class="breaking">
+  <span class="label">NEW</span>
+  <a href="/gov-earned-income-tax-credit.html">2026 근로장려금 6월 25일 지급 — 조회 방법 보기 →</a>
+</div>
+
 <div class="wrap">
 
-  <header>
-    <h1>생활 계산기 모음</h1>
-    <p class="sub">세금, 요금, 수당... 공식은 복잡해도 계산은 간단해야죠. 숫자만 넣으면 끝나는 무료 계산기들입니다.</p>
-  </header>
-
-  <div class="season">
-    📅 <strong>7월 일정 미리보기</strong> — 부가세 확정신고 7/1~7/25 · 재산세 1기분 납부 7/16~7/31
+  <div class="hero">
+    <h1>알아두면 돈이 되는<br>정부지원·세금·노무 정보</h1>
+    <p>매달 바뀌는 정부 지원 정책과 세금·노무 정보를 빠르게 정리하고, 바로 쓰는 계산기까지 한 곳에 모았습니다.</p>
   </div>
 
-  <div class="grid">
-    <a class="card" href="/property-tax.html">
-      <span class="tag">7월·9월 납부</span>
-      <h2>주택 재산세 계산기</h2>
-      <p>공시가격만 입력하면 1세대 1주택 특례와 지방교육세, 도시지역분까지 반영한 올해 납부액을 계산합니다.</p>
-      <span class="go">계산하러 가기 &rarr;</span>
-    </a>
-
-    <a class="card" href="/vat.html">
-      <span class="tag">7/25 신고 마감</span>
-      <h2>부가세 계산기</h2>
-      <p>공급가액과 부가세 포함 금액을 양방향으로 즉시 변환합니다. 견적서·세금계산서 작성할 때 바로 쓰세요.</p>
-      <span class="go">계산하러 가기 &rarr;</span>
-    </a>
-
-    <a class="card" href="/aircon.html">
-      <span class="tag">여름 시즌</span>
-      <h2>에어컨 전기요금 계산기</h2>
-      <p>소비전력과 하루 사용 시간으로 여름철 누진제 구간과 "에어컨 때문에 늘어나는 금액"을 계산합니다.</p>
-    <a class="card" href="/severance.html">
-      <span class="tag">연중 스테디</span>
-      <h2>퇴직금 계산기</h2>
-      <p>입사일·퇴사일·월급만 넣으면 1일 평균임금과 법정 퇴직금을 계산합니다. 상여금·연차수당 반영 가능.</p>
-      <span class="go">계산하러 가기 &rarr;</span>
-    </a>
-
-    <a class="card" href="/annual-leave.html">
-      <span class="tag">연중 스테디</span>
-      <h2>연차수당 계산기</h2>
-      <p>월급과 못 쓴 연차 일수만 넣으면 1일 통상임금 기준 연차수당을 바로 계산합니다.</p>
-      <span class="go">계산하러 가기 &rarr;</span>
-    </a>
-
-    <a class="card" href="/insurance.html">
-      <span class="tag">2026 요율</span>
-      <h2>4대보험 계산기</h2>
-      <p>세전 월급으로 국민연금·건강보험·장기요양·고용보험의 근로자 부담분과 공제 후 금액을 계산합니다.</p>
-      <span class="go">계산하러 가기 &rarr;</span>
-    </a>
-
-    <a class="card" href="/weekly-holiday.html">
-      <span class="tag">알바 필수</span>
-      <h2>주휴수당 계산기</h2>
-      <p>시급과 주 근무시간만 넣으면 주휴수당과 주급, 월 환산 금액을 계산합니다. 2026 최저시급 반영.</p>
-      <span class="go">계산하러 가기 &rarr;</span>
-    </a>
-
-    <a class="card" href="/unemployment.html">
-      <span class="tag">2026 기준</span>
-      <h2>실업급여 계산기</h2>
-      <p>퇴직 전 월급과 고용보험 가입기간으로 1일 지급액, 수급 기간, 총 예상 수령액을 계산합니다.</p>
-      <span class="go">계산하러 가기 &rarr;</span>
-    </a>
-  </div>
-
-  <section class="about" style="margin-top:40px">
-    <h2>가이드</h2>
-    <p style="margin-bottom:14px">계산기와 함께 보면 좋은, 알아두면 돈이 되는 글입니다.</p>
-    <div class="grid" style="margin-top:0">
-      <a class="card" href="/gov-earned-income-tax-credit.html">
-        <span class="tag">🔥 지금 확인하세요</span>
-        <h2 style="font-size:17px">2026 반기 근로장려금 지급일 6월 25일 — 심사결과 조회 방법</h2>
-        <p>홈택스·손택스에서 내 심사결과와 금액 확인하는 법, 못 받았을 때 대처법.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
+  <!-- 정부지원 (메인) -->
+  <div class="sec" id="gov">
+    <div class="sec-head">
+      <h2>🏛 정부지원 정책</h2>
+      <a href="/gov.html">전체 보기 →</a>
+    </div>
+    <div class="policy-list">
+      <a class="policy" href="/gov-earned-income-tax-credit.html" data-hot="1">
+        <div class="ptext">
+          <span class="ptag hot">🔥 6월 25일 지급</span>
+          <h3>2026 반기 근로장려금 지급일·심사결과·금액 조회 방법 총정리</h3>
+        </div>
+        <span class="date">06-15</span>
       </a>
-      <a class="card" href="/gov-youth-savings.html">
-        <span class="tag">정부지원 · 청년</span>
-        <h2 style="font-size:17px">2026 청년미래적금 신청방법·조건·금리 총정리</h2>
-        <p>3년, 월 50만원, 최고 8% + 정부 기여금 + 비과세. 도약계좌 갈아타기 방법 포함.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
+      <a class="policy" href="/gov-youth-savings.html">
+        <div class="ptext">
+          <span class="ptag">청년</span>
+          <h3>2026 청년미래적금 신청방법·조건·금리 총정리 (도약계좌 갈아타기)</h3>
+        </div>
+        <span class="date">06-15</span>
       </a>
-      <a class="card" href="/gov-learning-card.html">
-        <span class="tag">정부지원 · 직업훈련</span>
-        <h2 style="font-size:17px">2026 국민내일배움카드 신청방법 (최대 500만원)</h2>
-        <p>구직자·재직자·자영업자 모두 가능. 훈련비 + 매월 현금 훈련장려금 받는 법.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
-      <a class="card" href="/guide-quit-unemployment.html">
-        <span class="tag">노동 · 실업급여</span>
-        <h2 style="font-size:17px">실업급여 자발적 퇴사 인정 사유 — 사표 내고도 받는 경우</h2>
-        <p>임금체불, 괴롭힘, 통근 곤란, 육아 등 법이 인정하는 사유와 필요한 증빙을 정리했습니다.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
-      <a class="card" href="/guide-property-tax-check.html">
-        <span class="tag">재산세 · 7월</span>
-        <h2 style="font-size:17px">재산세 조회 방법 — 고지서 오기 전에 내 세금 미리 확인하기</h2>
-        <p>위택스·이택스·전자고지로 내 재산세를 확인하는 모든 방법을 정리했습니다.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
-      <a class="card" href="/guide-severance-tax.html">
-        <span class="tag">세금 · 퇴직금</span>
-        <h2 style="font-size:17px">퇴직금 세금, 얼마나 떼나요 — 퇴직소득세 구조와 IRP 절세법</h2>
-        <p>근속이 길수록 세금이 줄어드는 이유와 IRP로 세금의 30~40%를 아끼는 방법입니다.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
-      <a class="card" href="/guide-aircon-inverter.html">
-        <span class="tag">전기요금 · 여름</span>
-        <h2 style="font-size:17px">인버터 vs 정속형 — 같은 에어컨인데 요금이 다른 이유</h2>
-        <p>우리 집 에어컨 30초 확인법과 유형별로 정반대인 절약 사용법을 정리했습니다.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
-      <a class="card" href="/guide-property-tax-payment.html">
-        <span class="tag">재산세 · 7월</span>
-        <h2 style="font-size:17px">7월 재산세 납부 방법 총정리 — 카드 무이자·분납까지</h2>
-        <p>납부 기간, 고지서 조회, 수수료 없는 카드 납부와 무이자 할부, 분납 신청 방법을 정리했습니다.</p>
-      <a class="card" href="/guide-vat-no-sales.html">
-        <span class="tag">부가세 · 7월</span>
-        <h2 style="font-size:17px">부가세 무실적 신고 — 매출 0원이어도 해야 하는 이유와 3분 신고법</h2>
-        <p>무실적 신고를 거르면 생기는 불이익과 홈택스·손택스·전화로 끝내는 방법을 정리했습니다.</p>
-      <a class="card" href="/guide-unpaid-severance.html">
-        <span class="tag">노동 · 퇴직금</span>
-        <h2 style="font-size:17px">퇴직금 못 받았을 때 대처법 — 진정부터 대지급금까지</h2>
-        <p>14일 지급 기한, 노동부 진정, 정부가 먼저 지급하는 간이대지급금까지 단계별 대처법입니다.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
+      <a class="policy" href="/gov-learning-card.html">
+        <div class="ptext">
+          <span class="ptag">직업훈련</span>
+          <h3>2026 국민내일배움카드 신청방법·지원금액·훈련장려금 (최대 500만원)</h3>
+        </div>
+        <span class="date">06-15</span>
       </a>
     </div>
-    <p style="margin-top:10px"><a href="/blog.html" style="color:var(--accent);font-weight:700;font-size:14.5px;text-decoration:none">가이드 전체 보기 &rarr;</a></p>
-  </section>
+  </div>
 
-  <section class="about">
-    <h2>이 사이트는요</h2>
-    <p>세금 고지서, 전기요금, 퇴직금, 각종 수당과 요금까지 — 살다 보면 "이 금액이 맞나?" 싶은 순간이 자주 옵니다. 공식은 법전과 약관 속에 숨어 있고, 직접 계산하자니 복잡하죠. 이 사이트는 그런 생활 속 숫자들을 입력 한 번으로 확인할 수 있게 만든 계산기 모음입니다.</p>
-    <p>법령과 공식 자료를 기준으로 계산 공식을 만들고, 기준이 바뀌면 연도에 맞게 갱신합니다. 계산기마다 하단에 계산 방식과 자주 묻는 질문을 정리해 두었고, 납부 방법이나 절세 팁처럼 숫자 너머에 알아둘 것들은 가이드 글로 함께 다룹니다. 계산기와 가이드는 계속 추가되고 있어요.</p>
-  </section>
+  <!-- 계산기 -->
+  <div class="sec" id="calc">
+    <div class="sec-head">
+      <h2>🧮 계산기</h2>
+    </div>
+    <div class="calc-grid">
+      <a class="calc" href="/property-tax.html"><div class="ico">🏠</div><h3>재산세 계산기</h3><p>공시가격으로 7·9월 납부액</p></a>
+      <a class="calc" href="/vat.html"><div class="ico">🧾</div><h3>부가세 계산기</h3><p>공급가액·부가세 양방향</p></a>
+      <a class="calc" href="/aircon.html"><div class="ico">❄️</div><h3>에어컨 전기요금</h3><p>여름 누진제 반영</p></a>
+      <a class="calc" href="/severance.html"><div class="ico">💼</div><h3>퇴직금 계산기</h3><p>평균임금 기준 법정 퇴직금</p></a>
+      <a class="calc" href="/annual-leave.html"><div class="ico">🌴</div><h3>연차수당 계산기</h3><p>미사용 연차 수당</p></a>
+      <a class="calc" href="/insurance.html"><div class="ico">🛡️</div><h3>4대보험 계산기</h3><p>2026 요율 공제액</p></a>
+      <a class="calc" href="/weekly-holiday.html"><div class="ico">📅</div><h3>주휴수당 계산기</h3><p>시급·주 근무시간 기준</p></a>
+      <a class="calc" href="/unemployment.html"><div class="ico">📋</div><h3>실업급여 계산기</h3><p>1일 지급액·수급 기간</p></a>
+    </div>
+  </div>
+
+  <!-- 가이드 -->
+  <div class="sec">
+    <div class="sec-head">
+      <h2>📖 세금·노무 가이드</h2>
+      <a href="/blog.html">전체 보기 →</a>
+    </div>
+    <div class="guide-grid">
+      <a class="guide" href="/guide-quit-unemployment.html"><span class="gtag">실업급여</span><h3>실업급여 자발적 퇴사 인정 사유 총정리</h3></a>
+      <a class="guide" href="/guide-unpaid-severance.html"><span class="gtag">퇴직금</span><h3>퇴직금 못 받았을 때 대처법 — 진정부터 대지급금까지</h3></a>
+      <a class="guide" href="/guide-property-tax-payment.html"><span class="gtag">재산세</span><h3>7월 재산세 납부 방법 — 카드 무이자·분납까지</h3></a>
+      <a class="guide" href="/guide-vat-no-sales.html"><span class="gtag">부가세</span><h3>부가세 무실적 신고 — 매출 0원이어도 하는 법</h3></a>
+    </div>
+  </div>
+
+  <div class="about">
+    <h2>calcloude 소개</h2>
+    <p>세금 고지서, 정부 지원금, 퇴직금과 수당까지 — 살다 보면 "이게 맞나?", "나도 받을 수 있나?" 싶은 순간이 자주 옵니다. 정보는 흩어져 있고 공식은 복잡하죠.</p>
+    <p>calcloude는 매달 바뀌는 정부 지원 정책을 빠르게 정리하고, 세금·노무 정보를 계산기와 함께 제공합니다. 법령과 공식 자료를 기준으로 작성하며 기준이 바뀌면 갱신합니다. 정보는 계속 추가되고 있어요.</p>
+  </div>
 
   <footer>
     문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a><br>
-    본 사이트의 계산 결과는 참고용이며, 법적 효력이 있는 금액은 관할 기관의 고지·안내를 기준으로 합니다.
+    본 사이트의 정보는 참고용이며, 정확한 사항은 관할 기관의 안내를 기준으로 합니다.
   </footer>
+
 </div>
 </body>
 </html>
