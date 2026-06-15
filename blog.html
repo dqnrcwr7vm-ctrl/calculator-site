@@ -4,158 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>세금·노무·정부지원 가이드 - calcloude</title>
-<meta name="description" content="재산세, 부가세, 퇴직금, 실업급여, 근로장려금, 청년적금 등 알아두면 돈이 되는 세금·노무·정부지원 가이드 모음입니다.">
+<meta name="description" content="근로장려금, 청년적금, 재산세, 퇴직금, 실업급여 등 알아두면 돈이 되는 세금·노무·정부지원 가이드 모음입니다.">
 <link rel="canonical" href="https://calcloude.com/blog.html">
 <style>
-  :root {
-    --ink: #1f2a24;
-    --paper: #fbfaf7;
-    --line: #d9d4c8;
-    --accent: #1e6b50;
-    --accent-soft: #e8f1ec;
-    --muted: #6b6f68;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.7; }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
-  nav.top { font-size: 14px; }
-  nav.top a { color: var(--muted); text-decoration: none; }
-  nav.top a:hover { color: var(--accent); }
-  header { padding: 24px 0 8px; }
-  h1 { font-size: 28px; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); margin-top: 10px; font-size: 15px; }
+:root {
+  --ink: #1f2a24; --paper: #fbfaf7; --line: #d9d4c8;
+  --accent: #1e6b50; --soft: #e8f1ec; --muted: #6b6f68;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif; background:var(--paper); color:var(--ink); line-height:1.7; }
+.wrap { max-width:720px; margin:0 auto; padding:24px 20px 64px; }
+nav.top { font-size:14px; margin-bottom:4px; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover { color:var(--accent); }
+header { padding:20px 0 6px; }
+h1 { font-size:28px; letter-spacing:-0.01em; }
+.sub { color:var(--muted); margin-top:8px; font-size:15px; }
 
-  .cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
-  .cat-tabs button {
-    border: 1.5px solid var(--line); background: #fff;
-    border-radius: 999px; padding: 7px 16px;
-    font-size: 14px; cursor: pointer; color: var(--muted);
-    font-family: inherit;
-  }
-  .cat-tabs button.on {
-    border-color: var(--accent); background: var(--accent-soft);
-    color: var(--accent); font-weight: 700;
-  }
+/* 카테고리 탭 */
+.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:20px; }
+.tabs button {
+  border:1.5px solid var(--line); background:#fff;
+  border-radius:999px; padding:7px 18px; font-size:14px;
+  cursor:pointer; color:var(--muted); font-family:inherit;
+  transition:all .15s;
+}
+.tabs button.on {
+  border-color:var(--accent); background:var(--accent);
+  color:#fff; font-weight:700;
+}
 
-  .section { margin-top: 28px; }
-  .section-title {
-    font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
-    color: var(--muted); border-bottom: 1px solid var(--line);
-    padding-bottom: 8px; margin-bottom: 14px;
-  }
-  .list { display: grid; gap: 12px; }
-  a.post {
-    display: block; background: #fff; border: 1px solid var(--line);
-    border-radius: 14px; padding: 18px 20px;
-    text-decoration: none; color: var(--ink);
-    transition: border-color .15s, box-shadow .15s;
-  }
-  a.post:hover { border-color: var(--accent); box-shadow: 0 3px 14px rgba(30,107,80,0.10); }
-  .post .tag {
-    display: inline-block; font-size: 12px; color: var(--accent);
-    background: var(--accent-soft); border-radius: 999px;
-    padding: 2px 10px; margin-bottom: 8px; font-weight: 700;
-  }
-  .post h2 { font-size: 17px; letter-spacing: -0.01em; line-height: 1.45; }
-  .post p { font-size: 14px; color: var(--muted); margin-top: 5px; }
-  .post .go { font-size: 13.5px; color: var(--accent); font-weight: 700; margin-top: 8px; display: inline-block; }
+/* 글 카드 */
+.list { display:grid; gap:12px; margin-top:24px; }
+a.card {
+  display:block; background:#fff; border:1px solid var(--line);
+  border-radius:14px; padding:18px 20px;
+  text-decoration:none; color:var(--ink);
+  transition:border-color .15s, box-shadow .15s;
+}
+a.card:hover { border-color:var(--accent); box-shadow:0 3px 14px rgba(30,107,80,.10); }
+a.card[data-hot] { border-color:#e8a020; background:#fffdf5; }
+.card .badge {
+  display:inline-block; font-size:12px; font-weight:700;
+  border-radius:999px; padding:2px 10px; margin-bottom:8px;
+}
+.badge.gov { color:#1e5e9a; background:#e8f0fb; }
+.badge.tax { color:var(--accent); background:var(--soft); }
+.badge.labor { color:#7a2e8a; background:#f5eafb; }
+.badge.hot { color:#a04800; background:#fef0d8; }
+.card h2 { font-size:16.5px; letter-spacing:-0.01em; line-height:1.45; }
+.card p { font-size:13.8px; color:var(--muted); margin-top:5px; }
+.card .go { font-size:13.5px; color:var(--accent); font-weight:700; margin-top:8px; display:inline-block; }
 
-  footer { margin-top: 44px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
-  footer a { color: var(--muted); }
+footer { margin-top:44px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:16px; }
+footer a { color:var(--muted); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav class="top"><a href="/">&larr; 계산기 홈</a></nav>
+
+  <nav class="top"><a href="/">← 계산기 홈</a></nav>
+
   <header>
     <h1>가이드</h1>
-    <p class="sub">세금, 노무, 정부지원까지 — 알아두면 돈이 되는 정보를 계산기와 함께 정리합니다.</p>
+    <p class="sub">세금, 노무, 정부지원 — 알아두면 돈이 되는 정보를 계산기와 함께 정리합니다.</p>
   </header>
 
-  <div class="cat-tabs">
-    <button class="on" onclick="filterCat('all',this)">전체</button>
-    <button onclick="filterCat('gov',this)">정부지원</button>
-    <button onclick="filterCat('tax',this)">세금</button>
-    <button onclick="filterCat('labor',this)">노무</button>
+  <div class="tabs">
+    <button class="on" onclick="filter('all',this)">전체</button>
+    <button onclick="filter('gov',this)">🏛 정부지원</button>
+    <button onclick="filter('tax',this)">🧾 세금</button>
+    <button onclick="filter('labor',this)">👷 노무</button>
   </div>
 
-  <div class="section">
-    <div class="list" id="postList">
+  <div class="list" id="list">
 
-      <!-- 정부지원 -->
-      <a class="post" href="/gov-earned-income-tax-credit.html" data-cat="gov">
-        <span class="tag">정부지원 · 6월 지급</span>
-        <h2>2026 반기 근로장려금 지급일 6월 25일 — 심사결과·금액 조회 방법 총정리</h2>
-        <p>홈택스·손택스에서 심사결과와 금액 확인하는 법, 가구별 지급액, 못 받았을 때 확인할 것.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/gov-earned-income-tax-credit.html" data-cat="gov" data-hot="1">
+      <span class="badge hot">🔥 지금 확인</span>
+      <h2>2026 반기 근로장려금 지급일 6월 25일 — 심사결과·금액 조회 방법 총정리</h2>
+      <p>홈택스·손택스·ARS에서 내 심사결과와 금액 확인하는 법, 못 받았을 때 대처법, 기한후 신청 안내.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <a class="post" href="/gov-youth-savings.html" data-cat="gov">
-        <span class="tag">정부지원 · 청년</span>
-        <h2>2026 청년미래적금 신청방법·조건·금리 총정리 (도약계좌 갈아타기 포함)</h2>
-        <p>만 19~34세, 월 50만원, 3년, 최고 8% 금리 + 정부 기여금 + 비과세. 도약계좌 갈아타기 방법 포함.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/gov-youth-savings.html" data-cat="gov">
+      <span class="badge gov">정부지원 · 청년</span>
+      <h2>2026 청년미래적금 신청방법·조건·금리 총정리 (도약계좌 갈아타기 포함)</h2>
+      <p>만 19~34세, 월 50만원, 3년, 최고 8% + 정부 기여금 + 비과세. 도약계좌 갈아타기 방법까지.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <a class="post" href="/gov-learning-card.html" data-cat="gov">
-        <span class="tag">정부지원 · 직업훈련</span>
-        <h2>2026 국민내일배움카드 신청방법·지원금액·훈련장려금 총정리 (최대 500만원)</h2>
-        <p>구직자·재직자·자영업자 모두 가능. 기본 300만원~최대 500만원 훈련비 + 매월 현금 훈련장려금.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/gov-learning-card.html" data-cat="gov">
+      <span class="badge gov">정부지원 · 직업훈련</span>
+      <h2>2026 국민내일배움카드 신청방법·지원금액·훈련장려금 총정리 (최대 500만원)</h2>
+      <p>구직자·재직자·자영업자 모두 가능. 기본 300만원~최대 500만원 훈련비 + 매월 현금 훈련장려금.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <!-- 노무 -->
-      <a class="post" href="/guide-quit-unemployment.html" data-cat="labor">
-        <span class="tag">노동 · 실업급여</span>
-        <h2>실업급여 자발적 퇴사 인정 사유 — 사표 내고도 받을 수 있는 경우 총정리</h2>
-        <p>임금체불, 직장 내 괴롭힘, 통근 곤란, 육아 등 법이 인정하는 사유와 필요한 증빙, 인정받는 전략.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/guide-quit-unemployment.html" data-cat="labor">
+      <span class="badge labor">노동 · 실업급여</span>
+      <h2>실업급여 자발적 퇴사 인정 사유 — 사표 내고도 받을 수 있는 경우 총정리</h2>
+      <p>임금체불, 직장 내 괴롭힘, 통근 곤란, 육아 등 법이 인정하는 사유와 필요한 증빙, 인정받는 전략.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <a class="post" href="/guide-unpaid-severance.html" data-cat="labor">
-        <span class="tag">노동 · 퇴직금</span>
-        <h2>퇴직금 못 받았을 때 대처법 — 14일 기한부터 노동부 진정, 대지급금까지</h2>
-        <p>14일 지급 기한·연 20% 지연이자·소멸시효 3년, 비용 0원 진정, 정부 대지급금, 무료 소송 지원.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/guide-unpaid-severance.html" data-cat="labor">
+      <span class="badge labor">노동 · 퇴직금</span>
+      <h2>퇴직금 못 받았을 때 대처법 — 14일 기한부터 노동부 진정, 대지급금까지</h2>
+      <p>14일 지급 기한, 연 20% 지연이자, 비용 0원 진정, 정부가 먼저 지급하는 간이대지급금, 무료 소송.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <a class="post" href="/guide-severance-tax.html" data-cat="labor">
-        <span class="tag">세금 · 퇴직금</span>
-        <h2>퇴직금 세금, 얼마나 떼나요 — 퇴직소득세 구조와 IRP 절세법</h2>
-        <p>근속이 길수록 세금이 줄어드는 이유와 IRP 연금 수령 시 세금 30~40% 감면 방법.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/guide-severance-tax.html" data-cat="labor">
+      <span class="badge labor">노동 · 퇴직금</span>
+      <h2>퇴직금 세금, 얼마나 떼나요 — 퇴직소득세 구조와 IRP 절세법</h2>
+      <p>근속이 길수록 세금이 줄어드는 이유, IRP 연금 수령 시 세금 30~40% 감면, 홈택스 모의계산 방법.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <!-- 세금 -->
-      <a class="post" href="/guide-property-tax-check.html" data-cat="tax">
-        <span class="tag">재산세 · 7월</span>
-        <h2>재산세 조회 방법 — 고지서 오기 전에 내 세금 미리 확인하기</h2>
-        <p>위택스·이택스 조회, 카카오톡·네이버 전자고지 신청, 고지서 재발급까지.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/guide-aircon-inverter.html" data-cat="tax">
+      <span class="badge tax">전기요금 · 여름</span>
+      <h2>인버터 vs 정속형 에어컨 — 전기요금이 다른 이유와 30초 확인법</h2>
+      <p>우리 집 에어컨이 인버터인지 정속형인지 30초 확인법, 유형별로 정반대인 절약 사용법 비교.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <a class="post" href="/guide-property-tax-payment.html" data-cat="tax">
-        <span class="tag">재산세 · 7월</span>
-        <h2>7월 재산세 납부 방법 총정리 — 조회부터 카드 무이자, 분납까지</h2>
-        <p>납부 기간·고지서 조회·수수료 없는 카드 납부와 무이자 할부·분납 신청·감면 포인트.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/guide-property-tax-check.html" data-cat="tax">
+      <span class="badge tax">재산세 · 7월</span>
+      <h2>재산세 조회 방법 — 고지서 오기 전에 내 세금 미리 확인하기</h2>
+      <p>위택스·이택스 조회, 카카오톡·네이버 전자고지 신청, 고지서 재발급, 6월 1일 기준일 팁까지.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <a class="post" href="/guide-vat-no-sales.html" data-cat="tax">
-        <span class="tag">부가세 · 7월</span>
-        <h2>부가세 무실적 신고 — 매출 0원이어도 해야 하는 이유와 3분 신고법</h2>
-        <p>무실적 신고를 거르면 생기는 불이익과 홈택스·손택스·전화로 끝내는 방법.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/guide-property-tax-payment.html" data-cat="tax">
+      <span class="badge tax">재산세 · 7월</span>
+      <h2>7월 재산세 납부 방법 총정리 — 카드 무이자·분납까지</h2>
+      <p>납부 기간, 고지서 조회, 수수료 없는 카드 납부와 무이자 할부, 250만원 초과 분납 신청 방법.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-      <a class="post" href="/guide-aircon-inverter.html" data-cat="tax">
-        <span class="tag">전기요금 · 여름</span>
-        <h2>인버터 vs 정속형 — 같은 에어컨인데 전기요금이 다른 이유</h2>
-        <p>우리 집 에어컨 30초 확인법과 유형별로 정반대인 절약 사용법.</p>
-        <span class="go">읽으러 가기 &rarr;</span>
-      </a>
+    <a class="card" href="/guide-vat-no-sales.html" data-cat="tax">
+      <span class="badge tax">부가세 · 7월</span>
+      <h2>부가세 무실적 신고 — 매출 0원이어도 해야 하는 이유와 3분 신고법</h2>
+      <p>신고 안 하면 생기는 불이익, 홈택스·손택스·ARS로 끝내는 방법, 매입이 있었다면 환급받는 법.</p>
+      <span class="go">읽으러 가기 →</span>
+    </a>
 
-    </div>
   </div>
 
   <footer>
@@ -163,12 +156,13 @@
     본 사이트의 정보는 참고용이며, 정확한 사항은 관할 기관의 안내를 기준으로 합니다.
   </footer>
 </div>
+
 <script>
-function filterCat(cat, btn) {
-  document.querySelectorAll('.cat-tabs button').forEach(function(b){ b.className = ''; });
+function filter(cat, btn) {
+  document.querySelectorAll('.tabs button').forEach(function(b){ b.className = ''; });
   btn.className = 'on';
-  document.querySelectorAll('#postList .post').forEach(function(p){
-    p.style.display = (cat === 'all' || p.dataset.cat === cat) ? '' : 'none';
+  document.querySelectorAll('#list .card').forEach(function(c){
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
   });
 }
 </script>
