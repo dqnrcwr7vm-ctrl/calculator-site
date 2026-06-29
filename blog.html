@@ -3,174 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>세금·노무·정부지원 가이드 - calcloude</title>
-<meta name="description" content="근로장려금, 청년적금, 재산세, 퇴직금, 실업급여 등 알아두면 돈이 되는 세금·노무·정부지원 가이드 모음입니다.">
+<title>생활경제 가이드 전체보기 - 정부지원·세금·노무·계산기 | calcloude</title>
+<meta name="description" content="calcloude의 정부지원, 세금, 노무, 지역소식, 생활경제 계산기와 실무 가이드를 한곳에서 찾아보세요. 재산세, 부가세, 퇴직금, 실업급여, 4대보험, 근로장려금까지 정리했습니다.">
 <link rel="canonical" href="https://calcloude.com/blog.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="생활경제 가이드 전체보기 - calcloude">
+<meta property="og:description" content="정부지원·세금·노무·계산기·지역소식 글을 한곳에서 찾아보는 calcloude 콘텐츠 허브입니다.">
+<meta property="og:url" content="https://calcloude.com/blog.html">
 <style>
-:root {
-  --ink: #1f2a24; --paper: #fbfaf7; --line: #d9d4c8;
-  --accent: #1e6b50; --soft: #e8f1ec; --muted: #6b6f68;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif; background:var(--paper); color:var(--ink); line-height:1.7; }
-.wrap { max-width:720px; margin:0 auto; padding:24px 20px 64px; }
-nav.top { font-size:14px; margin-bottom:4px; }
-nav.top a { color:var(--muted); text-decoration:none; }
-nav.top a:hover { color:var(--accent); }
-header { padding:20px 0 6px; }
-h1 { font-size:28px; letter-spacing:-0.01em; }
-.sub { color:var(--muted); margin-top:8px; font-size:15px; }
-
-/* 카테고리 탭 */
-.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:20px; }
-.tabs button {
-  border:1.5px solid var(--line); background:#fff;
-  border-radius:999px; padding:7px 18px; font-size:14px;
-  cursor:pointer; color:var(--muted); font-family:inherit;
-  transition:all .15s;
-}
-.tabs button.on {
-  border-color:var(--accent); background:var(--accent);
-  color:#fff; font-weight:700;
-}
-
-/* 글 카드 */
-.list { display:grid; gap:12px; margin-top:24px; }
-a.card {
-  display:block; background:#fff; border:1px solid var(--line);
-  border-radius:14px; padding:18px 20px;
-  text-decoration:none; color:var(--ink);
-  transition:border-color .15s, box-shadow .15s;
-}
-a.card:hover { border-color:var(--accent); box-shadow:0 3px 14px rgba(30,107,80,.10); }
-a.card[data-hot] { border-color:#e8a020; background:#fffdf5; }
-.card .badge {
-  display:inline-block; font-size:12px; font-weight:700;
-  border-radius:999px; padding:2px 10px; margin-bottom:8px;
-}
-.badge.gov { color:#1e5e9a; background:#e8f0fb; }
-.badge.tax { color:var(--accent); background:var(--soft); }
-.badge.labor { color:#7a2e8a; background:#f5eafb; }
-.badge.hot { color:#a04800; background:#fef0d8; }
-.card h2 { font-size:16.5px; letter-spacing:-0.01em; line-height:1.45; }
-.card p { font-size:13.8px; color:var(--muted); margin-top:5px; }
-.card .go { font-size:13.5px; color:var(--accent); font-weight:700; margin-top:8px; display:inline-block; }
-
-footer { margin-top:44px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:16px; }
-footer a { color:var(--muted); }
-
-.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
-.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
-.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
-.cl-navlinks::-webkit-scrollbar{display:none;}
-.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
-.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
+:root{--ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;--soft:#e8f1ec;--muted:#6b6f68;--blue:#1e5e9a;--blueSoft:#e9f2fb;--purple:#7a2e8a;--purpleSoft:#f5eafb;--warn:#8a5a14;--warnSoft:#fff2d7;--rose:#9a3d2f;--roseSoft:#fff0ed;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 64px}
+.cl-topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.cl-topbar-inner{max-width:980px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:56px}
+.cl-brand{font-weight:900;font-size:19px;color:var(--accent);text-decoration:none;letter-spacing:-.03em;flex-shrink:0}
+.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1}
+.cl-navlinks::-webkit-scrollbar{display:none}
+.cl-navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:700;padding:7px 10px;border-radius:8px;white-space:nowrap}
+.cl-navlinks a:hover,.cl-navlinks a.active{background:var(--soft);color:var(--accent)}
+.hero{padding:34px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{display:inline-block;font-size:13px;font-weight:900;color:var(--accent);border:1px solid #c5dcd1;background:#fff;border-radius:999px;padding:4px 12px;margin-bottom:12px}
+h1{font-size:32px;line-height:1.25;letter-spacing:-.04em}
+.sub{color:var(--muted);font-size:15.5px;margin-top:9px;max-width:760px}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.summary .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.summary b{display:block;font-size:19px;color:var(--accent)}
+.summary span{font-size:12.8px;color:var(--muted)}
+.tools{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:20px}
+.searchbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.searchbox label{font-weight:900;font-size:14px;display:block;margin-bottom:8px}
+.searchbox input{width:100%;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);font-size:16px;padding:11px 12px;font-family:inherit;color:var(--ink)}
+.searchbox input:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+.season{background:#fffdf5;border:1px solid #ecd9b0;border-radius:16px;padding:14px;color:#62430b;font-size:14px}
+.season b{color:var(--warn)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.tabs button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;color:var(--muted);font-family:inherit;font-weight:800}
+.tabs button.on{border-color:var(--accent);background:var(--accent);color:#fff}
+.section{margin-top:32px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}
+.section h2{font-size:22px;letter-spacing:-.03em}
+.section .desc{font-size:14px;color:var(--muted);margin-top:2px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px 18px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+.card:hover{border-color:var(--accent);box-shadow:0 3px 14px rgba(30,107,80,.10)}
+.card[data-hot]{border-color:#e8a020;background:#fffdf5}
+.badge{display:inline-block;font-size:11.5px;font-weight:900;border-radius:999px;padding:3px 9px;margin-bottom:8px;background:var(--soft);color:var(--accent)}
+.badge.gov{background:var(--blueSoft);color:var(--blue)}
+.badge.tax{background:var(--soft);color:var(--accent)}
+.badge.labor{background:var(--purpleSoft);color:var(--purple)}
+.badge.calc{background:#eef7ef;color:#176245}
+.badge.region{background:var(--roseSoft);color:var(--rose)}
+.badge.hot{background:var(--warnSoft);color:var(--warn)}
+.card h3{font-size:16px;line-height:1.45;letter-spacing:-.02em}
+.card p{font-size:13.5px;color:var(--muted);margin-top:5px}
+.card .go{display:inline-block;margin-top:9px;font-size:13px;font-weight:900;color:var(--accent)}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.quick a{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-decoration:none;font-weight:900;font-size:14px}
+.quick span{display:block;color:var(--muted);font-weight:500;font-size:12.5px;margin-top:3px}
+.notice{margin-top:24px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:15px 17px;color:#3f4e47;font-size:14px}
+footer{margin-top:42px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+footer a{color:var(--muted)}
+@media(max-width:760px){.summary,.grid,.list,.quick,.tools{grid-template-columns:1fr 1fr}.hero h1{font-size:27px}}
+@media(max-width:520px){.summary,.grid,.list,.quick,.tools{grid-template-columns:1fr}.cl-topbar-inner{height:auto;padding:10px 20px;align-items:flex-start;flex-direction:column}.hero{padding-top:24px}}
 </style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":"calcloude 생활경제 가이드",
+  "url":"https://calcloude.com/blog.html",
+  "description":"정부지원, 세금, 노무, 지역소식, 계산기 콘텐츠 전체 목록",
+  "isPartOf":{"@type":"WebSite","name":"calcloude","url":"https://calcloude.com/"}
+}
+</script>
 </head>
 <body>
+<div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html" class="active">가이드</a></nav></div></div>
 <div class="wrap">
-
-  <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
-
-  <header>
-    <h1>가이드</h1>
-    <p class="sub">세금, 노무, 정부지원 — 알아두면 돈이 되는 정보를 계산기와 함께 정리합니다.</p>
+  <header class="hero">
+    <span class="eyebrow">전체 콘텐츠 허브</span>
+    <h1>정부지원·세금·노무·계산기를 한곳에서 찾기</h1>
+    <p class="sub">지금까지 리뉴얼한 계산기와 가이드를 주제별로 다시 묶었습니다. 신청·신고·납부·퇴사·급여처럼 사용자의 실제 상황에 맞춰 바로 이동할 수 있습니다.</p>
+    <div class="summary">
+      <div class="box"><b>8</b><span>핵심 계산기</span></div>
+      <div class="box"><b>3</b><span>정부지원 정책</span></div>
+      <div class="box"><b>5</b><span>세금·전기요금 가이드</span></div>
+      <div class="box"><b>4</b><span>노무·퇴직 가이드</span></div>
+    </div>
+    <div class="tools">
+      <div class="searchbox"><label for="q">페이지 검색</label><input id="q" type="search" placeholder="예: 재산세, 퇴직금, 실업급여, 부가세" oninput="searchCards(this.value)"></div>
+      <div class="season"><b>이번 시즌 추천</b><br>7월은 재산세 1기분 납부와 부가세 확정신고가 겹치는 달입니다. 재산세 계산기·납부가이드·부가세 무실적 신고를 먼저 확인하세요.</div>
+    </div>
+    <div class="tabs">
+      <button class="on" onclick="filter('all',this)">전체</button>
+      <button onclick="filter('calc',this)">🧮 계산기</button>
+      <button onclick="filter('gov',this)">🏛 정부지원</button>
+      <button onclick="filter('tax',this)">🧾 세금</button>
+      <button onclick="filter('labor',this)">👷 노무</button>
+      <button onclick="filter('region',this)">📍 지역</button>
+    </div>
   </header>
 
-  <div class="tabs">
-    <button class="on" onclick="filter('all',this)">전체</button>
-    <button onclick="filter('gov',this)">🏛 정부지원</button>
-    <button onclick="filter('tax',this)">🧾 세금</button>
-    <button onclick="filter('labor',this)">👷 노무</button>
-  </div>
+  <section class="section">
+    <div class="section-head"><div><h2>바로 쓰는 계산기</h2><p class="desc">검색 의도가 계산인 페이지는 계산기를 먼저 배치했습니다.</p></div></div>
+    <div class="quick">
+      <a class="item" data-cat="calc labor" href="/severance.html">퇴직금 계산기<span>평균임금·상여금 반영</span></a>
+      <a class="item" data-cat="calc labor" href="/annual-leave.html">연차수당 계산기<span>퇴사 정산·미사용 연차</span></a>
+      <a class="item" data-cat="calc labor" href="/insurance.html">4대보험 계산기<span>근로자·회사 부담</span></a>
+      <a class="item" data-cat="calc labor" href="/unemployment.html">실업급여 계산기<span>1일 지급액·수급기간</span></a>
+      <a class="item" data-cat="calc labor" href="/weekly-holiday.html">주휴수당 계산기<span>시급·주 근무시간</span></a>
+      <a class="item" data-cat="calc tax" href="/property-tax.html">재산세 계산기<span>7월·9월 납부액</span></a>
+      <a class="item" data-cat="calc tax" href="/vat.html">부가세 계산기<span>공급가액·포함금액</span></a>
+      <a class="item" data-cat="calc tax" href="/aircon.html">에어컨 전기요금<span>여름 누진제</span></a>
+    </div>
+  </section>
 
-  <div class="list" id="list">
+  <section class="section">
+    <div class="section-head"><div><h2>추천 가이드</h2><p class="desc">지금 사이트의 전문성을 보여주는 핵심 글입니다.</p></div></div>
+    <div class="list" id="list">
+      <a class="card item" href="/gov-earned-income-tax-credit.html" data-cat="gov" data-hot="1"><span class="badge hot">정부지원 · 장려금</span><h3>2026 근로장려금 총정리 — 지급일·신청방법·자격조건·금액조회</h3><p>홈택스·손택스 조회, 소득·재산 기준, 탈락 사유와 기한 후 신청까지 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
+      <a class="card item" href="/gov-youth-savings.html" data-cat="gov"><span class="badge gov">정부지원 · 청년</span><h3>청년미래적금 신청조건·기여금·금리·도약계좌 갈아타기</h3><p>청년 자산형성 지원제도 조건과 만기 예상액, 갈아타기 주의사항을 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
+      <a class="card item" href="/gov-learning-card.html" data-cat="gov"><span class="badge gov">정부지원 · 직업훈련</span><h3>국민내일배움카드 신청방법·지원금액·훈련장려금</h3><p>구직자·재직자·자영업자 대상 훈련비와 훈련장려금, 신청 절차를 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
 
-    <a class="card" href="/gov-earned-income-tax-credit.html" data-cat="gov" data-hot="1">
-      <span class="badge hot">🔥 지금 확인</span>
-      <h2>2026 반기 근로장려금 지급일 6월 25일 — 심사결과·금액 조회 방법 총정리</h2>
-      <p>홈택스·손택스·ARS에서 내 심사결과와 금액 확인하는 법, 못 받았을 때 대처법, 기한후 신청 안내.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
+      <a class="card item" href="/guide-property-tax-check.html" data-cat="tax"><span class="badge tax">재산세 · 조회</span><h3>재산세 조회 방법 — 고지서 오기 전 내 세금 확인하기</h3><p>위택스·이택스 조회, 공시가격으로 미리 계산, 전자고지 신청까지 안내합니다.</p><span class="go">읽으러 가기 →</span></a>
+      <a class="card item" href="/guide-property-tax-payment.html" data-cat="tax"><span class="badge tax">재산세 · 납부</span><h3>7월 재산세 납부 방법 — 카드 무이자·분납까지</h3><p>납부 기간, 카드 납부, 250만 원 초과 분납, 기한 초과 시 대응을 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
+      <a class="card item" href="/guide-vat-no-sales.html" data-cat="tax"><span class="badge tax">부가세 · 신고</span><h3>부가세 무실적 신고 — 매출 0원이어도 해야 하는 이유</h3><p>홈택스·손택스·ARS 신고법, 매입이 있는 경우 환급 주의사항을 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
+      <a class="card item" href="/guide-aircon-inverter.html" data-cat="tax"><span class="badge tax">전기요금 · 여름</span><h3>인버터 vs 정속형 에어컨 — 요금 차이와 30초 확인법</h3><p>에어컨 유형별 절약법과 제습모드, 24시간 사용 관련 FAQ를 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
 
-    <a class="card" href="/gov-youth-savings.html" data-cat="gov">
-      <span class="badge gov">정부지원 · 청년</span>
-      <h2>2026 청년미래적금 신청방법·조건·금리 총정리 (도약계좌 갈아타기 포함)</h2>
-      <p>만 19~34세, 월 50만원, 3년, 최고 8% + 정부 기여금 + 비과세. 도약계좌 갈아타기 방법까지.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
+      <a class="card item" href="/guide-quit-unemployment.html" data-cat="labor"><span class="badge labor">노무 · 실업급여</span><h3>자발적 퇴사 실업급여 인정 사유 — 사표 내고도 받는 경우</h3><p>임금체불, 괴롭힘, 통근 곤란, 질병·육아 등 인정 사유와 증빙자료를 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
+      <a class="card item" href="/guide-unpaid-severance.html" data-cat="labor"><span class="badge labor">노무 · 퇴직금</span><h3>퇴직금 못 받았을 때 — 노동부 진정·간이대지급금 절차</h3><p>14일 지급기한, 연 20% 지연이자, 진정서와 체불확인서 흐름을 정리했습니다.</p><span class="go">읽으러 가기 →</span></a>
+      <a class="card item" href="/guide-severance-tax.html" data-cat="labor tax"><span class="badge labor">노무 · 세금</span><h3>퇴직금 세금 얼마나 떼나요 — 퇴직소득세와 IRP 절세</h3><p>근속연수공제, IRP 과세이연, 연금수령 절세 효과를 쉽게 설명합니다.</p><span class="go">읽으러 가기 →</span></a>
+    </div>
+  </section>
 
-    <a class="card" href="/gov-learning-card.html" data-cat="gov">
-      <span class="badge gov">정부지원 · 직업훈련</span>
-      <h2>2026 국민내일배움카드 신청방법·지원금액·훈련장려금 총정리 (최대 500만원)</h2>
-      <p>구직자·재직자·자영업자 모두 가능. 기본 300만원~최대 500만원 훈련비 + 매월 현금 훈련장려금.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
+  <section class="section">
+    <div class="section-head"><div><h2>카테고리 허브</h2><p class="desc">주제별로 더 넓게 탐색할 수 있습니다.</p></div></div>
+    <div class="grid">
+      <a class="card item" data-cat="gov" href="/gov.html"><span class="badge gov">정부지원</span><h3>정부지원 정책 허브</h3><p>근로장려금, 청년 자산형성, 직업훈련 지원을 목적별로 확인하세요.</p></a>
+      <a class="card item" data-cat="tax" href="/tax.html"><span class="badge tax">세금</span><h3>세금 계산기·가이드 허브</h3><p>재산세, 부가세, 전기요금 관련 계산기와 신고·납부 가이드를 모았습니다.</p></a>
+      <a class="card item" data-cat="labor" href="/labor.html"><span class="badge labor">노무</span><h3>노무·노동권리 허브</h3><p>퇴직금, 연차, 4대보험, 실업급여와 노동권리 가이드를 연결합니다.</p></a>
+      <a class="card item" data-cat="region" href="/region.html"><span class="badge region">지역</span><h3>지역별 생활경제 소식</h3><p>지원금뿐 아니라 채용·일자리와 세제 혜택까지 지역별로 정리합니다.</p></a>
+    </div>
+  </section>
 
-    <a class="card" href="/guide-quit-unemployment.html" data-cat="labor">
-      <span class="badge labor">노동 · 실업급여</span>
-      <h2>실업급여 자발적 퇴사 인정 사유 — 사표 내고도 받을 수 있는 경우 총정리</h2>
-      <p>임금체불, 직장 내 괴롭힘, 통근 곤란, 육아 등 법이 인정하는 사유와 필요한 증빙, 인정받는 전략.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
-
-    <a class="card" href="/guide-unpaid-severance.html" data-cat="labor">
-      <span class="badge labor">노동 · 퇴직금</span>
-      <h2>퇴직금 못 받았을 때 대처법 — 14일 기한부터 노동부 진정, 대지급금까지</h2>
-      <p>14일 지급 기한, 연 20% 지연이자, 비용 0원 진정, 정부가 먼저 지급하는 간이대지급금, 무료 소송.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
-
-    <a class="card" href="/guide-severance-tax.html" data-cat="labor">
-      <span class="badge labor">노동 · 퇴직금</span>
-      <h2>퇴직금 세금, 얼마나 떼나요 — 퇴직소득세 구조와 IRP 절세법</h2>
-      <p>근속이 길수록 세금이 줄어드는 이유, IRP 연금 수령 시 세금 30~40% 감면, 홈택스 모의계산 방법.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
-
-    <a class="card" href="/guide-aircon-inverter.html" data-cat="tax">
-      <span class="badge tax">전기요금 · 여름</span>
-      <h2>인버터 vs 정속형 에어컨 — 전기요금이 다른 이유와 30초 확인법</h2>
-      <p>우리 집 에어컨이 인버터인지 정속형인지 30초 확인법, 유형별로 정반대인 절약 사용법 비교.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
-
-    <a class="card" href="/guide-property-tax-check.html" data-cat="tax">
-      <span class="badge tax">재산세 · 7월</span>
-      <h2>재산세 조회 방법 — 고지서 오기 전에 내 세금 미리 확인하기</h2>
-      <p>위택스·이택스 조회, 카카오톡·네이버 전자고지 신청, 고지서 재발급, 6월 1일 기준일 팁까지.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
-
-    <a class="card" href="/guide-property-tax-payment.html" data-cat="tax">
-      <span class="badge tax">재산세 · 7월</span>
-      <h2>7월 재산세 납부 방법 총정리 — 카드 무이자·분납까지</h2>
-      <p>납부 기간, 고지서 조회, 수수료 없는 카드 납부와 무이자 할부, 250만원 초과 분납 신청 방법.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
-
-    <a class="card" href="/guide-vat-no-sales.html" data-cat="tax">
-      <span class="badge tax">부가세 · 7월</span>
-      <h2>부가세 무실적 신고 — 매출 0원이어도 해야 하는 이유와 3분 신고법</h2>
-      <p>신고 안 하면 생기는 불이익, 홈택스·손택스·ARS로 끝내는 방법, 매입이 있었다면 환급받는 법.</p>
-      <span class="go">읽으러 가기 →</span>
-    </a>
-
-  </div>
-
-  <footer>
-    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a><br>
-    본 사이트의 정보는 참고용이며, 정확한 사항은 관할 기관의 안내를 기준으로 합니다.
-  </footer>
+  <div class="notice">업데이트 기준: 2026년 6월 29일. 정책·세율·지원금은 변경될 수 있으므로 실제 신청·신고 전 공식 기관 안내를 함께 확인하세요.</div>
+  <footer>문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a></footer>
 </div>
-
 <script>
-function filter(cat, btn) {
-  document.querySelectorAll('.tabs button').forEach(function(b){ b.className = ''; });
-  btn.className = 'on';
-  document.querySelectorAll('#list .card').forEach(function(c){
-    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+var currentCat='all';
+function filter(cat, btn){
+  currentCat=cat;
+  document.querySelectorAll('.tabs button').forEach(function(b){b.className='';});
+  btn.className='on';
+  applyFilter();
+}
+function searchCards(v){applyFilter();}
+function applyFilter(){
+  var q=(document.getElementById('q')?.value||'').toLowerCase().trim();
+  document.querySelectorAll('.item').forEach(function(c){
+    var txt=c.textContent.toLowerCase();
+    var cats=(c.dataset.cat||'');
+    var okCat=currentCat==='all'||cats.indexOf(currentCat)>=0;
+    var okQ=!q||txt.indexOf(q)>=0;
+    c.style.display=(okCat&&okQ)?'':'none';
   });
 }
 </script>

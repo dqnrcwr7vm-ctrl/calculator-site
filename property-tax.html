@@ -3,257 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>주택 재산세 계산기 (2026년 기준) - 공시가격으로 7월·9월 납부액 확인</title>
-<meta name="description" content="2026년 주택 재산세 계산기. 공시가격만 입력하면 1세대 1주택 특례, 도시지역분, 지방교육세까지 반영해 7월·9월 납부액을 바로 계산합니다.">
+<title>주택 재산세 계산기 2026 - 공시가격으로 7월·9월 납부액 바로 확인</title>
+<meta name="description" content="2026년 주택 재산세 계산기. 공시가격만 입력하면 1세대 1주택 공정시장가액비율, 특례세율, 도시지역분, 지방교육세를 반영해 7월·9월 납부 예상액을 계산합니다.">
+<link rel="canonical" href="https://calcloude.com/property-tax.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="주택 재산세 계산기 2026 - 공시가격으로 납부액 확인">
+<meta property="og:description" content="공시가격만 입력하면 1세대 1주택 특례, 도시지역분, 지방교육세까지 반영해 재산세 예상액을 계산합니다.">
+<meta property="og:url" content="https://calcloude.com/property-tax.html">
+<meta property="og:site_name" content="calcloude">
+<meta name="twitter:card" content="summary">
 <style>
   :root {
-    --ink: #1f2a24;
-    --paper: #fbfaf7;
-    --line: #d9d4c8;
-    --accent: #1e6b50;
-    --accent-soft: #e8f1ec;
-    --warn: #8a5a14;
-    --muted: #6b6f68;
+    --ink:#1f2a24; --paper:#fbfaf7; --line:#d9d4c8;
+    --accent:#1e6b50; --accent-soft:#e8f1ec; --warn:#8a5a14;
+    --muted:#6b6f68; --white:#fff;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.7;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
-  header { padding: 32px 0 8px; }
-  .eyebrow {
-    display: inline-block;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-    padding: 2px 12px;
-    margin-bottom: 14px;
-  }
-  h1 { font-size: 28px; line-height: 1.35; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); margin-top: 10px; font-size: 15px; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.75;}
+  .wrap{max-width:760px;margin:0 auto;padding:24px 20px 64px;}
+  .cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
+  .cl-topbar-inner{max-width:760px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
+  .cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+  .cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
+  .cl-navlinks::-webkit-scrollbar{display:none;}
+  .cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
+  .cl-navlinks a:hover,.cl-navlinks a.active{background:#e8f1ec;color:#1e6b50;}
 
-  .calc {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 24px 22px;
-    margin-top: 26px;
-    box-shadow: 0 2px 10px rgba(31,42,36,0.05);
-  }
-  .field { margin-bottom: 18px; }
-  label.title { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
-  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
-  .hint a { color: var(--accent); }
-  .money-input { position: relative; }
-  .money-input input {
-    width: 100%;
-    font-size: 20px;
-    font-weight: 700;
-    padding: 13px 64px 13px 14px;
-    border: 1.5px solid var(--line);
-    border-radius: 10px;
-    background: var(--paper);
-    color: var(--ink);
-  }
-  .money-input input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
-  .money-input .unit {
-    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-    font-size: 15px; color: var(--muted); font-weight: 600;
-  }
-  .reading { font-size: 14px; color: var(--accent); font-weight: 700; margin-top: 6px; min-height: 21px; }
+  header{padding:28px 0 8px;}
+  .eyebrow{display:inline-block;font-size:13px;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:2px 12px;margin-bottom:14px;}
+  h1{font-size:29px;line-height:1.35;letter-spacing:-.02em;}
+  .sub{color:var(--muted);margin-top:10px;font-size:15px;}
+  .updated{font-size:13px;color:var(--muted);margin-top:10px;}
+  .summary{background:var(--accent-soft);border:1px solid #c5dcd1;border-radius:14px;padding:16px 18px;margin:22px 0 14px;color:#195741;}
+  .summary strong{color:#114433;}
+  .summary ul{margin:8px 0 0 20px;font-size:14.5px;}
+  .summary li{margin:4px 0;}
+  .toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:14px 0 26px;}
+  .toc .t{font-weight:800;color:var(--accent);margin-bottom:8px;}
+  .toc a{display:inline-block;margin:3px 12px 3px 0;color:var(--ink);text-decoration:none;font-size:14px;border-bottom:1px solid #d9d4c8;}
+  .toc a:hover{color:var(--accent);border-color:var(--accent);}
 
-  .toggle-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .toggle-row input[type="radio"] { position: absolute; opacity: 0; }
-  .toggle-row label.opt {
-    flex: 1; min-width: 140px;
-    text-align: center;
-    border: 1.5px solid var(--line);
-    border-radius: 10px;
-    padding: 11px 8px;
-    cursor: pointer;
-    font-size: 15px;
-    background: #fff;
-    transition: all .15s;
-  }
-  .toggle-row input[type="radio"]:checked + label.opt {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    font-weight: 700;
-    color: var(--accent);
-  }
-  .toggle-row input[type="radio"]:focus-visible + label.opt { outline: 2px solid var(--accent); }
+  .calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 22px;margin-top:26px;box-shadow:0 2px 10px rgba(31,42,36,.05);}
+  .field{margin-bottom:18px;}
+  label.title{display:block;font-weight:700;font-size:15px;margin-bottom:8px;}
+  .hint{font-size:13px;color:var(--muted);margin-top:6px;}
+  .hint a{color:var(--accent);}
+  .money-input{position:relative;}
+  .money-input input{width:100%;font-size:20px;font-weight:700;padding:13px 64px 13px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);}
+  .money-input input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+  .money-input .unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--muted);font-weight:600;}
+  .reading{font-size:14px;color:var(--accent);font-weight:700;margin-top:6px;min-height:21px;}
+  .toggle-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .toggle-row input[type="radio"]{position:absolute;opacity:0;}
+  .toggle-row label.opt{flex:1;min-width:140px;text-align:center;border:1.5px solid var(--line);border-radius:10px;padding:11px 8px;cursor:pointer;font-size:15px;background:#fff;transition:all .15s;}
+  .toggle-row input[type="radio"]:checked + label.opt{border-color:var(--accent);background:var(--accent-soft);font-weight:700;color:var(--accent);}
+  .check-row{display:flex;align-items:flex-start;gap:9px;}
+  .check-row input{width:18px;height:18px;margin-top:4px;accent-color:var(--accent);}
+  .check-row label{font-size:15px;cursor:pointer;}
+  button.go{width:100%;background:var(--accent);color:#fff;font-size:17px;font-weight:700;padding:15px;border:0;border-radius:10px;cursor:pointer;margin-top:6px;}
+  button.go:hover{background:#16573f;}
 
-  .check-row { display: flex; align-items: flex-start; gap: 9px; }
-  .check-row input { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--accent); }
-  .check-row label { font-size: 15px; cursor: pointer; }
+  .bill{display:none;margin-top:26px;}
+  .bill.show{display:block;}
+  .bill-card{background:#fff;border:1px solid var(--ink);border-radius:4px;overflow:hidden;}
+  .bill-head{background:var(--ink);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;}
+  .bill-head .t{font-size:15px;letter-spacing:.15em;font-weight:700;}
+  .bill-head .y{font-size:13px;opacity:.8;}
+  .bill-total{text-align:center;padding:26px 18px 20px;border-bottom:1px dashed var(--line);}
+  .bill-total .lbl{font-size:14px;color:var(--muted);}
+  .bill-total .amt{font-size:36px;font-weight:800;letter-spacing:-.02em;margin-top:2px;}
+  .bill-total .amt small{font-size:18px;font-weight:700;}
+  .split{display:flex;border-bottom:1px dashed var(--line);}
+  .split .half{flex:1;text-align:center;padding:16px 10px;}
+  .split .half + .half{border-left:1px dashed var(--line);}
+  .split .when{font-size:13px;color:var(--muted);}
+  .split .pay{font-size:21px;font-weight:800;margin-top:2px;}
+  .split .due{font-size:12px;color:var(--warn);margin-top:4px;}
+  .rows{padding:14px 18px 18px;}
+  .rows .row{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;padding:7px 0;border-bottom:1px solid #f0ede5;}
+  .rows .row:last-child{border-bottom:0;}
+  .rows .row .k{color:var(--muted);}
+  .rows .row .v{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;}
+  .rows .row.major .k,.rows .row.major .v{color:var(--accent);}
+  .result-guide{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:14px;}
+  .result-guide.show{display:block;}
+  .result-guide h3{font-size:16px;margin-bottom:8px;color:var(--accent);}
+  .result-guide p{font-size:14.5px;margin-bottom:8px;}
+  .note-special{margin-top:12px;font-size:13.5px;background:var(--accent-soft);border-radius:8px;padding:10px 14px;color:#195741;display:none;}
+  .note-special.show{display:block;}
 
-  button.go {
-    width: 100%;
-    background: var(--accent);
-    color: #fff;
-    font-size: 17px;
-    font-weight: 700;
-    padding: 15px;
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 6px;
-  }
-  button.go:hover { background: #16573f; }
-  button.go:focus-visible { outline: 3px solid #9cc6b4; }
-
-  /* 결과: 고지서 스타일 */
-  .bill { display: none; margin-top: 26px; }
-  .bill.show { display: block; }
-  .bill-card {
-    background: #fff;
-    border: 1px solid var(--ink);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .bill-head {
-    background: var(--ink);
-    color: #fff;
-    padding: 14px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  .bill-head .t { font-size: 15px; letter-spacing: 0.15em; font-weight: 700; }
-  .bill-head .y { font-size: 13px; opacity: .8; }
-  .bill-total {
-    text-align: center;
-    padding: 26px 18px 20px;
-    border-bottom: 1px dashed var(--line);
-  }
-  .bill-total .lbl { font-size: 14px; color: var(--muted); }
-  .bill-total .amt { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; margin-top: 2px; }
-  .bill-total .amt small { font-size: 18px; font-weight: 700; }
-  .split {
-    display: flex;
-    border-bottom: 1px dashed var(--line);
-  }
-  .split .half {
-    flex: 1;
-    text-align: center;
-    padding: 16px 10px;
-  }
-  .split .half + .half { border-left: 1px dashed var(--line); }
-  .split .when { font-size: 13px; color: var(--muted); }
-  .split .pay { font-size: 21px; font-weight: 800; margin-top: 2px; }
-  .split .due { font-size: 12px; color: var(--warn); margin-top: 4px; }
-  .rows { padding: 14px 18px 18px; }
-  .rows .row {
-    display: flex; justify-content: space-between;
-    font-size: 14.5px;
-    padding: 7px 0;
-    border-bottom: 1px solid #f0ede5;
-  }
-  .rows .row:last-child { border-bottom: 0; }
-  .rows .row .k { color: var(--muted); }
-  .rows .row .v { font-weight: 700; font-variant-numeric: tabular-nums; }
-  .rows .row.major .k, .rows .row.major .v { color: var(--accent); }
-  .note-special {
-    margin-top: 12px;
-    font-size: 13.5px;
-    background: var(--accent-soft);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: #195741;
-    display: none;
-  }
-  .note-special.show { display: block; }
-
-  /* 본문 콘텐츠 */
-  section.article { margin-top: 48px; }
-  section.article h2 {
-    font-size: 21px;
-    margin: 36px 0 12px;
-    padding-left: 12px;
-    border-left: 4px solid var(--accent);
-    letter-spacing: -0.01em;
-  }
-  section.article p { margin-bottom: 14px; font-size: 15.5px; }
-  table.rate {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    margin: 14px 0 18px;
-    background: #fff;
-  }
-  table.rate th, table.rate td {
-    border: 1px solid var(--line);
-    padding: 9px 10px;
-    text-align: left;
-  }
-  table.rate th { background: var(--accent-soft); font-size: 13.5px; }
-  table.rate td { font-variant-numeric: tabular-nums; }
-
-  details.faq {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 0;
-    margin-bottom: 10px;
-  }
-  details.faq summary {
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 15px;
-    padding: 14px 16px;
-    list-style: none;
-  }
-  details.faq summary::before { content: "Q. "; color: var(--accent); }
-  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
-
-  .disclaimer {
-    margin-top: 40px;
-    font-size: 13px;
-    color: var(--muted);
-    border-top: 1px solid var(--line);
-    padding-top: 16px;
-  }
-  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
-  footer a { color: var(--muted); }
-
-  @media (max-width: 480px) {
-    h1 { font-size: 23px; }
-    .bill-total .amt { font-size: 30px; }
-    .split .pay { font-size: 18px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
-  }
-
-.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
-.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
-.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
-.cl-navlinks::-webkit-scrollbar{display:none;}
-.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
-.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
+  section.article{margin-top:48px;}
+  section.article h2{font-size:21px;margin:36px 0 12px;padding-left:12px;border-left:4px solid var(--accent);letter-spacing:-.01em;}
+  section.article h3{font-size:17px;margin:24px 0 8px;}
+  section.article p{margin-bottom:14px;font-size:15.5px;}
+  section.article ul, section.article ol{margin:0 0 14px 22px;font-size:15.5px;}
+  section.article li{margin-bottom:7px;}
+  table.rate, table.info{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0 18px;background:#fff;}
+  table.rate th, table.rate td, table.info th, table.info td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top;}
+  table.rate th, table.info th{background:var(--accent-soft);font-size:13.5px;}
+  table.rate td, table.info td{font-variant-numeric:tabular-nums;}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 18px;}
+  .mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;}
+  .mini .k{font-size:13px;color:var(--muted);}
+  .mini .v{font-size:18px;font-weight:800;color:var(--accent);margin-top:4px;}
+  .checklist{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0;}
+  .checklist li{list-style:"□ ";padding-left:4px;}
+  .related{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+  .related a{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 15px;text-decoration:none;color:var(--ink);font-size:14px;font-weight:700;}
+  .related a span{display:block;color:var(--muted);font-size:12.5px;font-weight:400;margin-top:3px;}
+  .related a:hover{border-color:var(--accent);background:var(--accent-soft);}
+  details.faq{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;}
+  details.faq summary{cursor:pointer;font-weight:700;font-size:15px;padding:14px 16px;list-style:none;}
+  details.faq summary::before{content:"Q. ";color:var(--accent);}
+  details.faq p{padding:0 16px 14px;font-size:14.5px;color:#3c443f;}
+  .disclaimer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;}
+  footer{margin-top:28px;font-size:13px;color:var(--muted);}
+  footer a{color:var(--muted);}
+  @media(max-width:560px){h1{font-size:23px;}.bill-total .amt{font-size:30px;}.split .pay{font-size:18px;}.cards,.related{grid-template-columns:1fr;}.wrap{padding-left:18px;padding-right:18px;}.rows .row{align-items:flex-start;}}
 </style>
-<link rel="canonical" href="https://calcloude.com/property-tax.html">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "@id":"https://calcloude.com/property-tax.html#calculator",
+      "name":"주택 재산세 계산기",
+      "applicationCategory":"FinanceApplication",
+      "operatingSystem":"Web",
+      "url":"https://calcloude.com/property-tax.html",
+      "description":"공시가격으로 주택분 재산세 예상액을 계산하는 웹 계산기"
+    },
+    {
+      "@type":"BreadcrumbList",
+      "@id":"https://calcloude.com/property-tax.html#breadcrumb",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"홈","item":"https://calcloude.com/"},
+        {"@type":"ListItem","position":2,"name":"세금","item":"https://calcloude.com/tax.html"},
+        {"@type":"ListItem","position":3,"name":"주택 재산세 계산기","item":"https://calcloude.com/property-tax.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://calcloude.com/property-tax.html#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"공동명의면 재산세가 줄어드나요?","acceptedAnswer":{"@type":"Answer","text":"주택 전체에 대해 재산세를 계산한 뒤 지분 비율대로 각자에게 고지되므로 합계 금액은 단독명의와 같습니다."}},
+        {"@type":"Question","name":"계산기 금액과 실제 고지서 금액이 다를 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"세부담상한제, 지자체 감면, 전년도 세액, 전자고지 공제 등 개인 상황이 실제 고지서에 반영될 수 있어 차이가 날 수 있습니다."}},
+        {"@type":"Question","name":"6월 1일에 집을 산 사람과 판 사람 중 누가 내나요?","acceptedAnswer":{"@type":"Answer","text":"재산세는 매년 6월 1일 현재 소유자에게 부과됩니다. 6월 1일 잔금을 치르고 소유권을 취득했다면 매수인이 납세의무자가 됩니다."}}
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
-
-  <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
+  <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html" class="active">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
 
   <header>
     <span class="eyebrow">2026년 기준 · 주택분</span>
     <h1>주택 재산세 계산기</h1>
-    <p class="sub">공시가격만 입력하면 1세대 1주택 특례와 지방교육세, 도시지역분까지 반영해 올해 7월·9월에 낼 금액을 바로 계산해 드립니다.</p>
+    <p class="sub">공시가격만 입력하면 1세대 1주택 특례세율, 공정시장가액비율, 도시지역분, 지방교육세까지 반영해 7월·9월 납부 예상액을 계산합니다.</p>
+    <p class="updated">최종 업데이트: 2026년 6월 29일 · 표준 공식 기준</p>
   </header>
 
-  <div class="calc">
+  <div class="summary">
+    <strong>3줄 요약</strong>
+    <ul>
+      <li>재산세는 <strong>매년 6월 1일 현재 주택 소유자</strong>에게 부과됩니다.</li>
+      <li>주택분은 보통 <strong>7월과 9월에 절반씩</strong> 내고, 연간 세액 20만 원 이하는 7월에 한 번에 냅니다.</li>
+      <li>1세대 1주택자는 공시가격 구간별 공정시장가액비율과 특례세율로 세부담이 줄어듭니다.</li>
+    </ul>
+  </div>
+
+  <div class="toc">
+    <div class="t">목차</div>
+    <a href="#calculator">계산기</a>
+    <a href="#formula">계산 공식</a>
+    <a href="#examples">실제 예시</a>
+    <a href="#checklist">고지서 검산</a>
+    <a href="#payment">조회·납부</a>
+    <a href="#faq">FAQ</a>
+  </div>
+
+  <div class="calc" id="calculator">
     <div class="field">
       <label class="title" for="price">주택 공시가격</label>
       <div class="money-input">
@@ -261,7 +195,7 @@
         <span class="unit">만 원</span>
       </div>
       <div class="reading" id="priceReading"></div>
-      <p class="hint">내 집 공시가격은 <a href="https://www.realtyprice.kr" target="_blank" rel="noopener">부동산공시가격알리미</a>에서 무료로 확인할 수 있어요.</p>
+      <p class="hint">내 집 공시가격은 <a href="https://www.realtyprice.kr" target="_blank" rel="noopener">부동산공시가격알리미</a>에서 확인할 수 있습니다. 시세가 아니라 <strong>공시가격</strong>을 입력하세요.</p>
     </div>
 
     <div class="field">
@@ -272,12 +206,12 @@
         <input type="radio" name="own" id="own2" value="multi">
         <label class="opt" for="own2">2주택 이상 / 그 외</label>
       </div>
-      <p class="hint">세대 전체 기준으로 주택이 1채뿐이면 '1세대 1주택'을 선택하세요. 낮은 공정시장가액비율과 특례세율이 적용됩니다.</p>
+      <p class="hint">세대 기준 주택이 1채뿐이면 1세대 1주택을 선택하세요. 2026년 1주택자는 공시가격 구간별 43~45% 공정시장가액비율이 적용됩니다.</p>
     </div>
 
     <div class="field check-row">
       <input type="checkbox" id="urban" checked>
-      <label for="urban">도시지역에 있는 주택입니다 (도시지역분 0.14% 포함)<br><span class="hint" style="margin-top:2px">아파트 등 시내 주택 대부분이 해당합니다. 읍·면 지역이면 체크를 해제하세요.</span></label>
+      <label for="urban">도시지역에 있는 주택입니다 (도시지역분 0.14% 포함)<br><span class="hint" style="margin-top:2px">아파트·도심 주택 대부분은 해당합니다. 읍·면 지역 등 도시지역이 아니면 체크를 해제하세요.</span></label>
     </div>
 
     <button class="go" id="calcBtn" type="button">재산세 계산하기</button>
@@ -315,26 +249,32 @@
         <div class="row"><span class="k">지방교육세 (본세 × 20%)</span><span class="v" id="rEdu">-</span></div>
       </div>
     </div>
-    <div class="note-special" id="lumpNote">연간 세액이 20만 원 이하라서 7월에 한 번에 전액 납부합니다.</div>
-    <div class="note-special" id="specialNote">공시가격 9억 원 이하 1세대 1주택자 특례세율(0.05%p 인하)이 적용된 결과입니다.</div>
+    <div class="note-special" id="lumpNote">연간 세액이 20만 원 이하라서 7월에 한 번에 전액 납부하는 구조입니다.</div>
+    <div class="note-special" id="specialNote">공시가격 9억 원 이하 1세대 1주택자 특례세율이 적용된 결과입니다.</div>
+    <div class="result-guide" id="resultGuide">
+      <h3>계산 결과 해설</h3>
+      <p id="guideText">-</p>
+      <p>실제 고지서에는 세부담상한제, 지자체 감면, 전년도 세액, 전자고지 공제 등이 반영될 수 있어 계산기 결과와 차이가 날 수 있습니다.</p>
+    </div>
   </div>
 
   <section class="article">
-    <h2>재산세, 누가 언제 내는 세금인가요?</h2>
-    <p>재산세는 매년 6월 1일을 기준으로 주택을 소유한 사람에게 부과되는 지방세입니다. 6월 1일 단 하루의 소유 여부가 기준이라서, 6월 2일에 집을 샀다면 그 해 재산세는 내지 않고, 5월 31일에 팔았다면 역시 내지 않습니다. 이 때문에 부동산 거래에서는 잔금일을 6월 1일 전후로 조율하는 경우가 많습니다.</p>
-    <p>주택분 재산세는 1년에 두 번에 나눠 냅니다. 절반은 7월 16일부터 31일까지, 나머지 절반은 9월 16일부터 30일까지가 납부 기간입니다. 다만 연간 세액이 20만 원 이하라면 7월에 한 번에 전액을 납부합니다. 기한을 넘기면 3%의 가산금이 붙으니 고지서를 받으면 잊지 말고 기한 내에 납부하세요.</p>
+    <h2 id="formula">재산세는 누가 언제 내나요?</h2>
+    <p>재산세는 매년 <strong>6월 1일</strong>을 기준으로 주택을 소유한 사람에게 부과되는 지방세입니다. 6월 2일에 집을 샀다면 그 해 재산세는 내지 않고, 5월 31일에 팔았다면 역시 내지 않습니다. 그래서 부동산 거래에서는 잔금일을 6월 1일 전후로 조율하는 경우가 많습니다.</p>
+    <p>주택분 재산세는 보통 1년에 두 번 나눠 냅니다. 절반은 7월 16일부터 31일까지, 나머지 절반은 9월 16일부터 30일까지가 납부 기간입니다. 다만 연간 세액이 20만 원 이하라면 7월에 한 번에 전액 납부합니다.</p>
 
     <h2>재산세 계산 공식</h2>
-    <p>주택 재산세는 다음 세 단계로 계산됩니다.</p>
-    <p><strong>① 과세표준 구하기</strong> — 공시가격 × 공정시장가액비율. 2026년 기준 일반 주택은 60%가 적용되고, 1세대 1주택자는 공시가격 구간에 따라 43~45%의 낮은 특례 비율이 적용됩니다.</p>
-    <p><strong>② 세율 적용하기</strong> — 과세표준 구간별로 0.1~0.4%의 누진세율을 적용합니다. 공시가격 9억 원 이하의 1세대 1주택자는 여기서 0.05%p 더 낮은 특례세율을 적용받습니다.</p>
-    <p><strong>③ 부가 세목 더하기</strong> — 재산세 본세에 지방교육세(본세의 20%)가 항상 붙고, 도시지역 주택이라면 도시지역분(과세표준의 0.14%)이 추가됩니다. 고지서 금액이 생각보다 큰 이유가 보통 이 부가 세목 때문입니다.</p>
+    <p>주택 재산세는 크게 네 단계로 계산됩니다.</p>
+    <ol>
+      <li><strong>공시가격 확인</strong>: 부동산공시가격알리미에서 주택 공시가격을 확인합니다.</li>
+      <li><strong>과세표준 계산</strong>: 공시가격 × 공정시장가액비율입니다. 일반 주택은 60%, 1세대 1주택은 공시가격 구간별 43~45%를 적용합니다.</li>
+      <li><strong>재산세 본세 계산</strong>: 과세표준 구간별 누진세율을 적용합니다. 공시가격 9억 원 이하 1주택자는 특례세율이 적용됩니다.</li>
+      <li><strong>부가 세목 더하기</strong>: 지방교육세(재산세 본세의 20%)와 도시지역분(과세표준의 0.14%, 해당 지역만)을 더합니다.</li>
+    </ol>
 
     <h2>2026년 주택분 재산세 세율표</h2>
     <table class="rate">
-      <thead>
-        <tr><th>과세표준</th><th>일반 세율</th><th>1주택자 특례세율*</th></tr>
-      </thead>
+      <thead><tr><th>과세표준</th><th>일반 세율</th><th>1주택자 특례세율*</th></tr></thead>
       <tbody>
         <tr><td>6,000만 원 이하</td><td>0.1%</td><td>0.05%</td></tr>
         <tr><td>6,000만 ~ 1억 5,000만 원</td><td>6만 원 + 초과분의 0.15%</td><td>3만 원 + 초과분의 0.1%</td></tr>
@@ -342,28 +282,72 @@
         <tr><td>3억 원 초과</td><td>57만 원 + 초과분의 0.4%</td><td>42만 원 + 초과분의 0.35%</td></tr>
       </tbody>
     </table>
-    <p class="hint">* 특례세율은 공시가격 9억 원 이하 1세대 1주택자에게만 적용됩니다.</p>
+    <p class="hint">* 특례세율은 공시가격 9억 원 이하 1세대 1주택자에게 적용됩니다. 1세대 1주택 공정시장가액비율은 2026년 기준 공시가격 3억 원 이하 43%, 3억 초과 6억 원 이하 44%, 6억 원 초과 45%입니다.</p>
 
-    <h2>자주 묻는 질문</h2>
+    <h2 id="examples">공시가격별 예시</h2>
+    <div class="cards">
+      <div class="mini"><div class="k">공시가격 3억</div><div class="v">1주택 기준 낮은 과표</div><p class="hint">43% 비율 적용</p></div>
+      <div class="mini"><div class="k">공시가격 6억</div><div class="v">7월·9월 분할</div><p class="hint">44% 비율 적용</p></div>
+      <div class="mini"><div class="k">공시가격 9억</div><div class="v">특례세율 한도</div><p class="hint">9억 이하 특례세율</p></div>
+    </div>
+    <p>같은 시세라도 공시가격, 1세대 1주택 여부, 도시지역 여부에 따라 재산세가 달라집니다. 특히 도시지역분은 재산세 본세가 아니라 과세표준에 별도로 붙기 때문에, 고지서에서 생각보다 큰 비중을 차지할 수 있습니다.</p>
+
+    <h2 id="checklist">고지서 금액 검산 체크리스트</h2>
+    <div class="checklist">
+      <ul>
+        <li>공시가격을 시세가 아니라 <strong>부동산공시가격알리미 기준</strong>으로 입력했는지 확인</li>
+        <li>세대 기준 주택 수가 1채인지 확인</li>
+        <li>도시지역분이 붙는 지역인지 확인</li>
+        <li>공동명의라면 각자 고지된 금액을 합산해서 비교</li>
+        <li>실제 고지서에는 세부담상한제나 감면이 반영될 수 있음을 감안</li>
+      </ul>
+    </div>
+
+    <h2 id="payment">조회와 납부는 어디서 하나요?</h2>
+    <p>부과 전에는 공시가격으로 예상액을 계산하고, 부과 후에는 위택스 또는 이택스에서 실제 고지 금액을 확인하는 것이 가장 정확합니다. 재산세 납부는 위택스, 이택스, 은행 앱, 카드, ARS 등으로 가능하며 지방세는 일반적으로 카드 납부 수수료가 없습니다.</p>
+    <div class="related">
+      <a href="/guide-property-tax-check.html">재산세 조회 방법<span>고지서 오기 전·후 확인법</span></a>
+      <a href="/guide-property-tax-payment.html">재산세 납부 방법<span>카드·분납·전자고지</span></a>
+      <a href="/tax.html">세금 계산기 모음<span>재산세·부가세 등</span></a>
+      <a href="/region.html">지역소식 보기<span>지방세·지역 혜택</span></a>
+    </div>
+
+    <h2 id="faq">자주 묻는 질문</h2>
     <details class="faq">
       <summary>공동명의면 재산세가 줄어드나요?</summary>
       <p>아니요. 주택 전체에 대해 세액을 계산한 뒤 지분 비율대로 나눠서 각자 고지되는 방식이라, 합계 금액은 단독명의와 같습니다. 다만 부부 공동명의 1주택은 1세대 1주택 특례를 그대로 적용받을 수 있습니다.</p>
     </details>
     <details class="faq">
       <summary>계산기 금액과 실제 고지서 금액이 다를 수 있나요?</summary>
-      <p>있을 수 있습니다. 전년도 대비 세액이 급격히 오르지 않도록 막아주는 세부담상한제, 지자체별 감면, 주택연금 가입 감면 등 개인 상황에 따른 조정이 실제 고지서에는 반영되기 때문입니다. 이 계산기는 표준 공식 기준의 예상액으로 참고하시고, 정확한 금액은 위택스(wetax.go.kr)나 관할 구청에서 확인하세요.</p>
+      <p>있습니다. 세부담상한제, 지자체별 감면, 주택연금 가입 감면, 전자고지 공제 등 개인 상황에 따른 조정이 실제 고지서에는 반영될 수 있습니다. 이 계산기는 표준 공식 기준의 예상액입니다.</p>
     </details>
     <details class="faq">
       <summary>재산세는 어디서 납부하나요?</summary>
-      <p>위택스(서울은 이택스), 은행 앱, ATM, 편의점, 카드 납부 모두 가능합니다. 고지서의 전자납부번호만 있으면 인터넷으로 1분 안에 낼 수 있습니다.</p>
+      <p>위택스, 서울 이택스, 은행 앱, ATM, 편의점, 카드 납부가 가능합니다. 고지서의 전자납부번호가 있으면 로그인 없이도 납부할 수 있는 경우가 있습니다.</p>
     </details>
     <details class="faq">
       <summary>6월 1일에 집을 산 사람과 판 사람, 누가 내나요?</summary>
-      <p>6월 1일 당일 기준 소유자, 즉 그날 잔금을 치르고 소유권을 넘겨받은 매수인이 냅니다. 그래서 매수인은 6월 2일 이후 잔금을, 매도인은 5월 31일 이전 잔금을 선호하는 경향이 있습니다.</p>
+      <p>6월 1일 당일 기준 소유자가 납세의무자입니다. 그날 잔금을 치르고 소유권을 넘겨받은 매수인이 냅니다.</p>
+    </details>
+    <details class="faq">
+      <summary>7월과 9월에 두 번 나오면 이중과세인가요?</summary>
+      <p>아닙니다. 주택분 재산세 연간 세액을 절반씩 7월과 9월에 나누어 고지하는 구조입니다. 연간 세액이 20만 원 이하인 경우에는 7월에 한 번에 고지됩니다.</p>
+    </details>
+    <details class="faq">
+      <summary>공시가격 9억 원을 넘으면 1주택 혜택이 전부 없어지나요?</summary>
+      <p>공정시장가액비율 특례는 1세대 1주택으로 인정되는 주택에 적용되지만, 특례세율은 공시가격 9억 원 이하 1세대 1주택자에게 적용됩니다. 계산 목적에 따라 두 기준을 구분해야 합니다.</p>
+    </details>
+    <details class="faq">
+      <summary>도시지역분은 왜 따로 붙나요?</summary>
+      <p>도시지역분은 도시계획사업 등에 필요한 비용을 충당하기 위해 과세표준에 일정 세율을 곱해 부과되는 금액입니다. 재산세 본세와 별도로 표시되므로 고지서에서 금액이 크게 느껴질 수 있습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>전년도보다 갑자기 많이 올랐습니다. 어떻게 확인하나요?</summary>
+      <p>공시가격 상승, 1주택 여부 변화, 감면 종료, 도시지역분, 세부담상한 적용 여부를 확인하세요. 계산기 결과와 고지서가 크게 다르면 관할 구청 세무부서에 산출 근거를 문의할 수 있습니다.</p>
     </details>
   </section>
 
-  <p class="disclaimer">본 계산기는 2026년 지방세법 기준의 표준 공식에 따른 참고용 예상액을 제공하며, 세부담상한제·지역별 감면 등 개별 사정은 반영되지 않습니다. 법적 효력이 있는 세액은 관할 지방자치단체의 고지서를 기준으로 합니다.</p>
+  <p class="disclaimer">본 계산기는 2026년 주택분 재산세 표준 공식에 따른 참고용 예상액을 제공합니다. 세부담상한제, 지역별 감면, 전자고지 공제, 공동명의 지분별 고지 등 개별 사정은 실제 고지서에 별도로 반영될 수 있습니다. 법적 효력이 있는 세액은 관할 지방자치단체의 고지서를 기준으로 합니다.</p>
 
   <footer>
     문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>
@@ -375,7 +359,6 @@
   var priceInput = document.getElementById('price');
   var reading = document.getElementById('priceReading');
 
-  // 입력 콤마 + 한글 읽기
   function toKorean(manwon) {
     if (!manwon) return '';
     var eok = Math.floor(manwon / 10000);
@@ -385,13 +368,13 @@
     if (man > 0) s += man.toLocaleString('ko-KR') + '만 ';
     return s + '원';
   }
+
   priceInput.addEventListener('input', function () {
     var raw = this.value.replace(/[^0-9]/g, '');
     this.value = raw ? Number(raw).toLocaleString('ko-KR') : '';
     reading.textContent = raw ? toKorean(Number(raw)) : '';
   });
 
-  // 공정시장가액비율 (2026년 기준)
   function fairRatio(priceWon, isSingle) {
     if (!isSingle) return 0.60;
     if (priceWon <= 300000000) return 0.43;
@@ -399,7 +382,6 @@
     return 0.45;
   }
 
-  // 재산세 본세 (누진)
   function mainTax(base, useSpecial) {
     if (useSpecial) {
       if (base <= 60000000) return base * 0.0005;
@@ -422,10 +404,9 @@
       reading.textContent = '공시가격을 입력해 주세요.';
       return;
     }
-    var priceWon = Number(raw) * 10000; // 만원 → 원
+    var priceWon = Number(raw) * 10000;
     var isSingle = document.getElementById('own1').checked;
     var isUrban = document.getElementById('urban').checked;
-
     var ratio = fairRatio(priceWon, isSingle);
     var base = priceWon * ratio;
     var useSpecial = isSingle && priceWon <= 900000000;
@@ -433,19 +414,15 @@
     var urban = isUrban ? base * 0.0014 : 0;
     var edu = main * 0.2;
     var total = Math.floor(main + urban + edu);
-
-    // 10원 미만 절사
     total = Math.floor(total / 10) * 10;
 
     var lump = total <= 200000;
     var july = lump ? total : Math.floor(total / 2 / 10) * 10;
     var sept = lump ? 0 : total - july;
 
-    document.getElementById('totalAmt').innerHTML =
-      Math.floor(total).toLocaleString('ko-KR') + '<small> 원</small>';
+    document.getElementById('totalAmt').innerHTML = total.toLocaleString('ko-KR') + '<small> 원</small>';
     document.getElementById('julyAmt').textContent = won(july);
     document.getElementById('septAmt').textContent = lump ? '없음' : won(sept);
-
     document.getElementById('rPrice').textContent = won(priceWon);
     document.getElementById('rRatio').textContent = (ratio * 100).toFixed(0) + '%' + (isSingle ? ' (1주택 특례)' : ' (일반)');
     document.getElementById('rBase').textContent = won(base);
@@ -456,6 +433,13 @@
 
     document.getElementById('lumpNote').className = 'note-special' + (lump ? ' show' : '');
     document.getElementById('specialNote').className = 'note-special' + (useSpecial ? ' show' : '');
+
+    var guide = document.getElementById('resultGuide');
+    var guideText = document.getElementById('guideText');
+    var tier = useSpecial ? '1세대 1주택 특례세율' : '일반세율';
+    var urbanText = isUrban ? '도시지역분이 포함되어' : '도시지역분을 제외하여';
+    guideText.textContent = '입력한 공시가격 기준 과세표준은 ' + won(base) + '이며, ' + tier + '과 지방교육세가 반영됐습니다. ' + urbanText + ' 연간 예상 납부액은 ' + won(total) + '입니다.';
+    guide.className = 'result-guide show';
 
     var bill = document.getElementById('bill');
     bill.className = 'bill show';

@@ -3,67 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>정부지원 정책 - calcloude</title>
-<meta name="description" content="근로장려금, 청년미래적금, 국민내일배움카드 등 매달 바뀌는 정부 지원 정책의 신청방법·조건·지급일을 빠르게 정리합니다.">
+<title>정부지원 정책 모음 2026 - 근로장려금·청년미래적금·내일배움카드 | calcloude</title>
+<meta name="description" content="2026년 정부지원 정책을 한 곳에서 확인하세요. 근로장려금, 청년미래적금, 국민내일배움카드 등 신청 조건·지원금액·신청방법·지급일을 정리했습니다.">
 <link rel="canonical" href="https://calcloude.com/gov.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="정부지원 정책 모음 2026 - calcloude">
+<meta property="og:description" content="근로장려금, 청년미래적금, 국민내일배움카드 등 돈이 되는 정부지원 정책을 신청 조건과 함께 정리했습니다.">
+<meta property="og:url" content="https://calcloude.com/gov.html">
+<meta property="og:site_name" content="calcloude">
 <style>
-:root{--ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;--soft:#e8f1ec;--muted:#6b6f68;}
+:root{--ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;--soft:#e8f1ec;--muted:#6b6f68;--blue:#1e5e9a;--blueSoft:#e8f0fb;--gold:#a35b00;--goldSoft:#fff6df;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;}
 .topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
-.topbar-inner{max-width:860px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:18px;height:56px;}
+.topbar-inner{max-width:960px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:18px;height:56px;}
 .brand{font-weight:800;font-size:19px;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
 .navlinks{display:flex;gap:4px;overflow-x:auto;flex:1;}
 .navlinks::-webkit-scrollbar{display:none;}
 .navlinks a{color:var(--ink);text-decoration:none;font-size:14.5px;font-weight:600;padding:8px 12px;border-radius:8px;white-space:nowrap;}
 .navlinks a:hover,.navlinks a.active{background:var(--soft);color:var(--accent);}
-.wrap{max-width:860px;margin:0 auto;padding:0 20px 64px;}
-header{padding:32px 0 8px;}
-header h1{font-size:26px;letter-spacing:-0.01em;}
-header .sub{color:var(--muted);margin-top:8px;font-size:15px;}
-.list{display:grid;gap:10px;margin-top:24px;}
-a.policy{display:flex;align-items:baseline;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s;}
-a.policy:hover{border-color:var(--accent);box-shadow:0 3px 14px rgba(30,107,80,.08);}
-a.policy[data-hot]{border-color:#e8a020;background:#fffdf5;}
-.ptext{flex:1;}
-.ptag{font-size:11.5px;font-weight:700;color:#1e5e9a;background:#e8f0fb;border-radius:999px;padding:2px 9px;}
-.ptag.hot{color:#a04800;background:#fef0d8;}
-.policy h2{font-size:16px;line-height:1.45;margin-top:7px;letter-spacing:-0.01em;}
-.policy p{font-size:13.5px;color:var(--muted);margin-top:5px;}
-.date{font-size:12.5px;color:var(--muted);flex-shrink:0;}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px 72px;}
+.hero{padding:36px 0 18px;}
+.kicker{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--blue);background:var(--blueSoft);border-radius:999px;padding:4px 12px;margin-bottom:14px;}
+h1{font-size:32px;line-height:1.28;letter-spacing:-0.025em;}
+.sub{color:var(--muted);margin-top:10px;font-size:15.5px;max-width:720px;}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;}
+.quick .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px;}
+.quick .num{font-size:24px;font-weight:900;color:var(--accent);line-height:1.1;}
+.quick .txt{font-size:13.5px;color:var(--muted);margin-top:4px;}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:18px;}
+.panel h2,.sec h2{font-size:20px;letter-spacing:-0.015em;margin-bottom:10px;}
+.summary{background:var(--soft);border-color:#c5dcd1;}
+.summary ul{margin-left:20px;font-size:15px;}
+.summary li{margin:5px 0;}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;}
+.tabs button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit;}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+.sec{margin-top:30px;}
+.list{display:grid;gap:12px;margin-top:14px;}
+.policy{display:grid;grid-template-columns:1fr auto;gap:16px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .15s;}
+.policy:hover{border-color:var(--accent);box-shadow:0 3px 16px rgba(30,107,80,.11);transform:translateY(-1px);}
+.policy.hot{border-color:#e8a020;background:#fffdf5;}
+.ptag{display:inline-block;font-size:12px;font-weight:800;color:var(--blue);background:var(--blueSoft);border-radius:999px;padding:3px 10px;margin-bottom:8px;}
+.ptag.hot{color:var(--gold);background:var(--goldSoft);}
+.policy h3{font-size:17px;line-height:1.45;letter-spacing:-0.015em;}
+.policy p{font-size:14px;color:var(--muted);margin-top:5px;}
+.meta{font-size:12.5px;color:var(--muted);white-space:nowrap;text-align:right;padding-top:3px;}
+.meta strong{display:block;color:var(--accent);font-size:13px;margin-bottom:3px;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px;}
+.card h3{font-size:15.5px;margin-bottom:6px;}
+.card p{font-size:13.8px;color:var(--muted);}
+.card a{display:inline-block;margin-top:10px;color:var(--accent);text-decoration:none;font-weight:800;font-size:13.5px;}
+.check{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;}
+.check .item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 15px;font-size:14.5px;}
+.check strong{color:var(--accent);}
+.notice{background:#fff7ea;border:1px solid #ead6ad;border-radius:14px;padding:16px 18px;margin-top:16px;color:#70480b;font-size:14.5px;}
+.notice strong{color:#5d3904;}
+.related{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px;}
+.related a{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px 16px;text-decoration:none;color:var(--ink);font-weight:800;font-size:14.5px;}
+.related a span{display:block;font-weight:500;color:var(--muted);font-size:13px;margin-top:3px;}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-top:10px;}
+.faq summary{padding:14px 16px;cursor:pointer;font-weight:800;list-style:none;}
+.faq summary::before{content:"Q. ";color:var(--accent);}
+.faq p{padding:0 16px 14px;color:#3c443f;font-size:14.5px;}
 footer{margin-top:44px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;}
 footer a{color:var(--muted);}
-@media(max-width:560px){header h1{font-size:22px;}}
+@media(max-width:700px){h1{font-size:26px}.quick,.grid,.check,.related{grid-template-columns:1fr}.policy{grid-template-columns:1fr}.meta{text-align:left}.wrap{padding-left:18px;padding-right:18px}}
 </style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":"정부지원 정책 모음 2026",
+  "url":"https://calcloude.com/gov.html",
+  "description":"근로장려금, 청년미래적금, 국민내일배움카드 등 2026년 정부지원 정책의 신청 조건과 방법을 정리한 허브 페이지입니다.",
+  "isPartOf":{"@type":"WebSite","name":"calcloude","url":"https://calcloude.com"},
+  "mainEntity":{
+    "@type":"ItemList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"2026 근로장려금 총정리","url":"https://calcloude.com/gov-earned-income-tax-credit.html"},
+      {"@type":"ListItem","position":2,"name":"2026 청년미래적금 총정리","url":"https://calcloude.com/gov-youth-savings.html"},
+      {"@type":"ListItem","position":3,"name":"2026 국민내일배움카드 총정리","url":"https://calcloude.com/gov-learning-card.html"}
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"홈","item":"https://calcloude.com/"},
+    {"@type":"ListItem","position":2,"name":"정부지원","item":"https://calcloude.com/gov.html"}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="topbar"><div class="topbar-inner"><a href="/" class="brand">calcloude</a><nav class="navlinks"><a href="/gov.html" class="active">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
 <div class="wrap">
-  <header>
-    <h1>🏛 정부지원 정책</h1>
-    <p class="sub">매달 바뀌는 정부 지원금·정책의 신청방법, 조건, 지급일을 빠르게 정리합니다.</p>
-  </header>
-  <div class="list">
-    <a class="policy" href="/gov-earned-income-tax-credit.html" data-hot="1">
-      <div class="ptext"><span class="ptag hot">🔥 6월 25일 지급</span>
-        <h2>2026 반기 근로장려금 지급일·심사결과·금액 조회 방법 총정리</h2>
-        <p>홈택스·손택스·ARS 조회법, 가구별 지급액, 못 받았을 때 대처법.</p></div>
-      <span class="date">06-15</span>
-    </a>
-    <a class="policy" href="/gov-youth-savings.html">
-      <div class="ptext"><span class="ptag">청년</span>
-        <h2>2026 청년미래적금 신청방법·조건·금리 총정리 (도약계좌 갈아타기)</h2>
-        <p>만 19~34세, 월 50만원, 3년, 최고 8% + 정부 기여금 + 비과세.</p></div>
-      <span class="date">06-15</span>
-    </a>
-    <a class="policy" href="/gov-learning-card.html">
-      <div class="ptext"><span class="ptag">직업훈련</span>
-        <h2>2026 국민내일배움카드 신청방법·지원금액·훈련장려금 (최대 500만원)</h2>
-        <p>구직자·재직자·자영업자 모두 가능. 훈련비 + 매월 현금 훈련장려금.</p></div>
-      <span class="date">06-15</span>
-    </a>
+  <section class="hero">
+    <span class="kicker">🏛 2026 정부지원 정책 허브</span>
+    <h1>근로장려금부터 청년미래적금까지<br>지금 신청할 수 있는 정부지원 정책</h1>
+    <p class="sub">정부지원 정책은 신청 기간, 소득 기준, 제출 서류를 놓치면 받을 수 있는 돈을 놓치기 쉽습니다. calcloude는 복잡한 정책을 신청 조건·지원금액·신청방법 중심으로 정리합니다.</p>
+    <div class="quick">
+      <div class="box"><div class="num">3</div><div class="txt">현재 정리된 핵심 정부지원 글</div></div>
+      <div class="box"><div class="num">2026</div><div class="txt">최신 정책 기준으로 업데이트</div></div>
+      <div class="box"><div class="num">신청 전</div><div class="txt">자격·서류·기간 먼저 확인</div></div>
+    </div>
+  </section>
+
+  <section class="panel summary">
+    <h2>3줄 요약</h2>
+    <ul>
+      <li><strong>근로장려금</strong>은 소득이 낮은 근로·사업·종교인 가구가 받을 수 있는 대표 지원금입니다.</li>
+      <li><strong>청년미래적금</strong>은 청년 자산형성, <strong>국민내일배움카드</strong>는 직업훈련비 지원에 초점이 있습니다.</li>
+      <li>지원금은 대부분 <strong>신청 기간</strong>과 <strong>소득·재산 기준</strong>이 있으므로, 글을 열어 본인 조건부터 확인하세요.</li>
+    </ul>
+  </section>
+
+  <div class="tabs" aria-label="정부지원 카테고리 필터">
+    <button class="on" onclick="filterPolicy('all',this)">전체</button>
+    <button onclick="filterPolicy('income',this)">소득지원</button>
+    <button onclick="filterPolicy('youth',this)">청년</button>
+    <button onclick="filterPolicy('job',this)">취업·훈련</button>
   </div>
-  <footer>문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a></footer>
+
+  <section class="sec">
+    <h2>지금 먼저 확인할 정책</h2>
+    <div class="list" id="policyList">
+      <a class="policy hot" href="/gov-earned-income-tax-credit.html" data-cat="income">
+        <div class="ptext"><span class="ptag hot">🔥 소득지원 · 지급/신청</span>
+          <h3>2026 근로장려금 총정리 — 신청자격·지급일·금액조회·탈락사유</h3>
+          <p>단독·홑벌이·맞벌이 가구별 소득 기준, 재산 기준, 반기·정기·기한 후 신청, 지급 제외 사유까지 한 번에 확인합니다.</p></div>
+        <div class="meta"><strong>최대 330만 원</strong>근로·사업·종교인 가구</div>
+      </a>
+
+      <a class="policy" href="/gov-youth-savings.html" data-cat="youth">
+        <div class="ptext"><span class="ptag">청년 · 자산형성</span>
+          <h3>2026 청년미래적금 신청방법·조건·금리 총정리</h3>
+          <p>만 19~34세 청년의 3년 자산형성 상품. 정부기여금, 비과세, 청년도약계좌 갈아타기 조건을 정리했습니다.</p></div>
+        <div class="meta"><strong>월 50만 원</strong>정부기여금+비과세</div>
+      </a>
+
+      <a class="policy" href="/gov-learning-card.html" data-cat="job">
+        <div class="ptext"><span class="ptag">취업·직업훈련</span>
+          <h3>2026 국민내일배움카드 신청방법·지원금액·훈련장려금</h3>
+          <p>구직자·재직자·자영업자가 활용할 수 있는 직업훈련비 지원 제도. 훈련비, 본인부담금, 훈련장려금을 정리했습니다.</p></div>
+        <div class="meta"><strong>최대 500만 원</strong>직업훈련비 지원</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>목적별로 고르기</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>생활비·소득 보전이 필요하다면</h3>
+        <p>근로장려금처럼 소득 기준에 따라 현금성 지원을 받을 수 있는 정책부터 확인하세요.</p>
+        <a href="/gov-earned-income-tax-credit.html">근로장려금 보기 →</a>
+      </div>
+      <div class="card">
+        <h3>청년 목돈 마련이 목표라면</h3>
+        <p>청년미래적금은 납입액, 기여금, 비과세를 함께 보는 것이 중요합니다.</p>
+        <a href="/gov-youth-savings.html">청년미래적금 보기 →</a>
+      </div>
+      <div class="card">
+        <h3>취업·이직 준비 중이라면</h3>
+        <p>국민내일배움카드로 훈련비 부담을 줄이고, 훈련장려금 대상인지도 확인하세요.</p>
+        <a href="/gov-learning-card.html">내일배움카드 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>신청 전 체크리스트</h2>
+    <div class="check">
+      <div class="item"><strong>소득 기준</strong><br>총급여·사업소득·가구소득 기준을 먼저 확인하세요.</div>
+      <div class="item"><strong>재산 기준</strong><br>근로장려금 등은 부동산·예금·자동차 등 재산 합계가 영향을 줍니다.</div>
+      <div class="item"><strong>신청 기간</strong><br>정기·반기·기한 후 신청처럼 기간에 따라 지급액이 달라질 수 있습니다.</div>
+      <div class="item"><strong>본인 인증</strong><br>홈택스, 고용24, 은행 앱 신청에는 간편인증 또는 공동인증서가 필요합니다.</div>
+    </div>
+    <div class="notice"><strong>주의:</strong> 정부지원 정책은 매년 기준이 바뀔 수 있습니다. 이 페이지는 쉬운 이해를 위한 안내이며, 실제 신청 전에는 각 글에 적힌 공식 사이트에서 최종 기준을 확인하세요.</div>
+  </section>
+
+  <section class="sec">
+    <h2>함께 보면 좋은 페이지</h2>
+    <div class="related">
+      <a href="/region.html">📍 지역소식<span>서울·경기·인천·부산 등 지역별 지원금·채용·세제혜택</span></a>
+      <a href="/labor.html">👷 노무 계산기<span>퇴직금, 연차수당, 4대보험, 실업급여 계산</span></a>
+      <a href="/tax.html">🧾 세금 계산기<span>재산세, 부가세, 전기요금 등 생활 세금·요금 계산</span></a>
+      <a href="/blog.html">📚 전체 가이드<span>정부지원·세금·노무 글 모아보기</span></a>
+    </div>
+  </section>
+
+  <section class="sec faq">
+    <h2>자주 묻는 질문</h2>
+    <details>
+      <summary>정부지원 정책은 자동으로 받을 수 있나요?</summary>
+      <p>대부분은 자동 지급이 아니라 신청이 필요합니다. 근로장려금처럼 안내문을 받아도 직접 신청해야 하는 경우가 많습니다.</p>
+    </details>
+    <details>
+      <summary>소득이 조금 넘으면 무조건 못 받나요?</summary>
+      <p>정책마다 다릅니다. 근로장려금은 가구 유형별 소득 기준이 있고, 청년 자산형성 상품은 개인소득·가구소득 기준이 함께 적용될 수 있습니다.</p>
+    </details>
+    <details>
+      <summary>지역 지원금도 여기서 볼 수 있나요?</summary>
+      <p>전국 공통 정부지원은 이 페이지에서, 지자체 지원금과 지역 채용·세제혜택은 지역소식 페이지에서 확인하는 구조로 운영합니다.</p>
+    </details>
+  </section>
+
+  <footer>
+    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a><br>
+    본 사이트의 정보는 참고용이며, 정확한 사항은 관할 기관의 최신 안내를 기준으로 합니다.
+  </footer>
 </div>
+<script>
+function filterPolicy(cat, btn){
+  document.querySelectorAll('.tabs button').forEach(function(b){b.className='';});
+  btn.className='on';
+  document.querySelectorAll('#policyList .policy').forEach(function(card){
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
 </body>
 </html>

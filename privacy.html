@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>개인정보처리방침 - 생활 계산기 모음</title>
-<meta name="description" content="생활 계산기 모음 사이트의 개인정보처리방침입니다.">
+<title>개인정보처리방침 - calcloude</title>
+<meta name="description" content="calcloude의 개인정보처리방침입니다. 계산기 입력값 처리 방식, 쿠키, Google AdSense 광고, 외부 링크, 문의처를 안내합니다.">
 <meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:title" content="개인정보처리방침 - calcloude">
+<meta property="og:description" content="calcloude의 개인정보 처리, 쿠키, 광고 및 외부 링크 안내입니다.">
+<meta property="og:url" content="https://calcloude.com/privacy.html">
+<meta property="og:site_name" content="calcloude">
+<link rel="canonical" href="https://calcloude.com/privacy.html">
 <style>
   :root {
     --ink: #1f2a24;
@@ -14,6 +20,7 @@
     --accent: #1e6b50;
     --accent-soft: #e8f1ec;
     --muted: #6b6f68;
+    --warn: #8a5a14;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -22,26 +29,91 @@
     color: var(--ink);
     line-height: 1.8;
   }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
-  nav.top { font-size: 14px; }
-  nav.top a { color: var(--muted); text-decoration: none; }
-  nav.top a:hover { color: var(--accent); }
-  header { padding: 24px 0 8px; }
-  h1 { font-size: 26px; letter-spacing: -0.01em; }
-  .meta { color: var(--muted); font-size: 13.5px; margin-top: 8px; }
-
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 64px; }
+  .cl-topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;margin-bottom:8px;}
+  .cl-topbar-inner{max-width:760px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
+  .cl-brand{font-weight:800;font-size:18px;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+  .cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
+  .cl-navlinks::-webkit-scrollbar{display:none;}
+  .cl-navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
+  .cl-navlinks a:hover{background:var(--accent-soft);color:var(--accent);}
+  header { padding: 26px 0 10px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+  .eyebrow {
+    display:inline-block;
+    font-size:13px;
+    letter-spacing:.08em;
+    color:var(--accent);
+    border:1px solid var(--accent);
+    border-radius:999px;
+    padding:2px 12px;
+    margin-bottom:14px;
+  }
+  h1 { font-size: 28px; letter-spacing: -0.01em; line-height: 1.35; }
+  .meta { color: var(--muted); font-size: 13.5px; margin-top: 10px; }
+  .lead { font-size: 15.5px; margin: 18px 0; color:#3c443f; }
+  .summary {
+    background: var(--accent-soft);
+    border: 1px solid #c5dcd1;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 18px 0 24px;
+    font-size: 14.5px;
+    color: #195741;
+  }
+  .summary strong { color:#114433; }
+  .summary ul { margin: 6px 0 0 20px; }
+  .toc {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+    margin:20px 0 28px;
+  }
+  .toc strong { display:block; margin-bottom:8px; color:var(--accent); }
+  .toc a { color:var(--ink); text-decoration:none; font-size:14.5px; display:block; padding:3px 0; }
+  .toc a:hover { color:var(--accent); }
   main h2 {
-    font-size: 18px;
-    margin: 32px 0 10px;
+    font-size: 19px;
+    margin: 34px 0 10px;
     padding-left: 12px;
     border-left: 4px solid var(--accent);
     letter-spacing: -0.01em;
   }
+  main h3 { font-size:16px; margin:20px 0 8px; }
   main p { margin-bottom: 13px; font-size: 15px; }
   main ul { margin: 0 0 13px 20px; font-size: 15px; }
   main li { margin-bottom: 6px; }
   main a { color: var(--accent); }
-
+  table.info {
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+    background:#fff;
+    margin:12px 0 18px;
+  }
+  table.info th, table.info td {
+    border:1px solid var(--line);
+    padding:10px 11px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.info th { background:var(--accent-soft); white-space:nowrap; }
+  .notice {
+    background:#fffdf5;
+    border:1px solid #ead9a4;
+    border-radius:12px;
+    padding:14px 16px;
+    color:var(--warn);
+    font-size:14px;
+    margin:16px 0;
+  }
+  .contact-box {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+    margin-top:12px;
+  }
   footer {
     margin-top: 44px;
     font-size: 13px;
@@ -50,15 +122,25 @@
     padding-top: 16px;
   }
   footer a { color: var(--muted); }
-
-.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
-.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
-.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
-.cl-navlinks::-webkit-scrollbar{display:none;}
-.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
-.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
+  @media (max-width: 480px) {
+    h1 { font-size: 23px; }
+    .wrap { padding-left:18px; padding-right:18px; }
+  }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "개인정보처리방침",
+  "url": "https://calcloude.com/privacy.html",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "calcloude",
+    "url": "https://calcloude.com/"
+  },
+  "inLanguage": "ko-KR"
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -66,45 +148,106 @@
   <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
 
   <header>
+    <span class="eyebrow">Privacy Policy</span>
     <h1>개인정보처리방침</h1>
-    <p class="meta">시행일: 2026년 6월 1일</p>
+    <p class="meta">시행일: 2026년 6월 1일 · 최종 업데이트: 2026년 6월 29일</p>
   </header>
 
   <main>
-    <p>생활 계산기 모음(이하 "본 사이트")은 이용자의 개인정보를 소중히 여기며, 관련 법령을 준수합니다. 본 방침은 본 사이트가 어떤 정보를 다루는지, 이용자가 무엇을 선택할 수 있는지 설명합니다.</p>
+    <p class="lead">calcloude(이하 “본 사이트”)는 정부지원, 세금, 노무, 생활 계산기 정보를 제공하는 웹사이트입니다. 본 방침은 본 사이트가 이용자의 개인정보, 계산기 입력값, 쿠키, 광고 관련 정보를 어떻게 처리하는지 설명합니다.</p>
 
-    <h2>1. 직접 수집하는 개인정보</h2>
-    <p>본 사이트는 회원가입, 로그인, 댓글 기능을 제공하지 않으며, 이용자의 개인정보를 직접 수집하지 않습니다. 계산기에 입력하는 모든 값(공시가격, 금액, 사용량 등)은 이용자의 브라우저 안에서만 계산되며, 서버로 전송되거나 저장되지 않습니다.</p>
+    <div class="summary">
+      <strong>핵심 요약</strong>
+      <ul>
+        <li>본 사이트는 회원가입·로그인·댓글 기능을 제공하지 않으며, 이용자의 개인정보를 직접 수집하지 않습니다.</li>
+        <li>계산기에 입력한 금액·날짜·사용량 등은 이용자의 브라우저 안에서 계산되며 서버에 저장하지 않습니다.</li>
+        <li>Google AdSense 광고 또는 통계 도구가 사용되는 경우 쿠키가 활용될 수 있습니다.</li>
+      </ul>
+    </div>
 
-    <h2>2. 자동으로 수집될 수 있는 정보 (쿠키)</h2>
-    <p>본 사이트는 서비스 제공 및 광고 게재 과정에서 쿠키(cookie)가 사용될 수 있습니다. 쿠키는 웹사이트가 이용자의 브라우저에 저장하는 작은 텍스트 파일로, 개인을 직접 식별하지 않습니다.</p>
+    <div class="toc">
+      <strong>목차</strong>
+      <a href="#collect">1. 직접 수집하는 개인정보</a>
+      <a href="#calculator">2. 계산기 입력값 처리 방식</a>
+      <a href="#cookies">3. 쿠키 및 자동 수집 정보</a>
+      <a href="#ads">4. Google AdSense 및 맞춤형 광고</a>
+      <a href="#analytics">5. 접속 통계 및 로그</a>
+      <a href="#external">6. 외부 링크</a>
+      <a href="#rights">7. 이용자의 선택권</a>
+      <a href="#children">8. 아동의 개인정보</a>
+      <a href="#contact">9. 문의처</a>
+      <a href="#changes">10. 방침 변경</a>
+    </div>
+
+    <h2 id="collect">1. 직접 수집하는 개인정보</h2>
+    <p>본 사이트는 회원가입, 로그인, 댓글, 게시판, 결제, 상담 신청 기능을 제공하지 않습니다. 따라서 이름, 생년월일, 주민등록번호, 주소, 전화번호, 이메일 등 이용자를 직접 식별할 수 있는 개인정보를 별도로 수집하지 않습니다.</p>
+    <p>다만 이용자가 사이트 운영자에게 이메일로 문의하는 경우, 답변을 위해 이메일 주소와 문의 내용이 확인될 수 있습니다. 이 정보는 문의 응대 목적 외로 사용하지 않습니다.</p>
+
+    <h2 id="calculator">2. 계산기 입력값 처리 방식</h2>
+    <p>본 사이트의 계산기는 이용자의 브라우저에서 작동하는 JavaScript 기반 계산기입니다. 예를 들어 월급, 공시가격, 전기 사용량, 퇴직일, 미사용 연차 일수 등을 입력하더라도 해당 값은 계산 결과를 표시하기 위해 브라우저 안에서만 사용됩니다.</p>
+    <table class="info">
+      <tbody>
+        <tr><th>입력값 예시</th><td>월급, 공시가격, 전기 사용량, 사용 시간, 날짜, 연차 일수 등</td></tr>
+        <tr><th>저장 여부</th><td>본 사이트 서버에 저장하지 않습니다.</td></tr>
+        <tr><th>전송 여부</th><td>계산 목적상 외부 서버로 전송하지 않습니다.</td></tr>
+        <tr><th>주의사항</th><td>공용 PC나 타인의 기기에서는 입력 후 브라우저 기록·자동완성 정보를 삭제하는 것이 좋습니다.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="cookies">3. 쿠키 및 자동 수집 정보</h2>
+    <p>본 사이트는 서비스 제공, 광고 표시, 접속 통계 확인 과정에서 쿠키(cookie) 또는 유사 기술을 사용할 수 있습니다. 쿠키는 웹사이트가 이용자의 브라우저에 저장하는 작은 텍스트 파일이며, 일반적으로 개인을 직접 식별하지 않습니다.</p>
+    <p>자동으로 수집될 수 있는 정보는 다음과 같습니다.</p>
     <ul>
-      <li><strong>광고 쿠키</strong>: 본 사이트는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google을 포함한 제3자 광고 사업자는 쿠키를 사용하여 이용자의 본 사이트 및 다른 웹사이트 방문 기록을 기반으로 맞춤형 광고를 게재할 수 있습니다.</li>
-      <li><strong>Google의 광고 쿠키</strong> 사용에 대한 자세한 내용과 설정은 <a href="https://policies.google.com/technologies/ads?hl=ko" target="_blank" rel="noopener">Google 광고 정책 페이지</a>에서 확인할 수 있습니다.</li>
+      <li>접속한 페이지, 방문 시간, 브라우저 종류, 기기 정보 등 기본적인 접속 정보</li>
+      <li>광고 노출·클릭과 관련된 비식별 정보</li>
+      <li>쿠키 또는 광고 식별자를 통한 관심 기반 광고 제공 정보</li>
     </ul>
 
-    <h2>3. 쿠키 거부 방법</h2>
-    <p>이용자는 다음 방법으로 쿠키 저장을 거부하거나 삭제할 수 있습니다. 다만 쿠키를 차단해도 본 사이트의 계산기 이용에는 아무런 제한이 없습니다.</p>
+    <h2 id="ads">4. Google AdSense 및 맞춤형 광고</h2>
+    <p>본 사이트는 Google AdSense 등 제3자 광고 서비스를 통해 광고를 게재할 수 있습니다. Google을 포함한 제3자 광고 사업자는 쿠키를 사용하여 이용자의 본 사이트 및 다른 웹사이트 방문 기록을 기반으로 맞춤형 광고를 표시할 수 있습니다.</p>
     <ul>
-      <li>맞춤형 광고 거부: <a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google 광고 설정</a>에서 광고 개인 최적화를 해제할 수 있습니다.</li>
-      <li>브라우저 설정: 사용 중인 브라우저(Chrome, Safari, Edge 등)의 설정 메뉴에서 쿠키 차단 및 삭제가 가능합니다.</li>
+      <li>Google은 광고 제공을 위해 쿠키 또는 광고 식별자를 사용할 수 있습니다.</li>
+      <li>이용자는 Google 광고 설정에서 맞춤형 광고를 관리하거나 해제할 수 있습니다.</li>
+      <li>광고 쿠키 사용에 대한 자세한 내용은 <a href="https://policies.google.com/technologies/ads?hl=ko" target="_blank" rel="noopener">Google 광고 기술 안내</a>에서 확인할 수 있습니다.</li>
     </ul>
 
-    <h2>4. 외부 링크</h2>
-    <p>본 사이트는 위택스, 한전ON 등 외부 사이트로 연결되는 링크를 포함합니다. 외부 사이트의 개인정보 처리에 대해서는 해당 사이트의 방침이 적용되며, 본 사이트는 책임을 지지 않습니다.</p>
+    <div class="notice">
+      본 사이트는 금융·세금·노무 정보를 제공하지만, 이용자의 주민등록번호, 계좌번호, 카드번호, 건강정보 등 민감한 개인정보를 입력하도록 요구하지 않습니다. 이러한 정보는 절대 계산기나 문의 내용에 입력하지 마세요.
+    </div>
 
-    <h2>5. 개인정보 보호책임자 및 문의</h2>
-    <p>본 사이트의 개인정보 관련 문의는 아래 이메일로 연락 주시기 바랍니다.</p>
+    <h2 id="analytics">5. 접속 통계 및 로그</h2>
+    <p>본 사이트는 서비스 개선과 오류 확인을 위해 접속 통계 도구를 사용할 수 있습니다. 이 경우 방문 페이지, 접속 시간, 브라우저·기기 정보 등 비식별 정보가 통계 목적으로 활용될 수 있습니다.</p>
+    <p>통계 정보는 사이트 품질 개선, 인기 콘텐츠 파악, 오류 수정, 검색 유입 분석 등 운영 목적에 한해 사용됩니다.</p>
+
+    <h2 id="external">6. 외부 링크</h2>
+    <p>본 사이트는 위택스, 홈택스, 고용24, 국민건강보험, 한전ON, 법령정보센터 등 외부 사이트로 연결되는 링크를 포함할 수 있습니다. 외부 사이트로 이동한 뒤의 개인정보 처리, 쿠키 사용, 광고 정책은 해당 사이트의 개인정보처리방침이 적용됩니다.</p>
+    <p>본 사이트는 외부 사이트의 개인정보 처리나 서비스 내용에 대해 책임지지 않으므로, 중요한 신청·납부·신고는 반드시 해당 기관의 공식 안내를 확인하시기 바랍니다.</p>
+
+    <h2 id="rights">7. 이용자의 선택권</h2>
+    <p>이용자는 브라우저 설정 또는 광고 설정 페이지를 통해 쿠키 저장을 거부하거나 삭제할 수 있습니다. 쿠키를 차단하더라도 본 사이트의 계산기와 일반 콘텐츠 이용에는 큰 제한이 없습니다.</p>
     <ul>
-      <li>이메일: kyona20250718@gmail.com</li>
+      <li>Chrome, Safari, Edge 등 브라우저 설정에서 쿠키 차단 및 삭제 가능</li>
+      <li><a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google 광고 설정</a>에서 맞춤형 광고 관리 가능</li>
+      <li>브라우저의 시크릿 모드 또는 개인정보 보호 모드를 사용할 수 있음</li>
     </ul>
 
-    <h2>6. 방침의 변경</h2>
-    <p>본 방침은 법령 또는 서비스 변경에 따라 수정될 수 있으며, 변경 시 본 페이지를 통해 공지하고 시행일을 갱신합니다.</p>
+    <h2 id="children">8. 아동의 개인정보</h2>
+    <p>본 사이트는 아동을 대상으로 개인정보를 수집하지 않습니다. 또한 회원가입이나 직접 입력형 개인정보 수집 기능을 제공하지 않습니다. 만약 아동의 개인정보가 이메일 문의 등을 통해 전달된 사실이 확인될 경우, 확인 즉시 삭제하도록 노력합니다.</p>
+
+    <h2 id="contact">9. 개인정보 보호책임자 및 문의</h2>
+    <p>본 사이트의 개인정보 처리와 관련한 문의는 아래 연락처로 보내주시기 바랍니다.</p>
+    <div class="contact-box">
+      <p><strong>사이트명:</strong> calcloude</p>
+      <p><strong>문의 이메일:</strong> kyona20250718@gmail.com</p>
+      <p><strong>처리 목적:</strong> 개인정보 관련 문의 확인 및 답변</p>
+    </div>
+
+    <h2 id="changes">10. 방침의 변경</h2>
+    <p>본 개인정보처리방침은 관련 법령, 광고 정책, 사이트 기능 변경에 따라 수정될 수 있습니다. 내용이 변경되는 경우 본 페이지의 최종 업데이트 날짜를 갱신하여 안내합니다.</p>
   </main>
 
   <footer>
-    문의: kyona20250718@gmail.com · <a href="/">계산기 홈</a>
+    문의: kyona20250718@gmail.com · <a href="/">홈으로</a>
   </footer>
 </div>
 </body>

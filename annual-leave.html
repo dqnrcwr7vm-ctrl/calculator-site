@@ -3,233 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>연차수당 계산기 - 미사용 연차, 돈으로 얼마인지 바로 확인 (2026)</title>
-<meta name="description" content="연차수당 계산기. 월급과 남은 연차 일수만 넣으면 1일 통상임금 기준 연차수당을 바로 계산합니다. 연차 발생 개수 기준표 포함.">
-<style>
-  :root {
-    --ink: #1f2a24; --paper: #fbfaf7; --line: #d9d4c8;
-    --accent: #1e6b50; --accent-soft: #e8f1ec; --warn: #8a5a14; --muted: #6b6f68;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
-    background: var(--paper); color: var(--ink); line-height: 1.7;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
-  nav.top { font-size: 14px; }
-  nav.top a { color: var(--muted); text-decoration: none; }
-  nav.top a:hover { color: var(--accent); }
-  header { padding: 24px 0 8px; }
-  .eyebrow {
-    display: inline-block; font-size: 13px; letter-spacing: 0.08em;
-    color: var(--accent); border: 1px solid var(--accent);
-    border-radius: 999px; padding: 2px 12px; margin-bottom: 14px;
-  }
-  h1 { font-size: 28px; line-height: 1.35; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); margin-top: 10px; font-size: 15px; }
-  .calc {
-    background: #fff; border: 1px solid var(--line); border-radius: 14px;
-    padding: 24px 22px; margin-top: 26px; box-shadow: 0 2px 10px rgba(31,42,36,0.05);
-  }
-  .field { margin-bottom: 18px; }
-  label.title { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
-  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
-  .money-input { position: relative; }
-  .money-input input {
-    width: 100%; font-size: 19px; font-weight: 700;
-    padding: 12px 50px 12px 14px; border: 1.5px solid var(--line);
-    border-radius: 10px; background: var(--paper); color: var(--ink);
-  }
-  .money-input input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
-  .money-input .unit {
-    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-    font-size: 14px; color: var(--muted); font-weight: 600;
-  }
-  button.go {
-    width: 100%; background: var(--accent); color: #fff;
-    font-size: 17px; font-weight: 700; padding: 15px;
-    border: 0; border-radius: 10px; cursor: pointer; margin-top: 4px;
-  }
-  button.go:hover { background: #16573f; }
-  .err { color: #b3431e; font-size: 14px; font-weight: 700; margin-top: 10px; display: none; }
-  .err.show { display: block; }
-  .result { display: none; margin-top: 26px; }
-  .result.show { display: block; }
-  .pay-card { background: #fff; border: 1px solid var(--ink); border-radius: 4px; overflow: hidden; }
-  .pay-head {
-    background: var(--ink); color: #fff; padding: 12px 18px;
-    font-size: 14px; letter-spacing: 0.12em; font-weight: 700;
-    display: flex; justify-content: space-between;
-  }
-  .pay-head .s { opacity: .75; letter-spacing: 0; }
-  .pay-main { text-align: center; padding: 26px 18px 20px; border-bottom: 1px dashed var(--line); }
-  .pay-main .lbl { font-size: 14px; color: var(--muted); }
-  .pay-main .amt { font-size: 35px; font-weight: 800; letter-spacing: -0.02em; margin-top: 2px; color: var(--accent); }
-  .pay-main .amt small { font-size: 18px; }
-  .rows { padding: 14px 18px 18px; }
-  .rows .row {
-    display: flex; justify-content: space-between; font-size: 14.5px;
-    padding: 7px 0; border-bottom: 1px solid #f0ede5;
-  }
-  .rows .row:last-child { border-bottom: 0; }
-  .rows .row .k { color: var(--muted); }
-  .rows .row .v { font-weight: 700; font-variant-numeric: tabular-nums; }
-  section.article { margin-top: 48px; }
-  section.article h2 {
-    font-size: 21px; margin: 36px 0 12px; padding-left: 12px;
-    border-left: 4px solid var(--accent); letter-spacing: -0.01em;
-  }
-  section.article p { margin-bottom: 14px; font-size: 15.5px; }
-  table.rate {
-    width: 100%; border-collapse: collapse; font-size: 14px;
-    margin: 14px 0 18px; background: #fff;
-  }
-  table.rate th, table.rate td { border: 1px solid var(--line); padding: 9px 10px; text-align: left; }
-  table.rate th { background: var(--accent-soft); font-size: 13.5px; }
-  details.faq { background: #fff; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px; }
-  details.faq summary { cursor: pointer; font-weight: 700; font-size: 15px; padding: 14px 16px; list-style: none; }
-  details.faq summary::before { content: "Q. "; color: var(--accent); }
-  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
-  .disclaimer { margin-top: 40px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
-  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
-  footer a { color: var(--muted); }
-  @media (max-width: 480px) { h1 { font-size: 23px; } .pay-main .amt { font-size: 29px; } }
-
-.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
-.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
-.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
-.cl-navlinks::-webkit-scrollbar{display:none;}
-.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
-.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
-</style>
+<title>연차수당 계산기 2026 - 퇴사·미사용 연차 수당, 통상임금으로 바로 계산</title>
+<meta name="description" content="2026 연차수당 계산기. 월 통상임금과 미사용 연차 일수를 입력하면 세전 연차수당을 계산하고, 퇴사 시 정산·연차사용촉진·세금·4대보험·청구 방법까지 한 번에 확인할 수 있습니다.">
 <link rel="canonical" href="https://calcloude.com/annual-leave.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="연차수당 계산기 2026 - 미사용 연차 수당 바로 계산">
+<meta property="og:description" content="월급과 남은 연차만 입력하면 1일 통상임금 기준 연차수당을 계산하고, 퇴사 정산·사용촉진·세금까지 정리합니다.">
+<meta property="og:url" content="https://calcloude.com/annual-leave.html">
+<meta property="og:site_name" content="calcloude">
+<meta name="twitter:card" content="summary">
+<style>
+:root{--ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;--accent-soft:#e8f1ec;--warn:#8a5a14;--hot:#b3431e;--muted:#6b6f68;--blue:#1e5e9a;--blue-soft:#e8f0fb;}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.75}.wrap{max-width:760px;margin:0 auto;padding:24px 20px 64px}.cl-topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;margin:-24px -20px 8px}.cl-topbar-inner{max-width:760px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px}.cl-brand{font-weight:800;font-size:18px;color:var(--accent);text-decoration:none;letter-spacing:-.02em;flex-shrink:0}.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1}.cl-navlinks::-webkit-scrollbar{display:none}.cl-navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap}.cl-navlinks a:hover{background:var(--accent-soft);color:var(--accent)}header{padding:30px 0 12px}.eyebrow{display:inline-block;font-size:13px;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:2px 12px;margin-bottom:14px}h1{font-size:30px;line-height:1.35;letter-spacing:-.02em}.sub{color:var(--muted);margin-top:10px;font-size:15.5px}.meta{color:var(--muted);font-size:13px;margin-top:10px}.summary{background:var(--accent-soft);border:1px solid #c5dcd1;border-radius:14px;padding:16px 18px;margin-top:20px}.summary strong{color:#114433}.summary ul{margin:8px 0 0 18px;font-size:14.5px}.summary li{margin:4px 0}.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:16px}.toc .t{font-weight:800;color:var(--accent);margin-bottom:8px}.toc a{display:inline-block;color:var(--ink);text-decoration:none;font-size:14px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 10px;margin:4px 4px 0 0}.toc a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}.calc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;margin-top:28px;box-shadow:0 2px 12px rgba(31,42,36,.05)}.calc h2{font-size:20px;margin-bottom:14px;letter-spacing:-.01em}.field{margin-bottom:18px}label.title{display:block;font-weight:800;font-size:15px;margin-bottom:8px}.hint{font-size:13px;color:var(--muted);margin-top:6px}.money-input{position:relative}.money-input input{width:100%;font-size:19px;font-weight:800;padding:12px 54px 12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}.money-input input:focus{outline:2px solid var(--accent);border-color:var(--accent)}.money-input .unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--muted);font-weight:700}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.radio-row{display:flex;gap:8px;flex-wrap:wrap}.radio-row input{position:absolute;opacity:0}.radio-row label{flex:1;min-width:130px;text-align:center;border:1.5px solid var(--line);border-radius:10px;padding:10px 8px;background:#fff;cursor:pointer;font-size:14px}.radio-row input:checked+label{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:800}button.go{width:100%;background:var(--accent);color:#fff;font-size:17px;font-weight:800;padding:15px;border:0;border-radius:10px;cursor:pointer;margin-top:4px}button.go:hover{background:#16573f}.err{display:none;color:var(--hot);font-size:14px;font-weight:800;margin-top:10px}.err.show{display:block}.result{display:none;margin-top:24px}.result.show{display:block}.pay-card{background:#fff;border:1px solid var(--ink);border-radius:6px;overflow:hidden}.pay-head{background:var(--ink);color:#fff;padding:12px 18px;font-size:14px;letter-spacing:.12em;font-weight:800;display:flex;justify-content:space-between;gap:8px}.pay-head .s{opacity:.75;letter-spacing:0}.pay-main{text-align:center;padding:26px 18px 20px;border-bottom:1px dashed var(--line)}.pay-main .lbl{font-size:14px;color:var(--muted)}.pay-main .amt{font-size:36px;font-weight:900;letter-spacing:-.03em;margin-top:2px;color:var(--accent)}.pay-main .amt small{font-size:18px}.result-note{font-size:14px;color:#3c443f;background:var(--paper);padding:12px 14px;border-radius:10px;margin:12px 18px}.rows{padding:14px 18px 18px}.rows .row{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;padding:8px 0;border-bottom:1px solid #f0ede5}.rows .row:last-child{border-bottom:0}.rows .k{color:var(--muted)}.rows .v{font-weight:800;font-variant-numeric:tabular-nums;text-align:right}.ad-slot{margin:26px 0;background:#fff;border:1px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--muted);font-size:13px}.article{margin-top:46px}.article h2{font-size:22px;margin:38px 0 13px;padding-left:12px;border-left:4px solid var(--accent);letter-spacing:-.01em}.article h3{font-size:17px;margin:24px 0 8px}.article p{margin-bottom:14px;font-size:15.5px}.article ul,.article ol{margin:0 0 15px 22px;font-size:15.5px}.article li{margin-bottom:7px}.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}.box strong{color:var(--accent)}.warnbox{background:#fdf6e9;border:1px solid #ecd9b0;border-radius:12px;padding:15px 18px;color:var(--warn);font-size:14.5px;margin:16px 0}.warnbox strong{color:#6b4308}.checklist{display:grid;gap:8px;margin:14px 0}.checklist .item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:14.5px}.checklist .item::before{content:"□ ";color:var(--accent);font-weight:900}.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 18px}.case-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px}.case-card .t{font-weight:800;color:var(--accent);font-size:14px}.case-card .n{font-size:20px;font-weight:900;margin-top:4px}.case-card .d{color:var(--muted);font-size:13px;margin-top:2px}table.rate{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0 18px;background:#fff}table.rate th,table.rate td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}table.rate th{background:var(--accent-soft);font-size:13.5px}.tool-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.tool-links a{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.tool-links a:hover{border-color:var(--accent);background:var(--accent-soft)}.tool-links .tag{font-size:12px;font-weight:800;color:var(--accent)}.tool-links .title{font-size:15px;font-weight:800;margin-top:4px}details.faq{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:10px}details.faq summary{cursor:pointer;font-weight:800;font-size:15px;padding:14px 16px;list-style:none}details.faq summary::before{content:"Q. ";color:var(--accent)}details.faq p{padding:0 16px 14px;font-size:14.5px;color:#3c443f}.source{font-size:13px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:24px}.source a{color:var(--accent)}.disclaimer{margin-top:30px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}footer{margin-top:28px;font-size:13px;color:var(--muted)}footer a{color:var(--muted)}@media(max-width:560px){.wrap{padding-left:18px;padding-right:18px}h1{font-size:24px}.grid2,.case-grid,.tool-links{grid-template-columns:1fr}.pay-main .amt{font-size:30px}.rows .row{align-items:flex-start}.cl-topbar{margin-left:-18px;margin-right:-18px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"WebPage","name":"연차수당 계산기 2026","url":"https://calcloude.com/annual-leave.html","description":"월 통상임금과 미사용 연차 일수로 연차수당을 계산하고 퇴사 정산, 사용촉진, 세금, 청구 방법을 안내합니다."},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"calcloude","item":"https://calcloude.com/"},{"@type":"ListItem","position":2,"name":"노무","item":"https://calcloude.com/labor.html"},{"@type":"ListItem","position":3,"name":"연차수당 계산기","item":"https://calcloude.com/annual-leave.html"}]},
+    {"@type":"SoftwareApplication","name":"연차수당 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"연차수당 계산 공식은 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"일반적으로 1일 통상임금에 미사용 연차 일수를 곱해 계산합니다. 주 40시간 근로자는 월 통상임금을 209시간으로 나눠 시간급을 구하고, 여기에 8시간을 곱해 1일 통상임금을 계산합니다."}},
+      {"@type":"Question","name":"퇴사할 때 남은 연차는 수당으로 받을 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"퇴사 시점에 사용하지 못한 연차가 남아 있다면 원칙적으로 미사용 연차수당으로 정산받습니다. 다만 실제 발생일수와 사용일수, 회사의 연차 관리 방식에 따라 금액은 달라질 수 있습니다."}},
+      {"@type":"Question","name":"연차사용촉진을 받으면 연차수당을 못 받나요?","acceptedAnswer":{"@type":"Answer","text":"회사가 근로기준법이 정한 시기와 방식에 따라 서면으로 연차사용촉진 절차를 완료했다면 미사용 연차수당 지급 의무가 면제될 수 있습니다. 단순 구두 안내나 메신저 안내만으로는 다툼이 생길 수 있습니다."}}
+    ]}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
-
   <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
 
   <header>
-    <span class="eyebrow">근로기준법 기준</span>
+    <span class="eyebrow">근로기준법 · 통상임금 기준</span>
     <h1>연차수당 계산기</h1>
-    <p class="sub">못 쓴 연차, 돈으로 받으면 얼마일까요? 월급과 남은 연차 일수만 넣으면 1일 통상임금 기준으로 계산해 드립니다.</p>
+    <p class="sub">월 통상임금과 남은 연차만 입력하면 세전 연차수당을 계산하고, 퇴사 정산·연차사용촉진·세금·청구 방법까지 한 번에 확인할 수 있습니다.</p>
+    <p class="meta">최종 업데이트: 2026년 6월 29일 · 계산 기준: 주 40시간, 월 209시간</p>
   </header>
 
-  <div class="calc">
-    <div class="field">
-      <label class="title" for="monthly">월 통상임금 (세전, 기본급+고정수당)</label>
-      <div class="money-input">
-        <input type="text" id="monthly" inputmode="numeric" placeholder="예: 3,000,000" autocomplete="off">
-        <span class="unit">원</span>
-      </div>
-      <p class="hint">매달 고정적으로 받는 금액입니다. 기본급에 식대·직책수당처럼 정기적으로 나오는 수당을 더하고, 성과급·야근수당처럼 달마다 변하는 금액은 빼세요.</p>
-    </div>
+  <div class="summary">
+    <strong>3줄 요약</strong>
+    <ul>
+      <li>연차수당은 보통 <strong>1일 통상임금 × 미사용 연차 일수</strong>로 계산합니다.</li>
+      <li>퇴사 시 남은 연차는 원칙적으로 임금처럼 정산 대상이며, 세전 금액으로 먼저 계산해야 합니다.</li>
+      <li>회사가 적법한 <strong>연차사용촉진</strong>을 했다면 일부 미사용 연차수당은 지급되지 않을 수 있으니 서면 통보 여부를 확인해야 합니다.</li>
+    </ul>
+  </div>
 
-    <div class="field">
-      <label class="title" for="days">미사용 연차 일수</label>
-      <div class="money-input">
-        <input type="text" id="days" inputmode="numeric" placeholder="예: 5" autocomplete="off">
-        <span class="unit">일</span>
+  <div class="toc" aria-label="목차">
+    <div class="t">목차</div>
+    <a href="#calc">계산기</a><a href="#examples">월급별 예시</a><a href="#formula">계산 공식</a><a href="#leave-days">연차 발생일수</a><a href="#promotion">사용촉진</a><a href="#resign">퇴사 정산</a><a href="#mistakes">자주 하는 실수</a><a href="#faq">FAQ</a>
+  </div>
+
+  <section class="calc" id="calc">
+    <h2>연차수당 바로 계산</h2>
+    <div class="grid2">
+      <div class="field">
+        <label class="title" for="monthly">월 통상임금</label>
+        <div class="money-input"><input type="text" id="monthly" inputmode="numeric" placeholder="예: 3,000,000" autocomplete="off"><span class="unit">원</span></div>
+        <p class="hint">기본급 + 매월 고정적으로 받는 수당을 입력하세요. 변동 성과급·연장근로수당은 일반적으로 제외합니다.</p>
+      </div>
+      <div class="field">
+        <label class="title" for="days">미사용 연차</label>
+        <div class="money-input"><input type="text" id="days" inputmode="decimal" placeholder="예: 5" autocomplete="off"><span class="unit">일</span></div>
+        <p class="hint">반차가 남았다면 0.5처럼 입력할 수 있습니다.</p>
       </div>
     </div>
-
+    <div class="field">
+      <label class="title">근무 형태</label>
+      <div class="radio-row">
+        <input type="radio" id="fulltime" name="worktype" value="209" checked><label for="fulltime">주 40시간 · 월 209시간</label>
+        <input type="radio" id="custom" name="worktype" value="custom"><label for="custom">직접 입력</label>
+      </div>
+    </div>
+    <div class="field" id="customHourWrap" style="display:none">
+      <label class="title" for="monthlyHours">월 소정근로시간</label>
+      <div class="money-input"><input type="text" id="monthlyHours" inputmode="numeric" value="209" autocomplete="off"><span class="unit">시간</span></div>
+      <p class="hint">단시간 근로자·교대제라면 근로계약서의 월 소정근로시간을 넣으세요.</p>
+    </div>
     <button class="go" id="calcBtn" type="button">연차수당 계산하기</button>
     <p class="err" id="errMsg"></p>
-  </div>
+  </section>
 
   <div class="result" id="result" aria-live="polite">
     <div class="pay-card">
-      <div class="pay-head"><span>연차수당 예상액</span><span class="s">세전 · 주 40시간 기준</span></div>
-      <div class="pay-main">
-        <div class="lbl">받을 수 있는 연차수당</div>
-        <div class="amt" id="totalAmt">0<small> 원</small></div>
-      </div>
+      <div class="pay-head"><span>연차수당 예상액</span><span class="s">세전 기준</span></div>
+      <div class="pay-main"><div class="lbl">받을 수 있는 미사용 연차수당</div><div class="amt" id="totalAmt">0<small> 원</small></div></div>
+      <div class="result-note" id="resultExplain">계산 결과 해설이 여기에 표시됩니다.</div>
       <div class="rows">
-        <div class="row"><span class="k">시간급 통상임금 (월급 ÷ 209시간)</span><span class="v" id="rHourly">-</span></div>
-        <div class="row"><span class="k">1일 통상임금 (시간급 × 8시간)</span><span class="v" id="rDaily">-</span></div>
+        <div class="row"><span class="k">시간급 통상임금</span><span class="v" id="rHourly">-</span></div>
+        <div class="row"><span class="k">1일 통상임금</span><span class="v" id="rDaily">-</span></div>
         <div class="row"><span class="k">미사용 연차</span><span class="v" id="rDays">-</span></div>
+        <div class="row"><span class="k">월 소정근로시간</span><span class="v" id="rHours">-</span></div>
       </div>
     </div>
   </div>
 
-  <section class="article">
-    <h2>연차수당, 어떻게 계산되나요?</h2>
-    <p>연차유급휴가를 기한 안에 쓰지 못하고 소멸되면, 회사는 그만큼을 수당으로 보상해야 합니다. 계산 공식은 <strong>"1일 통상임금 × 미사용 연차 일수"</strong>예요. 1일 통상임금은 월 통상임금을 209시간(주 40시간 근무 기준 한 달 환산 시간)으로 나눠 시간급을 구한 뒤 8시간을 곱한 값입니다. 예를 들어 월 통상임금이 300만 원이면 시간급은 약 14,354원, 1일 통상임금은 약 114,832원이고, 연차 5일이 남았다면 약 57만 원을 받게 됩니다.</p>
-    <p>여기서 헷갈리기 쉬운 게 '통상임금'의 범위입니다. 기본급과 매달 고정적으로 지급되는 수당(식대, 직책수당, 정기 상여 등)은 포함되고, 연장·야간근로수당이나 변동 성과급처럼 일한 결과에 따라 달라지는 금액은 제외됩니다. 고정 수당이 많은 분일수록 연차수당도 커지는 구조예요.</p>
+  <div class="ad-slot">광고 영역 예시 — 계산 결과 확인 후 첫 번째 광고 배치 추천</div>
 
-    <h2>내 연차는 몇 개 발생하나요?</h2>
+  <section class="article">
+    <h2 id="examples">월급별 연차수당 예시</h2>
+    <p>아래 예시는 주 40시간, 월 209시간 근무자가 미사용 연차 5일을 정산받는 경우입니다. 실제 금액은 통상임금에 포함되는 고정수당과 회사 임금규정에 따라 달라질 수 있습니다.</p>
+    <div class="case-grid">
+      <div class="case-card"><div class="t">월 통상임금 250만 원</div><div class="n">약 478,460원</div><div class="d">1일 약 95,693원 × 5일</div></div>
+      <div class="case-card"><div class="t">월 통상임금 300만 원</div><div class="n">약 574,160원</div><div class="d">1일 약 114,832원 × 5일</div></div>
+      <div class="case-card"><div class="t">월 통상임금 400만 원</div><div class="n">약 765,550원</div><div class="d">1일 약 153,110원 × 5일</div></div>
+    </div>
+
+    <h2 id="formula">연차수당 계산 공식</h2>
+    <p>연차수당은 일반적으로 <strong>1일 통상임금 × 미사용 연차 일수</strong>로 계산합니다. 주 40시간 근무자는 월 소정근로시간을 209시간으로 보는 경우가 많기 때문에, 월 통상임금을 209로 나누면 시간급 통상임금이 됩니다. 여기에 1일 근로시간 8시간을 곱하면 1일 통상임금이 나옵니다.</p>
+    <div class="box"><strong>공식</strong><br>시간급 통상임금 = 월 통상임금 ÷ 월 소정근로시간<br>1일 통상임금 = 시간급 통상임금 × 1일 소정근로시간<br>연차수당 = 1일 통상임금 × 미사용 연차 일수</div>
+    <p>이 계산기는 기본값으로 월 209시간, 1일 8시간을 적용합니다. 단시간 근로자라면 월 소정근로시간과 1일 소정근로시간이 달라질 수 있으므로 회사 근로계약서 또는 급여명세서를 확인하는 것이 좋습니다.</p>
+
+    <h2 id="leave-days">연차는 몇 개 발생하나요?</h2>
     <table class="rate">
-      <thead><tr><th>근속 기간</th><th>발생 연차</th></tr></thead>
+      <thead><tr><th>근속 기간</th><th>발생 기준</th><th>핵심 포인트</th></tr></thead>
       <tbody>
-        <tr><td>1년 미만</td><td>1개월 개근 시 1일씩 (최대 11일)</td></tr>
-        <tr><td>1년 이상 (1년간 80% 이상 출근)</td><td>15일</td></tr>
-        <tr><td>3년 차부터</td><td>2년마다 1일씩 가산 (15→16→17...)</td></tr>
-        <tr><td>한도</td><td>최대 25일</td></tr>
+        <tr><td>1년 미만</td><td>1개월 개근 시 1일씩, 최대 11일</td><td>6개월 근무하고 모두 개근했다면 보통 5일 발생</td></tr>
+        <tr><td>1년 이상</td><td>1년간 80% 이상 출근 시 15일</td><td>입사 1년이 되는 시점부터 본격적으로 발생</td></tr>
+        <tr><td>3년 이상</td><td>최초 1년 초과 후 2년마다 1일 가산</td><td>15일 → 16일 → 17일 순으로 증가</td></tr>
+        <tr><td>상한</td><td>가산휴가 포함 최대 25일</td><td>장기근속자도 25일이 한도</td></tr>
       </tbody>
     </table>
-    <p class="hint">연차 제도는 5인 이상 사업장에 적용됩니다. 4주 평균 주 15시간 미만 근로자는 제외돼요.</p>
+    <p>근로기준법 제60조는 1년간 80% 이상 출근한 근로자에게 15일의 유급휴가를 부여하고, 1년 미만 근로자에게는 1개월 개근 시 1일의 유급휴가를 부여한다고 정하고 있습니다.</p>
 
-    <h2>자주 묻는 질문</h2>
-    <details class="faq">
-      <summary>연차수당은 언제 받나요?</summary>
-      <p>연차가 소멸된 다음 임금 지급일에 지급하는 것이 원칙입니다. 회계연도 기준 운영 회사라면 보통 연초 급여에 전년도 미사용분이 함께 나오고, 퇴직 시에는 남은 연차 전부를 수당으로 정산받습니다.</p>
-    </details>
-    <details class="faq">
-      <summary>회사가 "연차 쓰라고 했는데 안 쓴 거니까 못 준다"고 합니다.</summary>
-      <p>회사가 '연차사용촉진제도'를 법이 정한 절차(서면 통보 시기·방식)대로 운영했다면 미사용 연차의 보상 의무가 면제될 수 있습니다. 다만 절차 요건이 까다로워서, 이메일 한 통 보낸 정도로는 인정되지 않는 경우가 많아요. 회사가 촉진 절차를 제대로 밟았는지가 쟁점이라면 고용노동부 상담(1350)을 받아보세요.</p>
-    </details>
-    <details class="faq">
-      <summary>퇴사할 때 남은 연차는 어떻게 되나요?</summary>
-      <p>전부 수당으로 정산받습니다. 퇴직 시점의 미사용 연차는 사용촉진제도와 무관하게 보상 대상이에요. 퇴직금과 함께 14일 이내 지급이 원칙이고, 받지 못하면 임금체불로 진정할 수 있습니다.</p>
-    </details>
-    <details class="faq">
-      <summary>연차수당에도 세금이 붙나요?</summary>
-      <p>네, 연차수당은 근로소득이라 소득세와 4대보험료가 공제됩니다. 이 계산기의 결과는 세전 금액입니다.</p>
-    </details>
+    <h2 id="promotion">연차사용촉진을 받으면 수당을 못 받나요?</h2>
+    <p>회사가 근로기준법상 연차사용촉진 절차를 적법하게 진행했다면, 근로자가 사용하지 않은 연차에 대해 회사의 수당 지급 의무가 면제될 수 있습니다. 핵심은 <strong>서면 통보</strong>와 <strong>정해진 시기</strong>입니다. 단순히 “연차 쓰세요”라고 말했거나 사내 메신저로 한 번 안내한 정도라면 다툼이 생길 수 있습니다.</p>
+    <div class="warnbox"><strong>확인 포인트</strong> — 회사가 남은 연차 일수를 개별적으로 알려줬는지, 사용 시기를 정해 제출하라고 서면 촉구했는지, 근로자가 응답하지 않았을 때 회사가 사용 시기를 지정해 다시 서면 통보했는지 확인하세요.</div>
+
+    <h2 id="resign">퇴사할 때 남은 연차 정산 체크리스트</h2>
+    <p>퇴사자는 퇴직금뿐 아니라 남은 연차수당도 함께 확인해야 합니다. 특히 사직서 제출 전후로 아래 자료를 챙겨두면 회사와 금액이 다를 때 설명하기가 쉬워집니다.</p>
+    <div class="checklist">
+      <div class="item">급여명세서에서 기본급과 고정수당을 확인했다.</div>
+      <div class="item">인사시스템 또는 근태표에서 남은 연차 일수를 캡처했다.</div>
+      <div class="item">회사가 연차사용촉진을 서면으로 했는지 확인했다.</div>
+      <div class="item">퇴직금 계산기와 함께 최종 정산 금액을 따로 검산했다.</div>
+      <div class="item">퇴사 후 14일 이내에 지급되는지 확인했다.</div>
+    </div>
+
+    <div class="tool-links">
+      <a href="/severance.html"><span class="tag">관련 계산기</span><div class="title">퇴직금 계산기</div></a>
+      <a href="/guide-unpaid-severance.html"><span class="tag">퇴사 정산</span><div class="title">퇴직금·임금 못 받았을 때 대처법</div></a>
+      <a href="/insurance.html"><span class="tag">급여 공제</span><div class="title">4대보험 계산기</div></a>
+      <a href="/unemployment.html"><span class="tag">실업급여</span><div class="title">실업급여 계산기</div></a>
+    </div>
+
+    <h2 id="mistakes">많이 하는 실수</h2>
+    <ul>
+      <li><strong>세후 월급으로 계산하는 실수</strong> — 연차수당은 세전 통상임금 기준으로 먼저 계산한 뒤 세금과 보험료를 공제합니다.</li>
+      <li><strong>기본급만 넣는 실수</strong> — 매월 고정적으로 지급되는 직책수당·자격수당 등은 통상임금에 포함될 수 있습니다.</li>
+      <li><strong>남은 연차 일수를 회사 말만 믿는 실수</strong> — 근태시스템, 급여명세서, 연차대장 화면을 캡처해 두세요.</li>
+      <li><strong>사용촉진 통보를 놓치는 실수</strong> — 회사가 적법하게 촉진했다면 수당이 줄어들 수 있습니다.</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <details class="faq"><summary>연차수당은 언제 받나요?</summary><p>재직 중에는 연차휴가청구권이 소멸된 뒤 첫 임금 지급일에 지급되는 경우가 많습니다. 퇴사할 때는 미사용 연차수당을 퇴직금 등 금품과 함께 퇴직일로부터 14일 이내 정산하는 것이 원칙입니다.</p></details>
+    <details class="faq"><summary>퇴사할 때 남은 연차는 무조건 받을 수 있나요?</summary><p>퇴사 시점에 실제로 발생했고 사용하지 않은 연차라면 원칙적으로 정산 대상입니다. 다만 이미 사용했거나, 회사가 적법한 사용촉진 절차를 완료한 연차인지 여부에 따라 다툼이 생길 수 있습니다.</p></details>
+    <details class="faq"><summary>연차수당에도 세금과 4대보험이 붙나요?</summary><p>네. 연차수당은 근로소득에 해당하므로 소득세와 지방소득세가 과세될 수 있고, 재직 중 지급되는 경우 4대보험 공제에도 영향을 줄 수 있습니다. 계산기 결과는 세전 금액입니다.</p></details>
+    <details class="faq"><summary>연차수당 계산에 식대도 포함되나요?</summary><p>식대가 매월 정기적·일률적·고정적으로 지급되는 성격이라면 통상임금에 포함될 수 있습니다. 다만 비과세 처리 여부와 회사 임금규정에 따라 실무상 차이가 있으므로 급여명세서를 기준으로 확인하세요.</p></details>
+    <details class="faq"><summary>반차도 계산할 수 있나요?</summary><p>가능합니다. 미사용 연차 입력칸에 0.5일, 1.5일처럼 소수점으로 입력하면 됩니다.</p></details>
+    <details class="faq"><summary>1년 미만 근무자도 연차수당을 받을 수 있나요?</summary><p>1개월 개근 시 1일씩 발생한 연차가 남아 있고 퇴사 시점까지 사용하지 않았다면 정산 대상이 될 수 있습니다. 예를 들어 6개월 근무하고 5개월을 개근했다면 5일이 발생하는 식입니다.</p></details>
+    <details class="faq"><summary>회계연도 기준 연차와 입사일 기준 연차가 다르면 어떻게 하나요?</summary><p>회사는 관리 편의를 위해 회계연도 기준으로 연차를 줄 수 있습니다. 다만 퇴사 시에는 입사일 기준으로 계산했을 때 근로자에게 불리하지 않도록 정산하는 것이 일반적인 원칙입니다.</p></details>
+    <details class="faq"><summary>회사가 연차수당을 안 주면 어떻게 해야 하나요?</summary><p>먼저 남은 연차 일수와 계산 금액을 정리해 회사에 서면으로 요청하세요. 그래도 지급하지 않으면 고용노동부 노동포털 또는 상담센터 1350을 통해 임금체불 진정을 검토할 수 있습니다.</p></details>
+    <details class="faq"><summary>연차수당 청구권에도 시효가 있나요?</summary><p>임금채권은 일반적으로 3년의 소멸시효가 문제됩니다. 늦게라도 받을 수 있는지 확인하려면 퇴사일, 지급 예정일, 회사 정산 내역을 정리해 상담받는 것이 좋습니다.</p></details>
+    <details class="faq"><summary>성과급도 통상임금에 포함되나요?</summary><p>성과급이 근무 성과나 회사 실적에 따라 변동된다면 보통 통상임금에서 제외되는 경우가 많습니다. 반대로 매월 고정적으로 지급되는 수당은 포함될 가능성이 있습니다.</p></details>
   </section>
 
-  <p class="disclaimer">본 계산기는 주 40시간(월 209시간) 근무 기준의 표준 공식에 따른 세전 참고액을 제공합니다. 단시간 근로자, 교대제 등 근무 형태와 회사 임금 구성에 따라 실제 금액과 다를 수 있습니다. 정확한 사항은 회사 인사팀 또는 고용노동부(1350)로 확인하세요.</p>
+  <div class="source">
+    <strong>기준 안내</strong><br>
+    이 페이지는 근로기준법 제60조(연차 유급휴가), 제61조(연차 유급휴가의 사용 촉진), 고용노동부 상담 기준을 바탕으로 작성했습니다. 정확한 분쟁 판단은 사업장 규정과 실제 근무내역에 따라 달라질 수 있습니다.
+  </div>
 
-  <footer>
-    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>
-  </footer>
+  <p class="disclaimer">본 계산기는 주 40시간, 월 209시간 기준의 세전 참고액을 제공합니다. 단시간 근로자, 교대제, 포괄임금제, 고정수당 구성, 연차사용촉진 절차 등에 따라 실제 정산액과 달라질 수 있습니다. 구체적인 사안은 회사 인사담당자, 노무사 또는 고용노동부 상담센터(1350)를 통해 확인하세요.</p>
+  <footer>문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a></footer>
 </div>
 
 <script>
-(function () {
-  function numify(el) {
-    el.addEventListener('input', function () {
-      var raw = this.value.replace(/[^0-9]/g, '');
-      this.value = raw ? Number(raw).toLocaleString('ko-KR') : '';
-    });
-  }
-  var monthlyEl = document.getElementById('monthly');
-  var daysEl = document.getElementById('days');
-  numify(monthlyEl); numify(daysEl);
-
-  function won(n) { return Math.floor(n).toLocaleString('ko-KR') + '원'; }
-
-  document.getElementById('calcBtn').addEventListener('click', function () {
-    var err = document.getElementById('errMsg');
-    err.className = 'err';
-    var monthly = Number(monthlyEl.value.replace(/[^0-9]/g, ''));
-    var days = Number(daysEl.value.replace(/[^0-9]/g, ''));
-    if (!monthly) { err.textContent = '월 통상임금을 입력해주세요.'; err.className = 'err show'; return; }
-    if (!days) { err.textContent = '미사용 연차 일수를 입력해주세요.'; err.className = 'err show'; return; }
-
-    var hourly = monthly / 209;
-    var daily = hourly * 8;
-    var total = daily * days;
-
-    document.getElementById('totalAmt').innerHTML = Math.floor(total).toLocaleString('ko-KR') + '<small> 원</small>';
-    document.getElementById('rHourly').textContent = won(hourly);
-    document.getElementById('rDaily').textContent = won(daily);
-    document.getElementById('rDays').textContent = days + '일';
-
-    var result = document.getElementById('result');
-    result.className = 'result show';
-    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+(function(){
+  function onlyNumberString(v, allowDecimal){return v.replace(allowDecimal?/[^0-9.]/g:/[^0-9]/g,'').replace(/(\..*)\./g,'$1');}
+  function formatNumberInput(el, allowDecimal){el.addEventListener('input',function(){var raw=onlyNumberString(this.value,allowDecimal);if(!raw){this.value='';return;}if(allowDecimal&&raw.indexOf('.')>-1){var parts=raw.split('.');this.value=Number(parts[0]||0).toLocaleString('ko-KR')+'.'+parts[1].slice(0,2);}else{this.value=Number(raw).toLocaleString('ko-KR');}})}
+  function parseNum(v){return Number(String(v).replace(/,/g,''));}
+  function won(n){return Math.floor(n).toLocaleString('ko-KR')+'원';}
+  var monthlyEl=document.getElementById('monthly'),daysEl=document.getElementById('days'),hoursEl=document.getElementById('monthlyHours');
+  formatNumberInput(monthlyEl,false);formatNumberInput(daysEl,true);formatNumberInput(hoursEl,false);
+  document.querySelectorAll('input[name="worktype"]').forEach(function(r){r.addEventListener('change',function(){document.getElementById('customHourWrap').style.display=document.getElementById('custom').checked?'block':'none';});});
+  document.getElementById('calcBtn').addEventListener('click',function(){
+    var err=document.getElementById('errMsg');err.className='err';
+    var monthly=parseNum(monthlyEl.value);var days=parseNum(daysEl.value);var hours=document.getElementById('custom').checked?parseNum(hoursEl.value):209;
+    if(!monthly||monthly<=0){err.textContent='월 통상임금을 입력해주세요.';err.className='err show';monthlyEl.focus();return;}
+    if(!days||days<=0){err.textContent='미사용 연차 일수를 입력해주세요.';err.className='err show';daysEl.focus();return;}
+    if(!hours||hours<=0){err.textContent='월 소정근로시간을 입력해주세요.';err.className='err show';hoursEl.focus();return;}
+    var hourly=monthly/hours;var daily=hourly*8;var total=daily*days;
+    document.getElementById('totalAmt').innerHTML=Math.floor(total).toLocaleString('ko-KR')+'<small> 원</small>';
+    document.getElementById('rHourly').textContent=won(hourly);document.getElementById('rDaily').textContent=won(daily);document.getElementById('rDays').textContent=days+'일';document.getElementById('rHours').textContent=hours.toLocaleString('ko-KR')+'시간';
+    document.getElementById('resultExplain').innerHTML='월 통상임금 <strong>'+won(monthly)+'</strong>을 월 소정근로시간 <strong>'+hours.toLocaleString('ko-KR')+'시간</strong>으로 나누면 시간급 통상임금은 <strong>'+won(hourly)+'</strong>입니다. 여기에 8시간을 곱한 1일 통상임금 <strong>'+won(daily)+'</strong>에 남은 연차 <strong>'+days+'일</strong>을 곱해 세전 연차수당을 계산했습니다.';
+    var result=document.getElementById('result');result.className='result show';result.scrollIntoView({behavior:'smooth',block:'start'});
   });
 })();
 </script>

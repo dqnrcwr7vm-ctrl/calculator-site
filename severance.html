@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>퇴직금 계산기 - 입사일·퇴사일·월급으로 예상 퇴직금 확인 (2026)</title>
-<meta name="description" content="퇴직금 계산기. 입사일, 퇴사일, 최근 3개월 월급만 입력하면 1일 평균임금과 법정 퇴직금을 바로 계산합니다. 상여금·연차수당 반영 가능.">
+<title>퇴직금 계산기 2026 - 입사일·퇴사일·월급으로 법정 퇴직금 계산</title>
+<meta name="description" content="2026 퇴직금 계산기. 입사일·퇴사일·최근 3개월 월급으로 1일 평균임금과 법정 퇴직금을 계산하고 세금, IRP, 미지급 대응까지 확인하세요.">
 <style>
   :root {
     --ink: #1f2a24;
@@ -207,8 +207,55 @@
 .cl-navlinks::-webkit-scrollbar{display:none;}
 .cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
 .cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
+
+  .summary-box,.toc,.checklist,.example-grid,.related-grid{
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:18px 0;
+  }
+  .summary-box{background:var(--accent-soft);border-color:#c5dcd1;color:#195741;}
+  .summary-box strong{color:#114433;}
+  .summary-box ul,.checklist ul{margin:8px 0 0 20px;font-size:14.5px;}
+  .toc h2,.checklist h2,.related-grid h2{border-left:0!important;padding-left:0!important;margin:0 0 10px!important;font-size:18px!important;}
+  .toc ol{margin:0 0 0 20px;font-size:14.5px;}
+  .toc a{color:var(--accent);text-decoration:none;font-weight:700;}
+  .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;}
+  .mini-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;}
+  .mini-card .k{font-size:12.5px;color:var(--muted);}
+  .mini-card .v{font-weight:800;font-size:16px;color:var(--accent);margin-top:3px;}
+  .result-note{display:none;margin-top:12px;background:var(--accent-soft);border:1px solid #c5dcd1;border-radius:10px;padding:12px 14px;color:#195741;font-size:14px;}
+  .result-note.show{display:block;}
+  table.info{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0 18px;background:#fff;}
+  table.info th,table.info td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top;}
+  table.info th{background:var(--accent-soft);font-size:13.5px;white-space:nowrap;}
+  .related-grid .links{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .related-grid a{display:block;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;}
+  .related-grid a:hover{border-color:var(--accent);color:var(--accent);}
+  @media(max-width:560px){.mini-grid,.related-grid .links{grid-template-columns:1fr;}}
+
 </style>
 <link rel="canonical" href="https://calcloude.com/severance.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="퇴직금 계산기 2026 - 입사일·퇴사일·월급으로 법정 퇴직금 계산">
+<meta property="og:description" content="입사일, 퇴사일, 최근 3개월 임금으로 1일 평균임금과 예상 퇴직금을 계산하고 지급기한·세금·미지급 대응까지 확인하세요.">
+<meta property="og:url" content="https://calcloude.com/severance.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"WebPage","@id":"https://calcloude.com/severance.html#webpage","url":"https://calcloude.com/severance.html","name":"퇴직금 계산기","description":"입사일, 퇴사일, 최근 3개월 임금으로 법정 퇴직금을 계산하는 계산기와 퇴직금 지급기한, 세금, 미지급 대응 가이드입니다."},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"홈","item":"https://calcloude.com/"},
+      {"@type":"ListItem","position":2,"name":"노무","item":"https://calcloude.com/labor.html"},
+      {"@type":"ListItem","position":3,"name":"퇴직금 계산기","item":"https://calcloude.com/severance.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"퇴직금은 누가 받을 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"한 사업장에서 1년 이상 계속 근로하고 4주 평균 주 15시간 이상 일한 근로자는 정규직, 계약직, 아르바이트 여부와 관계없이 퇴직금 대상이 될 수 있습니다."}},
+      {"@type":"Question","name":"퇴직금은 언제까지 지급해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"사용자는 특별한 합의가 없는 한 퇴직일부터 14일 이내에 퇴직금을 지급해야 합니다."}},
+      {"@type":"Question","name":"퇴직금에 세금이 붙나요?","acceptedAnswer":{"@type":"Answer","text":"퇴직금에는 퇴직소득세와 지방소득세가 부과됩니다. 다만 퇴직소득은 분류과세되고 근속연수 공제가 적용되어 일반 급여보다 세 부담이 낮은 경우가 많습니다."}}
+    ]}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -221,7 +268,35 @@
     <p class="sub">입사일, 퇴사일, 최근 3개월 월급만 넣으면 1일 평균임금과 법정 퇴직금을 계산합니다. 상여금과 연차수당도 반영할 수 있어요.</p>
   </header>
 
-  <div class="calc">
+
+  <div class="summary-box">
+    <strong>3줄 요약</strong>
+    <ul>
+      <li>퇴직금은 <strong>1년 이상 계속 근로</strong>하고 4주 평균 주 15시간 이상 일한 근로자에게 발생합니다.</li>
+      <li>법정 공식은 <strong>1일 평균임금 × 30일 × 재직일수 ÷ 365</strong>입니다.</li>
+      <li>퇴직금은 퇴직 후 <strong>14일 이내 지급</strong>이 원칙이며, 미지급 시 노동부 진정으로 대응할 수 있습니다.</li>
+    </ul>
+  </div>
+
+  <div class="toc">
+    <h2>목차</h2>
+    <ol>
+      <li><a href="#calc">퇴직금 계산하기</a></li>
+      <li><a href="#target">퇴직금 대상 여부</a></li>
+      <li><a href="#formula">계산 공식과 평균임금</a></li>
+      <li><a href="#tax">세금과 IRP</a></li>
+      <li><a href="#unpaid">못 받았을 때 대응</a></li>
+      <li><a href="#faq">자주 묻는 질문</a></li>
+    </ol>
+  </div>
+
+  <div class="mini-grid">
+    <div class="mini-card"><div class="k">발생 조건</div><div class="v">1년 이상</div></div>
+    <div class="mini-card"><div class="k">지급 기한</div><div class="v">퇴직 후 14일</div></div>
+    <div class="mini-card"><div class="k">기본 공식</div><div class="v">30일분 평균임금/년</div></div>
+  </div>
+
+  <div class="calc" id="calc">
     <div class="two-col">
       <div class="field">
         <label class="title" for="startDate">입사일</label>
@@ -281,35 +356,90 @@
     </div>
     <div class="note-special">퇴직금에는 퇴직소득세가 부과되어 실수령액은 이보다 적습니다. 다만 퇴직소득세는 근속연수가 길수록 공제가 커서 일반 소득세보다 부담이 낮은 편입니다. IRP 계좌로 받으면 과세가 이연됩니다.</div>
   </div>
+    <div class="result-note" id="resultNote"></div>
 
   <section class="article">
-    <h2>퇴직금, 누가 얼마나 받나요?</h2>
-    <p>퇴직금은 한 사업장에서 1년 이상 계속 근로한 근로자가 퇴직할 때 받는 법정 급여입니다. 4주 평균 주 15시간 이상 일했다면 정규직뿐 아니라 계약직, 아르바이트도 대상이에요. 회사 규모와도 무관해서 5인 미만 사업장도 지급 의무가 있습니다. 반대로 재직 기간이 1년 미만이면 아쉽지만 법정 퇴직금은 발생하지 않습니다.</p>
-    <p>금액의 뼈대는 간단합니다. <strong>"1일 평균임금 × 30일 × (재직일수 ÷ 365)"</strong>. 쉽게 말해 1년 일할 때마다 한 달 치 평균임금이 쌓이는 구조예요. 핵심은 '평균임금'인데, 퇴사 직전 3개월간 받은 임금 총액을 그 기간의 날짜 수로 나눈 값입니다. 여기에 최근 1년간 받은 상여금과 연차수당의 4분의 1(3/12)도 임금 총액에 합산됩니다. 그래서 같은 월급이라도 상여금이 있는 사람의 퇴직금이 더 많아져요.</p>
+    <h2 id="target">퇴직금, 누가 받을 수 있나요?</h2>
+    <p>퇴직금은 한 사업장에서 <strong>1년 이상 계속 근로</strong>한 근로자가 퇴직할 때 받는 법정 급여입니다. 4주 평균 주 15시간 이상 일했다면 정규직뿐 아니라 계약직, 기간제, 아르바이트도 대상이 될 수 있습니다. 회사 규모도 핵심 기준이 아닙니다. 5인 미만 사업장이라도 요건을 충족하면 퇴직금 지급 의무가 발생합니다.</p>
+    <table class="info">
+      <tbody>
+        <tr><th>받을 가능성 높음</th><td>같은 사업장에서 1년 이상 근무, 4주 평균 주 15시간 이상 근무, 임금을 목적으로 일한 근로자</td></tr>
+        <tr><th>확인 필요</th><td>프리랜서·위탁계약이지만 실제로는 출퇴근·업무지시·근태관리를 받은 경우</td></tr>
+        <tr><th>원칙상 어려움</th><td>재직기간 1년 미만, 4주 평균 주 15시간 미만, 독립 사업자로 일한 경우</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="formula">퇴직금 계산 공식</h2>
+    <p>고용노동부 퇴직금 계산 기준은 <strong>1일 평균임금 × 30일 × 재직일수 ÷ 365</strong>입니다. 평균임금은 퇴직일 이전 3개월 동안 받은 임금 총액을 그 기간의 총일수로 나눈 금액입니다. 상여금과 연차수당은 최근 1년간 받은 금액 중 3개월분에 해당하는 <strong>3/12</strong>만 평균임금에 반영합니다.</p>
+    <p>예를 들어 월급 300만 원으로 3년 근무했고 별도 상여금이 없다면, 대략 3개월 임금 900만 원을 90~92일로 나눈 1일 평균임금에 30일과 재직연수를 곱하는 구조입니다. 실제 계산에서는 퇴사일 기준 최근 3개월의 날짜 수가 89일, 90일, 91일, 92일처럼 달라질 수 있어 결과가 조금 달라집니다.</p>
+
+    <h2>상여금·연차수당은 어떻게 넣나요?</h2>
+    <p>퇴직금 계산에서 많이 빠뜨리는 항목이 상여금과 연차수당입니다. 최근 1년간 지급받은 정기상여금과 연차수당은 전액을 넣는 것이 아니라 <strong>3개월분으로 환산한 금액</strong>만 더합니다. 즉 최근 1년 상여금이 400만 원이면 100만 원이, 최근 1년 연차수당이 80만 원이면 20만 원이 퇴사 전 3개월 임금 총액에 더해지는 식입니다.</p>
+
+    <div class="checklist">
+      <h2>계산 전 체크리스트</h2>
+      <ul>
+        <li>입사일은 실제 첫 근무일 기준으로 입력합니다.</li>
+        <li>퇴사일은 <strong>마지막 근무일의 다음 날</strong>로 입력하면 재직일수 계산이 자연스럽습니다.</li>
+        <li>월급은 세전 금액 기준이며, 매달 고정적으로 받는 수당은 포함합니다.</li>
+        <li>최근 1년 상여금과 연차수당이 있다면 선택 항목에 넣습니다.</li>
+        <li>중간정산을 받은 적이 있다면 중간정산 다음 날부터 다시 계산합니다.</li>
+      </ul>
+    </div>
+
+    <h2 id="tax">퇴직금 세금과 IRP</h2>
+    <p>계산기 결과는 <strong>세전 퇴직금</strong>입니다. 실제 수령액은 퇴직소득세와 지방소득세를 뺀 금액입니다. 퇴직소득세는 일반 근로소득과 따로 계산되는 분류과세이고, 근속연수가 길수록 공제가 커지는 구조라 일반 월급 세금보다 부담이 낮은 경우가 많습니다.</p>
+    <p>55세 미만 퇴직자는 원칙적으로 IRP 계좌로 퇴직금을 받습니다. IRP로 입금되면 세금이 바로 빠지는 것이 아니라 인출 시점까지 과세가 미뤄집니다. 바로 일시금으로 찾으면 퇴직소득세를 내고, 55세 이후 연금으로 받으면 세금 일부가 줄어드는 효과가 생길 수 있습니다.</p>
+    <a class="tool-cta" href="/guide-severance-tax.html">
+      <span class="t">📄 퇴직금 세금·IRP 절세 가이드 →</span>
+      <span class="d">세전 퇴직금에서 실제로 얼마가 빠지는지, IRP로 받으면 뭐가 다른지 확인하세요.</span>
+    </a>
+
+    <h2 id="unpaid">퇴직금을 못 받았을 때</h2>
+    <p>회사는 특별한 합의가 없는 한 퇴직일부터 <strong>14일 이내</strong>에 퇴직금을 지급해야 합니다. 지급이 지연되면 지연이자 문제가 생길 수 있고, 계속 지급하지 않으면 고용노동부에 임금체불 진정을 넣을 수 있습니다. 진정 전에는 계산 결과, 근로계약서, 급여명세서, 급여 입금 내역, 퇴사일을 확인할 수 있는 자료를 모아두는 것이 좋습니다.</p>
+    <a class="tool-cta" href="/guide-unpaid-severance.html">
+      <span class="t">📄 퇴직금 못 받았을 때 대처법 →</span>
+      <span class="d">내용증명, 노동부 진정, 간이대지급금까지 순서대로 정리했습니다.</span>
+    </a>
 
     <h2>퇴직금이 줄어들 수 있는 경우</h2>
-    <p>퇴사 직전 3개월의 급여가 기준이다 보니, 마지막 몇 달을 무급휴직이나 임금이 줄어든 상태로 보내면 평균임금이 낮아질 수 있습니다. 다만 법은 출산휴가, 육아휴직, 업무상 재해 요양 기간 등은 평균임금 산정에서 제외하도록 정하고 있어서, 이런 기간 때문에 퇴직금이 깎이지는 않습니다. 또 평균임금이 통상임금보다 낮게 나오는 경우에는 통상임금을 기준으로 계산하도록 되어 있어요.</p>
+    <p>퇴사 직전 3개월 급여가 기준이기 때문에 마지막 몇 달에 무급휴직이나 임금 감소가 있으면 평균임금이 낮아질 수 있습니다. 다만 출산전후휴가, 육아휴직, 업무상 재해 요양 기간 등 법령상 제외되는 기간은 평균임금 산정에서 제외되어 퇴직금이 부당하게 줄어들지 않도록 조정됩니다. 또한 평균임금이 통상임금보다 낮으면 통상임금을 기준으로 계산해야 하는 경우가 있습니다.</p>
 
-    <h2>지급 기한과 못 받았을 때</h2>
-    <p>회사는 퇴직일로부터 14일 이내에 퇴직금을 지급해야 합니다(당사자 합의로 연장 가능). 기한을 넘기면 연 20%의 지연이자가 붙고, 계속 지급하지 않으면 고용노동부에 임금체불 진정을 제기할 수 있습니다. 진정은 고용노동부 민원마당(minwon.moel.go.kr)에서 온라인으로도 가능해요.</p>
+    <h2 id="faq">자주 묻는 질문</h2>
+    <details class="faq">
+      <summary>퇴직연금 DC형인데도 이 계산기를 쓰면 되나요?</summary>
+      <p>DC형은 회사가 매년 임금총액의 12분의 1 이상을 근로자 계좌에 납입하고, 운용 결과에 따라 수령액이 달라지는 방식입니다. 이 계산기는 퇴직금 제도와 DB형에 더 가깝습니다. DC형 실제 잔액은 가입 금융사 앱이나 퇴직연금 계좌에서 확인하세요.</p>
+    </details>
+    <details class="faq">
+      <summary>딱 11개월 일했는데 퇴직금이 없나요?</summary>
+      <p>법정 퇴직금은 계속근로기간이 1년 미만이면 발생하지 않는 것이 원칙입니다. 다만 회사 규정이나 근로계약서에 1년 미만자에게도 지급한다고 되어 있다면 별도 약정에 따라 받을 수 있습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>수습 기간도 재직기간에 포함되나요?</summary>
+      <p>일반적으로 수습 기간도 근로계약 관계가 계속된 기간이므로 계속근로기간에 포함됩니다. 수습 3개월 후 정규직으로 전환되어 총 1년 이상 일했다면 퇴직금 대상이 될 수 있습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>퇴직금에도 4대보험료가 붙나요?</summary>
+      <p>퇴직금에는 일반적으로 국민연금, 건강보험, 고용보험 같은 4대보험료가 붙지 않습니다. 다만 퇴직소득세와 지방소득세는 발생할 수 있습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>연차수당도 퇴직금 계산에 들어가나요?</summary>
+      <p>최근 1년간 지급받은 연차수당은 3개월분에 해당하는 3/12만 평균임금 산정에 반영됩니다. 퇴사 시 남은 연차를 별도로 정산받는 경우에는 연차수당 계산도 함께 확인하는 것이 좋습니다.</p>
+    </details>
+    <details class="faq">
+      <summary>사장님이 프리랜서 계약이라 퇴직금이 없다고 합니다.</summary>
+      <p>계약서 명칭만으로 결정되지 않습니다. 실제로 사용자의 지휘·감독을 받고, 정해진 근무시간과 장소에서 일하며, 임금을 목적으로 종속적으로 근로를 제공했다면 근로자로 인정될 여지가 있습니다. 이런 경우 고용노동부 상담을 받아보는 것이 좋습니다.</p>
+    </details>
 
-    <h2>자주 묻는 질문</h2>
-    <details class="faq">
-      <summary>퇴직연금(DC형)인데도 이 계산이 맞나요?</summary>
-      <p>이 계산기는 퇴직금 제도와 DB형(확정급여형) 퇴직연금 기준입니다. DC형(확정기여형)은 회사가 매년 연봉의 12분의 1 이상을 계좌에 넣어주고 운용 수익에 따라 금액이 달라지는 구조라, 실제 수령액은 가입한 금융사 계좌에서 확인해야 합니다.</p>
-    </details>
-    <details class="faq">
-      <summary>딱 11개월 일했는데 정말 한 푼도 못 받나요?</summary>
-      <p>법정 퇴직금은 1년 미만이면 발생하지 않는 게 원칙입니다. 다만 회사 취업규칙이나 근로계약에 1년 미만자에게도 지급한다는 규정이 있다면 받을 수 있으니 계약서를 확인해보세요. 수습 기간도 계속 근로에 포함되므로, 수습 3개월 + 정규직 10개월이면 합산 13개월로 퇴직금 대상입니다.</p>
-    </details>
-    <details class="faq">
-      <summary>세금은 얼마나 떼나요?</summary>
-      <p>퇴직금에는 퇴직소득세(+지방소득세)가 부과됩니다. 근속연수공제와 환산급여공제가 적용돼 일반 급여 소득세보다 부담이 낮고, 근속이 길수록 유리합니다. 정확한 세액은 국세청 홈택스의 퇴직소득 세액 계산 프로그램에서 확인할 수 있어요.</p>
-    </details>
-    <details class="faq">
-      <summary>중간정산을 받았으면 어떻게 계산하나요?</summary>
-      <p>중간정산을 받은 시점 이후부터 다시 재직일수를 계산합니다. 예를 들어 10년 근무 중 5년 차에 중간정산을 받았다면, 퇴직 시에는 나머지 5년분만 계산돼요. 이 계산기의 입사일에 중간정산 다음 날을 넣으면 됩니다.</p>
-    </details>
+    <div class="related-grid">
+      <h2>함께 보면 좋은 글</h2>
+      <div class="links">
+        <a href="/annual-leave.html">연차수당 계산기</a>
+        <a href="/insurance.html">4대보험 계산기</a>
+        <a href="/unemployment.html">실업급여 계산기</a>
+        <a href="/labor.html">노무 계산기 모음</a>
+      </div>
+    </div>
   </section>
 
   <p class="disclaimer">본 계산기는 근로자퇴직급여 보장법의 표준 공식에 따른 세전 예상액을 제공합니다. 통상임금 비교, 평균임금 제외 기간, 회사 규정 등 개별 사정에 따라 실제 금액과 다를 수 있으며, 정확한 금액은 회사 인사팀 또는 고용노동부 상담(국번 없이 1350)으로 확인하세요.</p>
@@ -382,6 +512,12 @@
     document.getElementById('rDays').textContent = totalDays.toLocaleString('ko-KR') + '일';
     document.getElementById('rWage3m').textContent = won(wage3m) + ' (' + days3m + '일)';
     document.getElementById('rAvgDaily').textContent = won(avgDaily);
+    var note = document.getElementById('resultNote');
+    if (note) {
+      var yearlyApprox = severance / (totalDays / 365);
+      note.innerHTML = '<strong>결과 해설</strong> — 입력한 조건에서는 1년당 약 ' + won(yearlyApprox) + '의 퇴직금이 쌓이는 구조입니다. 실제 지급액은 퇴직소득세와 지방소득세를 뺀 금액이며, 회사의 퇴직연금 유형(DB/DC)이나 평균임금 제외기간에 따라 달라질 수 있습니다.';
+      note.className = 'result-note show';
+    }
 
     var result = document.getElementById('result');
     result.className = 'result show';

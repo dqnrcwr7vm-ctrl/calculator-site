@@ -3,156 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>재산세 조회 방법 - 고지서 오기 전에 내 재산세 확인하는 4가지 방법 (2026)</title>
-<meta name="description" content="재산세 조회 방법 총정리. 위택스·이택스에서 부과 내역 확인하는 법, 고지서가 오기 전 공시가격으로 미리 계산하는 법, 카카오톡 전자고지 신청까지 정리했습니다.">
-<style>
-  :root {
-    --ink: #1f2a24; --paper: #fbfaf7; --line: #d9d4c8;
-    --accent: #1e6b50; --accent-soft: #e8f1ec; --warn: #8a5a14; --muted: #6b6f68;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
-    background: var(--paper); color: var(--ink); line-height: 1.8;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
-  nav.top { font-size: 14px; }
-  nav.top a { color: var(--muted); text-decoration: none; }
-  nav.top a:hover { color: var(--accent); }
-  header { padding: 24px 0 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
-  .eyebrow {
-    display: inline-block; font-size: 13px; letter-spacing: 0.08em;
-    color: var(--accent); border: 1px solid var(--accent);
-    border-radius: 999px; padding: 2px 12px; margin-bottom: 14px;
-  }
-  h1 { font-size: 27px; line-height: 1.4; letter-spacing: -0.01em; }
-  .meta { color: var(--muted); font-size: 13.5px; margin: 12px 0 18px; }
-  article h2 {
-    font-size: 21px; margin: 38px 0 12px; padding-left: 12px;
-    border-left: 4px solid var(--accent); letter-spacing: -0.01em;
-  }
-  article p { margin-bottom: 15px; font-size: 15.5px; }
-  article strong { color: var(--ink); }
-  article ol, article ul { margin: 0 0 15px 22px; font-size: 15.5px; }
-  article li { margin-bottom: 8px; }
-  .keybox {
-    background: var(--accent-soft); border: 1px solid #c5dcd1;
-    border-radius: 10px; padding: 14px 18px; font-size: 14.5px;
-    color: #195741; margin: 18px 0;
-  }
-  .keybox strong { color: #114433; }
-  table.info {
-    width: 100%; border-collapse: collapse; font-size: 14px;
-    margin: 14px 0 18px; background: #fff;
-  }
-  table.info th, table.info td {
-    border: 1px solid var(--line); padding: 9px 10px; text-align: left; vertical-align: top;
-  }
-  table.info th { background: var(--accent-soft); font-size: 13.5px; white-space: nowrap; }
-  .tool-cta {
-    display: block; background: #fff; border: 1.5px solid var(--accent);
-    border-radius: 12px; padding: 16px 20px; margin: 22px 0;
-    text-decoration: none; color: var(--ink);
-  }
-  .tool-cta:hover { background: var(--accent-soft); }
-  .tool-cta .t { font-weight: 800; color: var(--accent); font-size: 15.5px; }
-  .tool-cta .d { font-size: 14px; color: var(--muted); margin-top: 2px; }
-  details.faq { background: #fff; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px; }
-  details.faq summary { cursor: pointer; font-weight: 700; font-size: 15px; padding: 14px 16px; list-style: none; }
-  details.faq summary::before { content: "Q. "; color: var(--accent); }
-  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
-  .disclaimer { margin-top: 40px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
-  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
-  footer a { color: var(--muted); }
-  @media (max-width: 480px) { h1 { font-size: 22px; } }
-
-.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
-.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
-.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
-.cl-navlinks::-webkit-scrollbar{display:none;}
-.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
-.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
-</style>
+<title>재산세 조회 방법 2026 - 위택스·이택스 고지서 확인, 공시가격으로 미리 계산</title>
+<meta name="description" content="2026 재산세 조회 방법 총정리. 위택스·이택스에서 고지서와 납부내역 확인하는 법, 부과 전 공시가격으로 미리 계산하는 법, 6월 1일 과세기준일과 전자고지 신청까지 정리했습니다.">
 <link rel="canonical" href="https://calcloude.com/guide-property-tax-check.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="재산세 조회 방법 2026 - 고지서 오기 전 확인하는 법">
+<meta property="og:description" content="위택스·이택스 조회, 공시가격 계산, 전자고지, 6월 1일 과세기준일까지 한 번에 정리했습니다.">
+<meta property="og:url" content="https://calcloude.com/guide-property-tax-check.html">
+<meta property="og:site_name" content="calcloude">
+<meta name="twitter:card" content="summary">
+<style>
+:root{
+  --ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;
+  --accent-soft:#e8f1ec;--warn:#8a5a14;--warn-soft:#fff7e8;--muted:#6b6f68;--white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.cl-topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;margin:-24px -20px 8px}
+.cl-topbar-inner{max-width:760px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px}
+.cl-brand{font-weight:800;font-size:18px;color:var(--accent);text-decoration:none;letter-spacing:-.02em;flex-shrink:0}
+.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1}
+.cl-navlinks::-webkit-scrollbar{display:none}
+.cl-navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap}
+.cl-navlinks a:hover{background:var(--accent-soft);color:var(--accent)}
+header{padding:26px 0 10px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.eyebrow{display:inline-block;font-size:13px;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:2px 12px;margin-bottom:14px}
+h1{font-size:28px;line-height:1.38;letter-spacing:-.02em}
+.meta{color:var(--muted);font-size:13.5px;margin:12px 0 0}
+.lead{font-size:16px;margin:18px 0 0;color:#38433d}
+.keybox{background:var(--accent-soft);border:1px solid #c5dcd1;border-radius:14px;padding:16px 18px;margin:20px 0;color:#195741;font-size:14.8px}
+.keybox strong{color:#114433}
+.keybox ul{margin:8px 0 0 18px}
+.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0 26px}
+.toc .t{font-weight:800;color:var(--accent);margin-bottom:8px}
+.toc ol{margin-left:22px;font-size:14.8px}
+.toc a{color:var(--ink);text-decoration:none}
+.toc a:hover{color:var(--accent);text-decoration:underline}
+article h2{font-size:21px;margin:40px 0 13px;padding-left:12px;border-left:4px solid var(--accent);letter-spacing:-.01em}
+article h3{font-size:17px;margin:24px 0 8px}
+article p{margin-bottom:15px;font-size:15.7px}
+article ol,article ul{margin:0 0 16px 22px;font-size:15.5px}
+article li{margin-bottom:8px}
+.cardgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0 20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.card .label{font-size:12px;font-weight:800;color:var(--accent);background:var(--accent-soft);display:inline-block;border-radius:999px;padding:2px 9px;margin-bottom:8px}
+.card p{font-size:14.5px;margin:0;color:#39433e}
+table.info{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0 20px;background:#fff}
+table.info th,table.info td{border:1px solid var(--line);padding:10px 11px;text-align:left;vertical-align:top}
+table.info th{background:var(--accent-soft);font-size:13.5px;white-space:nowrap}
+.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px 18px;margin-bottom:12px}
+.step .n{display:inline-block;background:var(--accent);color:#fff;font-weight:800;font-size:13px;border-radius:999px;padding:2px 12px;margin-bottom:8px}
+.step h3{font-size:16.5px;margin:0 0 6px}
+.step p{font-size:14.8px;margin:0;color:#3c443f}
+.warnbox{background:var(--warn-soft);border:1px solid #ead7aa;border-radius:14px;padding:15px 17px;margin:18px 0;color:#6d4912;font-size:14.8px}
+.warnbox strong{color:#543500}
+.checklist{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+.checklist .t{font-weight:800;color:var(--accent);margin-bottom:8px}
+.checklist ul{list-style:none;margin:0}
+.checklist li{margin:7px 0;font-size:14.8px}
+.checklist li::before{content:"□ ";color:var(--accent);font-weight:800}
+.tool-cta{display:block;background:#fff;border:1.5px solid var(--accent);border-radius:14px;padding:16px 20px;margin:22px 0;text-decoration:none;color:var(--ink)}
+.tool-cta:hover{background:var(--accent-soft)}
+.tool-cta .t{display:block;font-weight:800;color:var(--accent);font-size:15.5px}
+.tool-cta .d{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.related{display:grid;gap:10px;margin:18px 0}
+.related a{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink);font-weight:700}
+.related a:hover{border-color:var(--accent);color:var(--accent)}
+details.faq{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+details.faq summary{cursor:pointer;font-weight:700;font-size:15px;padding:14px 16px;list-style:none}
+details.faq summary::before{content:"Q. ";color:var(--accent)}
+details.faq p{padding:0 16px 14px;font-size:14.5px;color:#3c443f;margin:0}
+.disclaimer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+footer{margin-top:28px;font-size:13px;color:var(--muted)}
+footer a{color:var(--muted)}
+@media(max-width:560px){h1{font-size:23px}.cardgrid{grid-template-columns:1fr}table.info{font-size:13.2px}.wrap{padding-left:18px;padding-right:18px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"홈","item":"https://calcloude.com/"},
+        {"@type":"ListItem","position":2,"name":"세금","item":"https://calcloude.com/tax.html"},
+        {"@type":"ListItem","position":3,"name":"재산세 조회 방법","item":"https://calcloude.com/guide-property-tax-check.html"}
+      ]
+    },
+    {
+      "@type":"Article",
+      "headline":"재산세 조회 방법 2026 - 위택스·이택스 고지서 확인, 공시가격으로 미리 계산",
+      "description":"2026 재산세 조회 방법, 위택스·이택스 확인법, 공시가격 미리 계산, 전자고지 신청과 6월 1일 과세기준일을 정리한 가이드입니다.",
+      "inLanguage":"ko",
+      "author":{"@type":"Organization","name":"calcloude"},
+      "publisher":{"@type":"Organization","name":"calcloude"},
+      "mainEntityOfPage":"https://calcloude.com/guide-property-tax-check.html",
+      "dateModified":"2026-06-29"
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"위택스에 재산세가 조회되지 않으면 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"아직 부과 전이거나 6월 1일 기준 소유자가 아니거나, 서울시처럼 이택스에서 조회해야 하는 경우일 수 있습니다. 7월 초중순 이후 다시 확인하고, 서울 소재 주택은 이택스 또는 STAX를 이용하세요."}},
+        {"@type":"Question","name":"고지서가 오기 전에 재산세를 미리 알 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"정확한 고지액은 부과 후 확인할 수 있지만, 부동산공시가격알리미에서 공시가격을 확인한 뒤 재산세 계산기로 예상액을 미리 계산할 수 있습니다."}},
+        {"@type":"Question","name":"재산세는 누가 내나요?","acceptedAnswer":{"@type":"Answer","text":"재산세는 매년 6월 1일 현재 재산을 소유한 사람에게 부과됩니다. 6월 2일 이후 매수자는 그해 주택분 재산세가 본인 명의로 나오지 않는 것이 일반적입니다."}}
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
-
-  <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
+  <div class="cl-topbar">
+    <div class="cl-topbar-inner">
+      <a href="/" class="cl-brand">calcloude</a>
+      <nav class="cl-navlinks">
+        <a href="/gov.html">🏛 정부지원</a>
+        <a href="/region.html">📍 지역소식</a>
+        <a href="/tax.html">🧾 세금</a>
+        <a href="/labor.html">👷 노무</a>
+        <a href="/blog.html">가이드</a>
+      </nav>
+    </div>
+  </div>
 
   <header>
-    <span class="eyebrow">재산세 가이드</span>
-    <h1>재산세 조회 방법 — 고지서 오기 전에 내 세금 확인하는 4가지 방법</h1>
-    <p class="meta">2026년 기준 · 주택분</p>
+    <span class="eyebrow">재산세 가이드 · 2026년</span>
+    <h1>재산세 조회 방법 — 고지서 오기 전 내 세금 확인하는 법</h1>
+    <p class="meta">최종 업데이트: 2026년 6월 29일 · 주택분 재산세 기준</p>
+    <p class="lead">재산세는 고지서를 받은 뒤에만 확인할 수 있는 세금처럼 보이지만, 실제로는 부과 전에는 공시가격으로 예상하고, 부과 후에는 위택스·이택스에서 정확한 금액을 조회할 수 있습니다.</p>
   </header>
 
   <article>
-    <p>7월이 다가오면 "올해 재산세 얼마 나오지?"가 궁금해집니다. 고지서를 기다리는 방법도 있지만, 부과되기 전에 미리 가늠하는 방법부터 부과 후 정확한 금액을 확인하는 방법까지 단계별로 있어요. 상황에 맞는 방법을 골라 쓰시면 됩니다.</p>
-
     <div class="keybox">
-      <strong>핵심 요약</strong> — 부과 전에는 <strong>공시가격으로 예상액 계산</strong>, 부과 후(7월 초~)에는 <strong>위택스</strong>에서 정확한 고지 금액 조회. 카카오톡·네이버 <strong>전자고지</strong>를 신청해두면 고지서를 놓칠 일이 없습니다.
+      <strong>3줄 요약</strong>
+      <ul>
+        <li>부과 전에는 <strong>공시가격</strong>을 확인해 예상 재산세를 계산합니다.</li>
+        <li>부과 후에는 <strong>위택스</strong>, 서울은 <strong>이택스/STAX</strong>에서 고지 금액과 납부내역을 조회합니다.</li>
+        <li>재산세는 매년 <strong>6월 1일 현재 소유자</strong>에게 부과되므로 매매 시 잔금일 확인이 중요합니다.</li>
+      </ul>
     </div>
 
-    <h2>방법 1: 부과 전에 미리 계산해보기</h2>
-    <p>재산세 고지서는 7월 초중순에야 발송되지만, 계산의 재료인 <strong>공시가격은 이미 공개되어 있습니다.</strong> 부동산공시가격알리미(realtyprice.kr)에서 내 집 주소로 검색하면 올해 공시가격이 나오고, 이 숫자만 있으면 재산세는 공식대로 계산됩니다. 이사·매매 계획 때문에 미리 알아야 하거나, 자금 계획을 세우는 분들에게 유용한 방법이에요.</p>
+    <nav class="toc" aria-label="목차">
+      <div class="t">목차</div>
+      <ol>
+        <li><a href="#when">재산세 조회 가능 시기</a></li>
+        <li><a href="#before">부과 전 예상액 확인</a></li>
+        <li><a href="#wetax">위택스·이택스 조회 방법</a></li>
+        <li><a href="#notice">전자고지와 고지서 재발급</a></li>
+        <li><a href="#check">고지서 금액이 이상할 때 확인할 것</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ol>
+    </nav>
 
-    <a class="tool-cta" href="/property-tax.html">
-      <span class="t">🧮 주택 재산세 계산기 →</span>
-      <span class="d">공시가격만 입력하면 1주택 특례·지방교육세까지 반영한 7월분·9월분 예상액이 나옵니다.</span>
-    </a>
+    <section id="when">
+      <h2>재산세는 언제 조회할 수 있나요?</h2>
+      <p>재산세는 부과 전과 부과 후에 확인 방법이 다릅니다. 부과 전에는 아직 지자체가 고지서를 만든 상태가 아니므로 위택스에 금액이 표시되지 않을 수 있습니다. 이때는 공시가격을 기준으로 예상액을 계산하는 방식이 가장 현실적입니다.</p>
+      <table class="info">
+        <tbody>
+          <tr><th>연중 상시</th><td>부동산공시가격알리미에서 공시가격 확인 → 재산세 계산기로 예상액 계산</td></tr>
+          <tr><th>7월 초~중순</th><td>주택분 1기분, 건축물분 부과 내역 조회 가능</td></tr>
+          <tr><th>7월 16일~31일</th><td>주택분 재산세 1기분 납부 기간</td></tr>
+          <tr><th>9월 초~중순</th><td>주택분 2기분, 토지분 부과 내역 조회 가능</td></tr>
+          <tr><th>9월 16일~30일</th><td>주택분 재산세 2기분 납부 기간</td></tr>
+        </tbody>
+      </table>
+      <p>주택분 재산세는 보통 1년 세액을 7월과 9월에 절반씩 나누어 고지합니다. 단, 연간 주택분 재산세가 20만 원 이하라면 7월에 한 번만 고지될 수 있습니다.</p>
+    </section>
 
-    <h2>방법 2: 위택스에서 부과 내역 조회 (7월 초 이후)</h2>
-    <p>재산세가 실제로 부과되면 <strong>위택스(wetax.go.kr)</strong>에서 정확한 금액을 확인할 수 있습니다.</p>
-    <ol>
-      <li>위택스 접속 → 간편인증(카카오, 네이버, PASS 등) 또는 공동인증서로 로그인</li>
-      <li>메인의 <strong>'나의 할일'</strong> 또는 <strong>납부 메뉴</strong>에 부과된 지방세가 자동으로 표시됩니다</li>
-      <li>항목을 클릭하면 과세표준, 세율, 세목별 금액(재산세·도시지역분·지방교육세)까지 상세 내역을 볼 수 있어요</li>
-      <li>그 자리에서 바로 납부도 가능합니다</li>
-    </ol>
-    <p>서울시 주택은 서울시 세금 전용 사이트인 <strong>이택스(etax.seoul.go.kr)</strong>에서도 같은 방식으로 조회할 수 있습니다. 모바일에서는 위택스 앱(스마트위택스), 서울은 STAX 앱을 쓰면 돼요.</p>
+    <section id="before">
+      <h2>방법 1. 고지서 전에는 공시가격으로 미리 계산하기</h2>
+      <p>재산세 고지서가 아직 나오지 않았다면, 먼저 내 집의 <strong>공시가격</strong>을 확인하세요. 공시가격은 재산세 계산의 출발점입니다. 공동주택·단독주택 공시가격은 부동산공시가격알리미에서 주소로 조회할 수 있습니다.</p>
+      <div class="step">
+        <span class="n">부과 전 예상 순서</span>
+        <h3>공시가격 확인 → 계산기 입력 → 7월·9월 납부액 예상</h3>
+        <p>공시가격, 1세대 1주택 여부, 도시지역 여부를 입력하면 재산세 본세, 지방교육세, 도시지역분을 포함한 예상 납부액을 확인할 수 있습니다.</p>
+      </div>
+      <a class="tool-cta" href="/property-tax.html">
+        <span class="t">🧮 주택 재산세 계산기 바로가기</span>
+        <span class="d">공시가격만 입력하면 1주택 특례와 지방교육세까지 반영해 7월·9월 예상액을 확인할 수 있습니다.</span>
+      </a>
+    </section>
 
-    <h2>방법 3: 카카오톡·네이버 전자고지 신청</h2>
-    <p>종이 고지서는 이사나 부재로 못 받는 일이 생기는데, 전자고지를 신청해두면 <strong>카카오톡이나 네이버 앱으로 고지서가 도착</strong>합니다. 위택스나 카카오페이·네이버 전자문서 메뉴에서 신청할 수 있고, 알림에서 바로 납부까지 이어져요. 지자체에 따라 전자고지·자동이체 신청 시 소액 세액공제(건당 수백 원 수준)를 주기도 합니다. 고지서를 놓쳐서 가산금 3%를 무는 것보다 훨씬 나은 선택이죠.</p>
+    <section id="wetax">
+      <h2>방법 2. 위택스에서 정확한 고지 금액 조회하기</h2>
+      <p>재산세가 실제로 부과되면 위택스에서 정확한 고지 금액과 상세 산출 내역을 확인할 수 있습니다. 위택스 메인에는 지방세 빠른 납부와 나의 할일, 전자납부번호 검색 기능이 제공됩니다.</p>
+      <ol>
+        <li>위택스 접속 후 간편인증 또는 공동인증서로 로그인합니다.</li>
+        <li>메인의 <strong>나의 할일</strong> 또는 <strong>납부</strong> 메뉴에서 부과된 지방세를 확인합니다.</li>
+        <li>재산세 항목을 선택하면 과세표준, 세율, 재산세 본세, 도시지역분, 지방교육세 등 상세 내역을 볼 수 있습니다.</li>
+        <li>납부 후에는 <strong>지방세 납부내역</strong> 또는 납부확인서 메뉴에서 영수증을 확인할 수 있습니다.</li>
+      </ol>
 
-    <h2>방법 4: 전화·방문 조회</h2>
-    <p>온라인이 익숙하지 않다면 관할 시·군·구청 세무과에 전화해서 본인 확인 후 부과 내역을 안내받을 수 있습니다. 위택스 콜센터(110 또는 지방세상담센터)도 이용 가능하고, 가까운 구청·주민센터 방문 시에는 신분증을 지참하세요.</p>
+      <h3>서울 주택은 이택스·STAX도 확인하세요</h3>
+      <p>서울시 소재 주택은 서울시 지방세 시스템인 이택스 또는 모바일 STAX 앱에서 조회하는 것이 편합니다. 위택스에서 바로 보이지 않는 경우라도 서울시 세금은 이택스에서 확인되는 경우가 있습니다.</p>
+    </section>
 
-    <h2>조회 시기별 정리</h2>
-    <table class="info">
-      <tbody>
-        <tr><th>연중 언제든</th><td>공시가격 확인(부동산공시가격알리미) → 계산기로 예상액 계산</td></tr>
-        <tr><th>7월 초~</th><td>위택스·이택스에서 1기분 부과 내역 조회 (납부 7/16~31)</td></tr>
-        <tr><th>9월 초~</th><td>2기분 부과 내역 조회 (납부 9/16~30)</td></tr>
-        <tr><th>상시</th><td>전자고지 신청해두면 고지서가 카카오톡·네이버로 자동 도착</td></tr>
-      </tbody>
-    </table>
+    <section id="notice">
+      <h2>방법 3. 카카오톡·네이버 전자고지 신청하기</h2>
+      <p>종이 고지서를 기다리다가 놓치면 납부기한을 넘기기 쉽습니다. 전자고지를 신청해두면 카카오톡, 네이버, 금융 앱 등으로 지방세 고지 알림을 받을 수 있고, 알림에서 바로 납부까지 이어지는 경우가 많습니다.</p>
+      <div class="cardgrid">
+        <div class="card"><span class="label">장점 1</span><p>우편함을 확인하지 않아도 고지서 도착을 알 수 있습니다.</p></div>
+        <div class="card"><span class="label">장점 2</span><p>전자고지·자동납부를 함께 신청하면 지자체에 따라 소액 세액공제를 받을 수 있습니다.</p></div>
+        <div class="card"><span class="label">장점 3</span><p>전자납부번호를 따로 입력하지 않아도 앱에서 바로 납부할 수 있습니다.</p></div>
+        <div class="card"><span class="label">주의</span><p>알림을 놓칠 수 있으므로 납부기한 전에는 위택스에서도 한 번 확인하는 것이 안전합니다.</p></div>
+      </div>
+    </section>
 
-    <h2>자주 묻는 질문</h2>
-    <details class="faq">
-      <summary>위택스에 조회했는데 아무것도 안 나와요.</summary>
-      <p>아직 부과 전이거나(고지서는 7월 초중순 발송), 6월 1일 기준 소유자가 아니어서일 수 있습니다. 올해 6월 2일 이후 집을 샀다면 올해 재산세는 전 소유자에게 부과되므로 내 명의로는 조회되지 않는 게 정상이에요.</p>
-    </details>
-    <details class="faq">
-      <summary>고지서 금액이 작년보다 많이 올랐어요. 확인할 방법이 있나요?</summary>
-      <p>먼저 공시가격이 올랐는지 부동산공시가격알리미에서 확인해보세요. 그리고 계산기로 표준 공식 금액을 계산해 고지서와 비교하면, 1주택 특례가 제대로 적용됐는지 가늠할 수 있습니다. 이상하다 싶으면 고지서에 적힌 담당 부서로 문의하면 산출 근거를 안내해 줍니다.</p>
-    </details>
-    <details class="faq">
-      <summary>가족 명의 주택도 제가 조회할 수 있나요?</summary>
-      <p>아니요, 지방세 부과 내역은 본인 인증 기반이라 명의자 본인만 조회할 수 있습니다. 가족 것을 확인하려면 명의자가 직접 로그인하거나, 공시가격(공개 정보)으로 예상액을 계산해보는 방법을 쓰세요.</p>
-    </details>
-    <details class="faq">
-      <summary>납부 방법이나 카드 혜택도 알고 싶어요.</summary>
-      <p>납부 채널별 방법, 수수료 없는 카드 납부와 무이자 할부, 250만 원 초과 시 분납 신청까지는 별도 글에 정리해 두었습니다. 아래 '7월 재산세 납부 방법 총정리' 가이드를 참고하세요.</p>
-    </details>
+    <section id="paper">
+      <h2>방법 4. 고지서 재발급·전화 조회하기</h2>
+      <p>고지서를 잃어버렸거나 온라인 로그인이 어렵다면 관할 시·군·구청 세무부서에 문의하면 됩니다. 본인 확인 후 부과 내역과 납부 방법을 안내받을 수 있고, 필요하면 주민센터나 구청에서 고지서를 재발급받을 수 있습니다.</p>
+      <p>다만 가족 명의의 주택은 원칙적으로 명의자 본인이 확인해야 합니다. 가족의 재산세를 대신 확인하려면 명의자의 인증 또는 위임 절차가 필요할 수 있습니다.</p>
+    </section>
 
-    <a class="tool-cta" href="/guide-property-tax-payment.html">
-      <span class="t">📄 다음 글: 7월 재산세 납부 방법 총정리 →</span>
-      <span class="d">카드 무이자 할부, 분납 신청, 놓치기 쉬운 감면 포인트까지</span>
-    </a>
+    <section id="check">
+      <h2>고지서 금액이 이상할 때 확인할 것</h2>
+      <p>작년보다 재산세가 크게 올랐거나 계산기 예상액과 차이가 크다면 아래 순서대로 확인해보세요.</p>
+      <div class="checklist">
+        <div class="t">재산세 고지서 검산 체크리스트</div>
+        <ul>
+          <li>올해 공시가격이 작년보다 올랐는지 확인</li>
+          <li>1세대 1주택 특례가 적용되었는지 확인</li>
+          <li>도시지역분이 포함되어 있는지 확인</li>
+          <li>지방교육세가 재산세 본세의 20%로 붙었는지 확인</li>
+          <li>공동명의라면 지분별로 고지서가 나뉘었는지 확인</li>
+          <li>6월 1일 기준 실제 소유자가 맞는지 확인</li>
+          <li>주택연금, 감면, 전자고지 세액공제 등 감면 적용 여부 확인</li>
+        </ul>
+      </div>
+
+      <div class="warnbox">
+        <strong>6월 1일 기준일이 가장 중요합니다.</strong><br>
+        재산세는 납부기한이 아니라 매년 6월 1일 현재 소유자에게 부과됩니다. 6월 2일 이후 집을 샀다면 그해 재산세가 본인 명의로 조회되지 않는 것이 일반적이고, 6월 1일에 잔금을 치렀다면 매수자가 납세자가 될 수 있습니다.
+      </div>
+    </section>
+
+    <h2>재산세 조회 후 같이 보면 좋은 글</h2>
+    <div class="related">
+      <a href="/property-tax.html">🧮 주택 재산세 계산기 — 공시가격으로 7월·9월 예상액 확인</a>
+      <a href="/guide-property-tax-payment.html">💳 7월 재산세 납부 방법 — 카드 무이자·분납까지</a>
+      <a href="/tax.html">🧾 세금 계산기·가이드 모음</a>
+      <a href="/region.html">📍 지역별 지원금·세제 혜택 소식</a>
+    </div>
+
+    <section id="faq">
+      <h2>자주 묻는 질문</h2>
+      <details class="faq">
+        <summary>위택스에 재산세가 안 떠요. 왜 그런가요?</summary>
+        <p>아직 부과 전이거나, 6월 1일 기준 소유자가 아니거나, 서울시 주택이라 이택스에서 조회해야 하는 경우일 수 있습니다. 7월 초중순 이후 다시 확인하고, 서울 소재 부동산은 이택스나 STAX도 확인하세요.</p>
+      </details>
+      <details class="faq">
+        <summary>고지서가 오기 전에 정확한 금액을 알 수 있나요?</summary>
+        <p>정확한 고지액은 부과 후 확인할 수 있습니다. 다만 공시가격을 기준으로 재산세 계산기를 사용하면 상당히 가까운 예상액을 미리 확인할 수 있습니다. 실제 고지서에는 세부담상한, 감면, 지자체별 조정이 반영될 수 있습니다.</p>
+      </details>
+      <details class="faq">
+        <summary>6월 2일에 집을 샀는데 올해 재산세를 내나요?</summary>
+        <p>일반적으로 아닙니다. 재산세는 6월 1일 현재 소유자에게 부과되므로, 6월 2일 이후 매수자는 그해 주택분 재산세가 본인 명의로 나오지 않는 경우가 많습니다.</p>
+      </details>
+      <details class="faq">
+        <summary>부부 공동명의면 고지서가 두 장 나오나요?</summary>
+        <p>공동명의 주택은 지분에 따라 각각 고지될 수 있습니다. 합산하면 주택 전체에 대한 세액이며, 단독명의보다 재산세 총액이 반드시 줄어드는 구조는 아닙니다.</p>
+      </details>
+      <details class="faq">
+        <summary>재산세 납부확인서는 어디서 발급하나요?</summary>
+        <p>위택스의 지방세 납부내역 또는 납부확인서 메뉴에서 확인할 수 있습니다. 서울시는 이택스에서도 확인 가능합니다. 납부 후 영수증이 필요한 경우 PDF 저장이나 출력 기능을 이용하세요.</p>
+      </details>
+      <details class="faq">
+        <summary>고지서 금액이 너무 많이 오른 것 같습니다.</summary>
+        <p>먼저 공시가격 변동을 확인하고, 1주택 특례와 세부담상한이 적용됐는지 확인하세요. 그래도 이상하면 고지서에 표시된 관할 세무부서에 문의해 산출 근거를 요청하는 것이 가장 정확합니다.</p>
+      </details>
+      <details class="faq">
+        <summary>전자고지를 신청하면 종이 고지서는 안 오나요?</summary>
+        <p>전자송달을 신청하면 종이 고지서가 생략되는 경우가 많습니다. 다만 지자체·신청 채널에 따라 처리 방식이 다를 수 있으니 신청 후 첫 해에는 위택스에서도 납부 내역을 함께 확인하는 것이 안전합니다.</p>
+      </details>
+      <details class="faq">
+        <summary>가족 명의 주택도 제가 대신 조회할 수 있나요?</summary>
+        <p>지방세 부과 내역은 본인 인증 기반이라 명의자 본인이 조회하는 것이 원칙입니다. 대신 공시가격은 공개 정보이므로 가족 명의 주택도 주소를 알면 예상액 계산은 가능합니다.</p>
+      </details>
+      <details class="faq">
+        <summary>7월에 냈는데 9월에 또 나오는 이유는 뭔가요?</summary>
+        <p>주택분 재산세는 연간 세액을 7월과 9월에 절반씩 나누어 냅니다. 7월은 1기분, 9월은 2기분입니다. 연간 세액이 20만 원 이하라면 7월에 한 번만 고지될 수 있습니다.</p>
+      </details>
+      <details class="faq">
+        <summary>재산세 조회와 납부는 같은 메뉴인가요?</summary>
+        <p>대부분의 경우 조회 화면에서 바로 납부까지 이어집니다. 다만 납부 후 영수증이나 납부확인서를 확인하려면 납부내역 또는 증명서 발급 메뉴를 따로 이용해야 합니다.</p>
+      </details>
+    </section>
   </article>
 
-  <p class="disclaimer">본 글은 2026년 기준 일반적인 안내이며, 조회 메뉴 위치와 명칭은 사이트 개편에 따라 달라질 수 있습니다. 정확한 부과 내역은 위택스 또는 관할 지자체를 기준으로 확인하세요.</p>
+  <p class="disclaimer">본 글은 2026년 기준 재산세 조회와 납부 절차를 쉽게 설명한 참고용 안내입니다. 실제 부과 내역, 감면 적용, 납부 기한은 관할 지방자치단체와 위택스·이택스 고지 정보를 기준으로 확인하세요.</p>
 
   <footer>
     문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>

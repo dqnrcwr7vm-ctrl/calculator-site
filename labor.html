@@ -3,66 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>노무 계산기·가이드 - calcloude</title>
-<meta name="description" content="퇴직금, 연차수당, 4대보험, 주휴수당, 실업급여 계산기와 노동 권리 가이드를 한 곳에 모았습니다.">
+<title>노무 계산기·노동권리 가이드 - 퇴직금·연차·4대보험·실업급여 한눈에</title>
+<meta name="description" content="퇴직금, 연차수당, 4대보험, 주휴수당, 실업급여 계산기와 퇴직금 미지급, 자발적 퇴사 실업급여, 퇴직소득세 가이드를 한곳에 모은 노무 허브입니다.">
 <link rel="canonical" href="https://calcloude.com/labor.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="노무 계산기·노동권리 가이드 - calcloude">
+<meta property="og:description" content="퇴직금·연차수당·4대보험·실업급여 계산기와 노동 권리 가이드를 한곳에서 확인하세요.">
+<meta property="og:url" content="https://calcloude.com/labor.html">
+<meta property="og:site_name" content="calcloude">
 <style>
-:root{--ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;--soft:#e8f1ec;--muted:#6b6f68;}
+:root{--ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;--soft:#e8f1ec;--muted:#6b6f68;--warn:#8a5a14;--card:#fff;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;}
+body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.72;}
 .topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
-.topbar-inner{max-width:860px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:18px;height:56px;}
+.topbar-inner{max-width:960px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:18px;height:56px;}
 .brand{font-weight:800;font-size:19px;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.navlinks{display:flex;gap:4px;overflow-x:auto;flex:1;}
-.navlinks::-webkit-scrollbar{display:none;}
+.navlinks{display:flex;gap:4px;overflow-x:auto;flex:1;}.navlinks::-webkit-scrollbar{display:none;}
 .navlinks a{color:var(--ink);text-decoration:none;font-size:14.5px;font-weight:600;padding:8px 12px;border-radius:8px;white-space:nowrap;}
 .navlinks a:hover,.navlinks a.active{background:var(--soft);color:var(--accent);}
-.wrap{max-width:860px;margin:0 auto;padding:0 20px 64px;}
-header{padding:32px 0 8px;}
-header h1{font-size:26px;letter-spacing:-0.01em;}
-header .sub{color:var(--muted);margin-top:8px;font-size:15px;}
-.sec{margin-top:28px;}
-.sec-head{font-size:18px;border-bottom:2px solid var(--accent);padding-bottom:7px;margin-bottom:14px;letter-spacing:-0.01em;}
-.calc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-a.calc{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s;}
-a.calc:hover{border-color:var(--accent);box-shadow:0 3px 14px rgba(30,107,80,.10);}
-.calc .ico{font-size:22px;}
-.calc h3{font-size:15.5px;margin-top:8px;letter-spacing:-0.01em;}
-.calc p{font-size:13px;color:var(--muted);margin-top:4px;}
-.list{display:grid;gap:10px;}
-a.post{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);transition:border-color .15s;}
-a.post:hover{border-color:var(--accent);}
-.post .ptag{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--soft);border-radius:999px;padding:2px 9px;}
-.post h3{font-size:15.5px;line-height:1.45;margin-top:7px;}
-.post p{font-size:13.5px;color:var(--muted);margin-top:5px;}
-footer{margin-top:44px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;}
-footer a{color:var(--muted);}
-@media(max-width:560px){header h1{font-size:22px;}.calc-grid{grid-template-columns:1fr;}}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px 68px;}
+.hero{padding:38px 0 18px;}
+.eyebrow{display:inline-block;font-size:12.5px;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:2px 12px;margin-bottom:14px;font-weight:700;}
+h1{font-size:31px;line-height:1.32;letter-spacing:-.02em;}
+.sub{color:var(--muted);margin-top:10px;font-size:15.5px;max-width:760px;}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px;}
+.sum-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px;}
+.sum-card strong{display:block;color:var(--accent);font-size:14px;margin-bottom:3px;}.sum-card span{font-size:13.5px;color:#3c443f;}
+.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0 6px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.toc b{font-size:14px;color:var(--accent);margin-right:4px;}.toc a{font-size:13.5px;color:var(--ink);text-decoration:none;background:var(--soft);border-radius:999px;padding:5px 10px;}.toc a:hover{color:var(--accent);}
+.sec{margin-top:34px;}.sec-head{font-size:20px;border-bottom:2px solid var(--accent);padding-bottom:8px;margin-bottom:14px;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:10px;align-items:flex-end;}.sec-head small{font-size:13px;color:var(--muted);font-weight:500;}
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+a.calc{display:block;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .15s;}
+a.calc:hover{border-color:var(--accent);box-shadow:0 3px 14px rgba(30,107,80,.10);transform:translateY(-1px);}.calc .ico{font-size:24px;}.calc h3{font-size:15.5px;margin-top:8px;letter-spacing:-.01em;}.calc p{font-size:13px;color:var(--muted);margin-top:4px;}.calc .tag{display:inline-block;margin-top:10px;font-size:11.5px;color:var(--accent);background:var(--soft);border-radius:999px;padding:2px 8px;font-weight:700;}
+.path-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}.path{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;}.path h3{font-size:16px;margin-bottom:8px;}.path ol{margin-left:20px;font-size:14px;color:#3c443f;}.path li{margin:4px 0;}.path a{color:var(--accent);font-weight:700;text-decoration:none;}
+.list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+a.post{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s;}
+a.post:hover{border-color:var(--accent);box-shadow:0 3px 14px rgba(30,107,80,.08);}.post .ptag{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--soft);border-radius:999px;padding:2px 9px;}.post .ptag.warn{color:#a04800;background:#fef0d8;}.post h3{font-size:15.5px;line-height:1.45;margin-top:7px;}.post p{font-size:13.5px;color:var(--muted);margin-top:5px;}
+.check{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;}.check ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 14px;}.check li{font-size:14.5px;}.check li:before{content:'□ ';color:var(--accent);font-weight:800;}
+.faqs{display:grid;gap:10px;}details.faq{background:#fff;border:1px solid var(--line);border-radius:10px;}details.faq summary{cursor:pointer;font-weight:700;font-size:15px;padding:14px 16px;list-style:none;}details.faq summary::before{content:"Q. ";color:var(--accent);}details.faq p{padding:0 16px 14px;font-size:14.5px;color:#3c443f;}
+.notice{background:#fdf6e9;border:1px solid #ecd9b0;color:var(--warn);border-radius:14px;padding:16px 18px;font-size:14px;margin-top:16px;}
+footer{margin-top:44px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;}footer a{color:var(--muted);}footer .links{margin-top:6px;display:flex;gap:10px;flex-wrap:wrap;}
+@media(max-width:760px){.summary,.calc-grid,.path-grid,.list,.check ul{grid-template-columns:1fr;}h1{font-size:25px;}.sec-head{display:block;}.topbar-inner{padding:0 14px;}.wrap{padding-left:16px;padding-right:16px;}}
 </style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":"노무 계산기·노동권리 가이드",
+  "url":"https://calcloude.com/labor.html",
+  "description":"퇴직금, 연차수당, 4대보험, 주휴수당, 실업급여 계산기와 노동 권리 가이드를 모은 노무 허브 페이지입니다.",
+  "isPartOf":{"@type":"WebSite","name":"calcloude","url":"https://calcloude.com"},
+  "mainEntity":{"@type":"ItemList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"퇴직금 계산기","url":"https://calcloude.com/severance.html"},
+    {"@type":"ListItem","position":2,"name":"연차수당 계산기","url":"https://calcloude.com/annual-leave.html"},
+    {"@type":"ListItem","position":3,"name":"4대보험 계산기","url":"https://calcloude.com/insurance.html"},
+    {"@type":"ListItem","position":4,"name":"실업급여 계산기","url":"https://calcloude.com/unemployment.html"}
+  ]}
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://calcloude.com/"},{"@type":"ListItem","position":2,"name":"노무","item":"https://calcloude.com/labor.html"}]}
+</script>
 </head>
 <body>
-<div class="topbar"><div class="topbar-inner"><a href="/" class="brand">calcloude</a><nav class="navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/tax.html">🧾 세금</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html" class="active">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
+<div class="topbar"><div class="topbar-inner"><a href="/" class="brand">calcloude</a><nav class="navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html" class="active">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
 <div class="wrap">
-  <header><h1>👷 노무</h1><p class="sub">퇴직금·연차·4대보험·주휴수당·실업급여 계산기와 노동 권리 가이드.</p></header>
-  <div class="sec">
-    <div class="sec-head">계산기</div>
+  <header class="hero">
+    <span class="eyebrow">노무 · 노동권리 허브</span>
+    <h1>퇴직금·연차·4대보험·실업급여 계산기와 가이드</h1>
+    <p class="sub">월급에서 빠지는 4대보험, 남은 연차수당, 퇴직금, 실업급여까지. 근로자가 꼭 확인해야 할 돈과 권리를 계산기와 실무 가이드로 정리했습니다.</p>
+    <div class="summary">
+      <div class="sum-card"><strong>① 먼저 계산</strong><span>퇴직금·연차수당·4대보험·실업급여 예상액을 바로 확인합니다.</span></div>
+      <div class="sum-card"><strong>② 권리 확인</strong><span>퇴직금 미지급, 자발적 퇴사 실업급여, 퇴직소득세를 상황별로 봅니다.</span></div>
+      <div class="sum-card"><strong>③ 공식 기준</strong><span>고용노동부·고용보험·근로기준법 기준의 일반 안내를 제공합니다.</span></div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="페이지 목차"><b>목차</b><a href="#calculators">계산기</a><a href="#situations">상황별 추천</a><a href="#guides">노무 가이드</a><a href="#checklist">퇴사 전 체크</a><a href="#faq">FAQ</a></nav>
+
+  <section class="sec" id="calculators">
+    <div class="sec-head">계산기 <small>금액부터 확인하면 다음 행동이 쉬워집니다</small></div>
     <div class="calc-grid">
-      <a class="calc" href="/severance.html"><div class="ico">💼</div><h3>퇴직금 계산기</h3><p>평균임금 기준 법정 퇴직금</p></a>
-      <a class="calc" href="/annual-leave.html"><div class="ico">🌴</div><h3>연차수당 계산기</h3><p>미사용 연차 수당</p></a>
-      <a class="calc" href="/insurance.html"><div class="ico">🛡️</div><h3>4대보험 계산기</h3><p>2026 요율 공제액</p></a>
-      <a class="calc" href="/weekly-holiday.html"><div class="ico">📅</div><h3>주휴수당 계산기</h3><p>시급·주 근무시간 기준</p></a>
-      <a class="calc" href="/unemployment.html"><div class="ico">📋</div><h3>실업급여 계산기</h3><p>1일 지급액·수급 기간</p></a>
+      <a class="calc" href="/severance.html"><div class="ico">💼</div><h3>퇴직금 계산기</h3><p>입사일·퇴사일·월급으로 법정 퇴직금 예상액 확인</p><span class="tag">퇴사 전 필수</span></a>
+      <a class="calc" href="/annual-leave.html"><div class="ico">🌴</div><h3>연차수당 계산기</h3><p>미사용 연차를 1일 통상임금 기준으로 계산</p><span class="tag">퇴사 정산</span></a>
+      <a class="calc" href="/insurance.html"><div class="ico">🛡️</div><h3>4대보험 계산기</h3><p>국민연금·건강보험·장기요양·고용보험 공제액</p><span class="tag">월급명세서</span></a>
+      <a class="calc" href="/weekly-holiday.html"><div class="ico">📅</div><h3>주휴수당 계산기</h3><p>시급과 주 근무시간으로 받을 수 있는 주휴수당</p><span class="tag">아르바이트</span></a>
+      <a class="calc" href="/unemployment.html"><div class="ico">📋</div><h3>실업급여 계산기</h3><p>1일 지급액과 수급 기간, 총 예상 수령액</p><span class="tag">퇴사 후 생활비</span></a>
+      <a class="calc" href="/tax.html"><div class="ico">🧾</div><h3>세금 계산기 모음</h3><p>퇴직소득세·재산세·부가세 등 관련 세금으로 이동</p><span class="tag">관련 계산</span></a>
     </div>
-  </div>
-  <div class="sec">
-    <div class="sec-head">가이드</div>
+  </section>
+
+  <section class="sec" id="situations">
+    <div class="sec-head">상황별로 이렇게 보세요</div>
+    <div class="path-grid">
+      <div class="path"><h3>퇴사 예정이라면</h3><ol><li><a href="/severance.html">퇴직금</a> 예상액 계산</li><li><a href="/annual-leave.html">남은 연차수당</a> 확인</li><li><a href="/guide-severance-tax.html">퇴직금 세금·IRP</a> 확인</li></ol></div>
+      <div class="path"><h3>회사가 퇴직금을 안 준다면</h3><ol><li><a href="/severance.html">체불 금액</a> 계산</li><li><a href="/guide-unpaid-severance.html">14일 지급기한·노동부 진정</a> 확인</li><li>증거 자료를 모아 진정 준비</li></ol></div>
+      <div class="path"><h3>실업급여가 궁금하다면</h3><ol><li><a href="/unemployment.html">예상 수령액</a> 계산</li><li><a href="/guide-quit-unemployment.html">자발적 퇴사 인정 사유</a> 확인</li><li><a href="/gov-learning-card.html">국민내일배움카드</a>로 훈련 연계</li></ol></div>
+      <div class="path"><h3>월급명세서가 이상하다면</h3><ol><li><a href="/insurance.html">4대보험 공제액</a> 검산</li><li>비과세 수당 포함 여부 확인</li><li>4월 건강보험 정산 여부 확인</li></ol></div>
+    </div>
+  </section>
+
+  <section class="sec" id="guides">
+    <div class="sec-head">노무 가이드 <small>실제 분쟁·퇴사 상황에서 자주 찾는 글</small></div>
     <div class="list">
-      <a class="post" href="/guide-quit-unemployment.html"><span class="ptag">실업급여</span><h3>실업급여 자발적 퇴사 인정 사유 총정리</h3><p>사표 내고도 받는 경우와 필요한 증빙, 인정 전략.</p></a>
-      <a class="post" href="/guide-unpaid-severance.html"><span class="ptag">퇴직금</span><h3>퇴직금 못 받았을 때 대처법 — 진정부터 대지급금까지</h3><p>14일 기한, 노동부 진정, 정부 대지급금, 무료 소송.</p></a>
-      <a class="post" href="/guide-severance-tax.html"><span class="ptag">퇴직금</span><h3>퇴직금 세금, 얼마나 떼나요 — 퇴직소득세와 IRP 절세</h3><p>근속이 길수록 세금이 주는 이유, IRP 30~40% 감면.</p></a>
+      <a class="post" href="/guide-quit-unemployment.html"><span class="ptag warn">실업급여</span><h3>실업급여 자발적 퇴사 인정 사유 총정리</h3><p>사표를 냈더라도 임금체불, 괴롭힘, 통근곤란, 질병·육아 등 정당한 사유가 있으면 받을 수 있습니다.</p></a>
+      <a class="post" href="/guide-unpaid-severance.html"><span class="ptag warn">퇴직금 체불</span><h3>퇴직금 못 받았을 때 대처법</h3><p>14일 기한, 연 20% 지연이자, 노동부 진정, 간이대지급금, 무료 법률지원까지 순서대로 정리.</p></a>
+      <a class="post" href="/guide-severance-tax.html"><span class="ptag">퇴직소득세</span><h3>퇴직금 세금, 얼마나 떼나요?</h3><p>퇴직소득세 계산 구조, 근속연수별 차이, IRP 연금 수령 절세 효과를 쉽게 정리했습니다.</p></a>
+      <a class="post" href="/gov-learning-card.html"><span class="ptag">직업훈련</span><h3>국민내일배움카드 신청방법</h3><p>퇴사 후 재취업을 준비한다면 훈련비 지원과 훈련장려금도 함께 확인하세요.</p></a>
     </div>
-  </div>
-  <footer>문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a></footer>
+  </section>
+
+  <section class="sec" id="checklist">
+    <div class="sec-head">퇴사 전 체크리스트</div>
+    <div class="check">
+      <ul>
+        <li>입사일·퇴사일 기준 퇴직금 대상인지 확인</li>
+        <li>최근 3개월 임금과 고정수당 자료 보관</li>
+        <li>미사용 연차 일수와 연차사용촉진 여부 확인</li>
+        <li>퇴직금 지급 계좌 또는 IRP 계좌 준비</li>
+        <li>권고사직·체불·괴롭힘 등은 문자·메일 증거 보관</li>
+        <li>실업급여 신청 가능성을 퇴사 전 미리 검토</li>
+      </ul>
+      <div class="notice">퇴직금·연차수당·마지막 월급은 퇴직 후 14일 이내 지급이 원칙입니다. 다만 실제 권리 여부는 근무 형태, 사업장 규모, 출근율, 임금 구성에 따라 달라질 수 있습니다.</div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="sec-head">자주 묻는 질문</div>
+    <div class="faqs">
+      <details class="faq"><summary>노무 계산기는 세전 기준인가요?</summary><p>퇴직금과 연차수당 계산기는 기본적으로 세전 금액을 보여줍니다. 실제 입금액은 퇴직소득세, 근로소득세, 4대보험 정산 등에 따라 달라질 수 있습니다.</p></details>
+      <details class="faq"><summary>퇴사 전에 어떤 계산기부터 봐야 하나요?</summary><p>퇴직금 계산기, 연차수당 계산기, 실업급여 계산기 순서로 확인하면 좋습니다. 퇴직금이 크다면 퇴직소득세와 IRP 가이드도 함께 보세요.</p></details>
+      <details class="faq"><summary>4대보험 계산 결과와 급여명세서가 다른 이유는 무엇인가요?</summary><p>보수월액 정산, 비과세 수당, 건강보험 연말정산, 국민연금 상·하한 적용 때문에 차이가 날 수 있습니다. 특히 4월 급여에는 건강보험 정산분이 반영되는 경우가 많습니다.</p></details>
+      <details class="faq"><summary>회사가 퇴직금을 안 주면 바로 신고해도 되나요?</summary><p>퇴직 후 14일이 지나도 지급하지 않았다면 고용노동부에 임금체불 진정을 제기할 수 있습니다. 먼저 받을 금액을 계산하고 문자·메일·급여자료 등 증거를 모아두세요.</p></details>
+    </div>
+  </section>
+
+  <footer>문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a><div class="links"><a href="/gov.html">정부지원</a><a href="/tax.html">세금</a><a href="/region.html">지역소식</a><a href="/blog.html">가이드</a></div></footer>
 </div>
 </body>
 </html>

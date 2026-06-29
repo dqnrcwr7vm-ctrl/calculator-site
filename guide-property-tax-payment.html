@@ -3,206 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>7월 재산세 납부 방법 총정리 - 조회·카드 무이자·분납까지 (2026)</title>
-<meta name="description" content="7월 재산세 납부 기간(7/16~31), 내 고지서 조회 방법, 카드 무이자 할부, 250만 원 초과 시 분납 신청까지. 재산세 납부 전에 알아두면 돈이 되는 정보를 정리했습니다.">
-<style>
-  :root {
-    --ink: #1f2a24;
-    --paper: #fbfaf7;
-    --line: #d9d4c8;
-    --accent: #1e6b50;
-    --accent-soft: #e8f1ec;
-    --warn: #8a5a14;
-    --muted: #6b6f68;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.8;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
-  nav.top { font-size: 14px; }
-  nav.top a { color: var(--muted); text-decoration: none; }
-  nav.top a:hover { color: var(--accent); }
-  header { padding: 24px 0 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
-  .eyebrow {
-    display: inline-block;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-    padding: 2px 12px;
-    margin-bottom: 14px;
-  }
-  h1 { font-size: 27px; line-height: 1.4; letter-spacing: -0.01em; }
-  .meta { color: var(--muted); font-size: 13.5px; margin: 12px 0 18px; }
-
-  article h2 {
-    font-size: 21px;
-    margin: 38px 0 12px;
-    padding-left: 12px;
-    border-left: 4px solid var(--accent);
-    letter-spacing: -0.01em;
-  }
-  article h3 { font-size: 17px; margin: 24px 0 8px; }
-  article p { margin-bottom: 15px; font-size: 15.5px; }
-  article strong { color: var(--ink); }
-
-  .keybox {
-    background: var(--accent-soft);
-    border: 1px solid #c5dcd1;
-    border-radius: 10px;
-    padding: 14px 18px;
-    font-size: 14.5px;
-    color: #195741;
-    margin: 18px 0;
-  }
-  .keybox strong { color: #114433; }
-
-  table.info {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    margin: 14px 0 18px;
-    background: #fff;
-  }
-  table.info th, table.info td {
-    border: 1px solid var(--line);
-    padding: 9px 10px;
-    text-align: left;
-    vertical-align: top;
-  }
-  table.info th { background: var(--accent-soft); font-size: 13.5px; white-space: nowrap; }
-
-  .tool-cta {
-    display: block;
-    background: #fff;
-    border: 1.5px solid var(--accent);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin: 22px 0;
-    text-decoration: none;
-    color: var(--ink);
-  }
-  .tool-cta:hover { background: var(--accent-soft); }
-  .tool-cta .t { font-weight: 800; color: var(--accent); font-size: 15.5px; }
-  .tool-cta .d { font-size: 14px; color: var(--muted); margin-top: 2px; }
-
-  details.faq {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  details.faq summary {
-    cursor: pointer; font-weight: 700; font-size: 15px;
-    padding: 14px 16px; list-style: none;
-  }
-  details.faq summary::before { content: "Q. "; color: var(--accent); }
-  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
-
-  .disclaimer {
-    margin-top: 40px; font-size: 13px; color: var(--muted);
-    border-top: 1px solid var(--line); padding-top: 16px;
-  }
-  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
-  footer a { color: var(--muted); }
-  @media (max-width: 480px) { h1 { font-size: 22px; } }
-
-.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
-.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
-.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
-.cl-navlinks::-webkit-scrollbar{display:none;}
-.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
-.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
-</style>
+<title>2026 재산세 납부 방법 총정리 - 기간·카드·분납·가산금 체크</title>
+<meta name="description" content="2026년 재산세 납부 방법을 정리했습니다. 7월·9월 납부 기간, 위택스·이택스 조회, 카드 납부, 자동이체, 250만 원 초과 분납, 기한 후 가산금까지 확인하세요.">
 <link rel="canonical" href="https://calcloude.com/guide-property-tax-payment.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2026 재산세 납부 방법 총정리 - 기간·카드·분납·가산금 체크">
+<meta property="og:description" content="재산세 고지서가 왔다면 납부 전 꼭 확인하세요. 위택스 조회, 카드 무이자, 분납, 자동이체, 가산금까지 한 번에 정리했습니다.">
+<meta property="og:url" content="https://calcloude.com/guide-property-tax-payment.html">
+<meta property="og:site_name" content="calcloude">
+<style>
+:root{--ink:#1f2a24;--paper:#fbfaf7;--line:#d9d4c8;--accent:#1e6b50;--soft:#e8f1ec;--muted:#6b6f68;--warn:#8a5a14;--hot:#b3431e;}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.78}.wrap{max-width:760px;margin:0 auto;padding:24px 20px 64px}.cl-topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;margin:-24px -20px 8px}.cl-topbar-inner{max-width:760px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px}.cl-brand{font-weight:800;font-size:18px;color:var(--accent);text-decoration:none;letter-spacing:-.02em;flex-shrink:0}.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1}.cl-navlinks::-webkit-scrollbar{display:none}.cl-navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap}.cl-navlinks a:hover{background:var(--soft);color:var(--accent)}header{padding:26px 0 12px;border-bottom:1px solid var(--line)}.eyebrow{display:inline-block;font-size:13px;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:2px 12px;margin-bottom:14px}h1{font-size:28px;line-height:1.38;letter-spacing:-.02em}.meta{color:var(--muted);font-size:13.5px;margin-top:10px}.lead{font-size:16px;margin:20px 0 0}.summary{display:grid;gap:10px;background:var(--soft);border:1px solid #c5dcd1;border-radius:14px;padding:16px 18px;margin:20px 0}.summary strong{color:#114433}.summary div{font-size:14.8px}.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:20px 0}.toc .t{font-weight:800;color:var(--accent);margin-bottom:8px}.toc a{display:inline-block;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 10px;margin:4px 4px 0 0;font-size:13.5px}.toc a:hover{background:var(--soft);color:var(--accent)}article h2{font-size:21px;margin:40px 0 12px;padding-left:12px;border-left:4px solid var(--accent);letter-spacing:-.01em}article h3{font-size:17px;margin:24px 0 8px}article p{margin-bottom:15px;font-size:15.5px}article ul,article ol{margin:0 0 16px 22px;font-size:15.5px}article li{margin-bottom:8px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.mini .k{font-size:12.5px;color:var(--muted);font-weight:700}.mini .v{font-size:18px;font-weight:800;color:var(--accent);margin-top:3px}.check{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px 18px;margin:18px 0}.check .title{font-weight:800;color:var(--accent);margin-bottom:10px}.check ul{margin-bottom:0}.warnbox{background:#fff8ea;border:1px solid #ecd9b0;border-radius:12px;padding:15px 18px;color:var(--warn);font-size:14.5px;margin:18px 0}.warnbox strong{color:#6b4308}.tool-cta{display:block;background:#fff;border:1.5px solid var(--accent);border-radius:12px;padding:16px 20px;margin:22px 0;text-decoration:none;color:var(--ink)}.tool-cta:hover{background:var(--soft)}.tool-cta .t{font-weight:800;color:var(--accent);font-size:15.5px}.tool-cta .d{font-size:14px;color:var(--muted);margin-top:2px}table.info{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0 18px;background:#fff}table.info th,table.info td{border:1px solid var(--line);padding:10px 11px;text-align:left;vertical-align:top}table.info th{background:var(--soft);font-size:13.5px;white-space:nowrap}.steps{display:grid;gap:10px;margin:14px 0}.step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}.step .n{display:inline-block;background:var(--accent);color:#fff;font-weight:800;font-size:12.5px;border-radius:999px;padding:2px 10px;margin-bottom:7px}.step h3{margin:0 0 6px;font-size:16px}.step p{font-size:14.7px;margin:0;color:#3c443f}.relgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.relgrid a{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-decoration:none;color:var(--ink)}.relgrid a:hover{border-color:var(--accent)}.relgrid strong{display:block;color:var(--accent);font-size:14.5px}.relgrid span{display:block;color:var(--muted);font-size:13px;margin-top:3px}details.faq{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:10px}details.faq summary{cursor:pointer;font-weight:700;font-size:15px;padding:14px 16px;list-style:none}details.faq summary::before{content:"Q. ";color:var(--accent)}details.faq p{padding:0 16px 14px;font-size:14.5px;color:#3c443f;margin:0}.disclaimer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}footer{margin-top:28px;font-size:13px;color:var(--muted)}footer a{color:var(--muted)}@media(max-width:560px){h1{font-size:23px}.cards,.relgrid{grid-template-columns:1fr}.wrap{padding-left:18px;padding-right:18px}.cl-topbar{margin-left:-18px;margin-right:-18px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://calcloude.com/"},{"@type":"ListItem","position":2,"name":"세금","item":"https://calcloude.com/tax.html"},{"@type":"ListItem","position":3,"name":"재산세 납부 방법","item":"https://calcloude.com/guide-property-tax-payment.html"}]},
+    {"@type":"Article","headline":"2026 재산세 납부 방법 총정리","description":"재산세 납부 기간, 위택스·이택스 조회, 카드 납부, 분납, 자동이체, 가산금까지 정리한 가이드","author":{"@type":"Organization","name":"calcloude"},"publisher":{"@type":"Organization","name":"calcloude"},"dateModified":"2026-06-29","inLanguage":"ko-KR","mainEntityOfPage":"https://calcloude.com/guide-property-tax-payment.html"},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"재산세 납부 기간은 언제인가요?","acceptedAnswer":{"@type":"Answer","text":"주택분 재산세는 보통 7월 16일부터 31일까지 1기분을, 9월 16일부터 30일까지 2기분을 납부합니다. 연간 세액이 20만 원 이하이면 7월에 한 번에 부과될 수 있습니다."}},
+      {"@type":"Question","name":"재산세를 카드로 납부할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"위택스, 이택스, 은행 앱, 일부 간편결제 등을 통해 카드 납부가 가능합니다. 단, 카드 납부 후 취소가 제한될 수 있으므로 세목과 금액을 확인한 뒤 결제해야 합니다."}},
+      {"@type":"Question","name":"재산세 분납은 언제 가능한가요?","acceptedAnswer":{"@type":"Answer","text":"재산세 납부세액이 250만 원을 초과하는 경우 일부를 분할납부할 수 있습니다. 신청 가능 여부와 세부 방법은 관할 지방자치단체 또는 위택스 안내를 확인해야 합니다."}},
+      {"@type":"Question","name":"납부 기한을 넘기면 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"기한을 넘기면 납부지연가산세 등 불이익이 생길 수 있습니다. 고지서를 잃어버렸더라도 위택스나 이택스에서 조회 후 납부할 수 있으므로 기한 내 처리하는 것이 좋습니다."}}
+    ]}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
-
   <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
 
   <header>
-    <span class="eyebrow">세금 가이드</span>
-    <h1>7월 재산세 납부 방법 총정리 — 조회부터 카드 무이자, 분납까지</h1>
-    <p class="meta">2026년 기준 · 주택분 재산세</p>
+    <span class="eyebrow">세금 가이드 · 재산세</span>
+    <h1>2026 재산세 납부 방법 총정리 — 기간, 카드, 분납, 가산금까지</h1>
+    <p class="meta">최종 업데이트: 2026년 6월 29일 · 주택분 재산세 기준</p>
+    <p class="lead">재산세 고지서가 왔을 때 가장 먼저 확인해야 할 것은 납부 기간, 납부 금액, 그리고 결제 방법입니다. 이 글은 위택스·이택스 조회부터 카드 납부, 자동이체, 250만 원 초과 분납, 기한을 넘겼을 때 대응까지 한 번에 정리한 납부 실행 가이드입니다.</p>
   </header>
 
   <article>
-    <p>7월 중순이 되면 우편함과 카카오톡으로 재산세 고지서가 도착하기 시작합니다. 금액을 보고 "이게 맞나?" 싶고, 어디서 어떻게 내야 가장 이득인지도 헷갈리죠. 이 글 하나로 납부 기간, 조회 방법, 수수료 없이 카드로 내는 법, 금액이 클 때 나눠 내는 법까지 정리해 드립니다.</p>
-
-    <div class="keybox">
-      <strong>핵심 요약</strong> — 주택분 재산세 1기분은 <strong>7월 16일~31일</strong>이 납부 기간입니다. 연간 세액이 20만 원 이하면 7월에 한 번에 내고, 넘으면 절반은 9월(16~30일)에 냅니다. 기한을 넘기면 3% 가산금이 붙어요.
+    <div class="summary">
+      <div><strong>① 납부 기간:</strong> 주택분 1기분은 보통 7월 16일~31일, 2기분은 9월 16일~30일입니다.</div>
+      <div><strong>② 납부 방법:</strong> 위택스·이택스, 은행 앱, 카드, 계좌이체, ARS, ATM, 자동이체를 이용할 수 있습니다.</div>
+      <div><strong>③ 큰 금액이면:</strong> 납부세액이 250만 원을 초과하면 분할납부 가능 여부를 꼭 확인하세요.</div>
     </div>
 
-    <h2>내 재산세, 어디서 확인하나요?</h2>
-    <p>고지서가 오기 전에 미리 확인하고 싶다면 <strong>위택스(wetax.go.kr)</strong>에 접속해 로그인하면 '나의 할일' 또는 '납부하기' 메뉴에서 부과된 지방세를 볼 수 있습니다. 서울시 주택이라면 <strong>이택스(etax.seoul.go.kr)</strong>를 이용하세요. 요즘은 카카오톡·네이버 전자문서로 고지서를 받아보는 분도 많은데, 전자고지를 신청하면 종이 고지서 대신 알림으로 받고 소액 세액공제 혜택을 주는 지자체도 있습니다.</p>
-    <p>고지서를 받기 전, 대략 얼마가 나올지 미리 가늠해보고 싶다면 공시가격만으로 계산해볼 수 있어요.</p>
+    <div class="toc">
+      <div class="t">목차</div>
+      <a href="#period">납부 기간</a><a href="#check">납부 전 확인</a><a href="#method">납부 방법</a><a href="#card">카드 납부</a><a href="#installment">분납</a><a href="#late">기한 초과</a><a href="#faq">FAQ</a>
+    </div>
 
-    <a class="tool-cta" href="/property-tax.html">
-      <span class="t">🧮 주택 재산세 계산기 →</span>
-      <span class="d">공시가격만 입력하면 1주택 특례·지방교육세까지 반영한 예상 납부액이 나옵니다.</span>
-    </a>
+    <div class="cards">
+      <div class="mini"><div class="k">7월 납부</div><div class="v">7/16~7/31</div></div>
+      <div class="mini"><div class="k">9월 납부</div><div class="v">9/16~9/30</div></div>
+      <div class="mini"><div class="k">분납 기준</div><div class="v">250만 원 초과</div></div>
+    </div>
 
-    <h2>납부 방법 한눈에 보기</h2>
+    <h2 id="period">재산세 납부 기간: 7월과 9월을 구분하세요</h2>
+    <p>주택분 재산세는 보통 1년에 두 번 나누어 고지됩니다. 7월에는 주택분 재산세의 절반과 건축물·선박·항공기분이, 9월에는 주택분 나머지 절반과 토지분이 부과됩니다. 다만 주택분 재산세 연세액이 20만 원 이하인 경우에는 7월에 한 번에 고지될 수 있습니다.</p>
     <table class="info">
-      <thead><tr><th>방법</th><th>이렇게 하세요</th></tr></thead>
+      <thead><tr><th>시기</th><th>대상</th><th>체크할 점</th></tr></thead>
       <tbody>
-        <tr><td>위택스 / 이택스</td><td>로그인 → 납부할 세액 확인 → 계좌이체 또는 카드 결제. 가장 기본적인 방법입니다.</td></tr>
-        <tr><td>은행 앱</td><td>주거래 은행 앱의 '공과금/지방세' 메뉴에서 전자납부번호 입력 또는 자동 조회 후 납부.</td></tr>
-        <tr><td>카드 납부</td><td>지방세는 <strong>카드 납부 수수료가 없습니다.</strong> 위택스·이택스에서 카드 결제 선택.</td></tr>
-        <tr><td>ATM / 편의점</td><td>고지서를 들고 은행 ATM 또는 편의점(CU, GS25 등)에서 납부 가능.</td></tr>
-        <tr><td>ARS / 자동이체</td><td>지자체 ARS 전화 납부, 또는 매년 자동이체 신청으로 깜빡함 방지.</td></tr>
+        <tr><td>7월 16일~31일</td><td>주택분 1/2, 건축물, 선박, 항공기</td><td>고지서 도착 여부와 전자고지함 확인</td></tr>
+        <tr><td>9월 16일~30일</td><td>주택분 1/2, 토지</td><td>7월에 한 번 냈다고 끝난 것이 아닌지 확인</td></tr>
+        <tr><td>연세액 20만 원 이하</td><td>주택분 전액</td><td>7월에 한 번만 부과될 수 있음</td></tr>
       </tbody>
     </table>
 
-    <h2>카드로 내면 이득인 이유</h2>
-    <p>국세(소득세, 부가세 등)를 카드로 내면 0.8% 안팎의 납부 대행 수수료를 본인이 부담해야 하지만, <strong>재산세 같은 지방세는 카드 수수료가 없습니다.</strong> 즉 카드로 내도 금액이 똑같다는 뜻이라, 카드 실적을 채우거나 할부로 부담을 나누는 용도로 활용할 수 있어요.</p>
-    <p>여기에 매년 7월 재산세 시즌이 되면 카드사들이 지방세 대상 <strong>무이자 할부 행사</strong>(보통 2~6개월, 카드사에 따라 부분 무이자 10~12개월)를 엽니다. 행사 내용은 카드사·연도마다 달라지니, 납부 직전에 본인 카드사 앱의 이벤트 페이지에서 '지방세'로 검색해 확인하는 게 정확합니다. 일부 카드는 지방세 납부 시 포인트 적립이나 스타벅스 쿠폰 같은 소소한 혜택을 주기도 해요.</p>
-
-    <h2>금액이 크다면: 분납 제도</h2>
-    <p>재산세 납부세액이 <strong>250만 원을 초과</strong>하면 일부를 납부기한 경과 후 2개월 이내에 나눠 낼 수 있는 분납 제도가 있습니다. 고지서를 받은 뒤 관할 시·군·구청 세무부서에 신청하면 되고, 위택스에서 온라인 신청을 받는 지자체도 있습니다. 카드 무이자 할부와 분납 중 뭐가 유리한지는 상황에 따라 다른데, 단순 부담 분산이 목적이면 무이자 할부가 신청 절차 없이 더 간편합니다.</p>
-
-    <h2>놓치기 쉬운 감면·절세 포인트</h2>
-    <p>1세대 1주택자라면 낮은 공정시장가액비율(43~45%)과 특례세율이 <strong>신청 없이 자동 적용</strong>됩니다. 고지서 금액이 계산보다 작다면 이 특례가 적용된 것일 수 있어요. 주택연금에 가입한 주택은 재산세 25% 감면 혜택이 있고(공시가격 5억 원 이하분), 내진 성능을 확보한 건축물도 감면 대상입니다.</p>
-    <p>그리고 매매 계획이 있다면 <strong>6월 1일</strong>을 기억하세요. 재산세는 6월 1일 당일의 소유자에게 1년 치가 부과되므로, 5월 31일에 팔면 그해 재산세를 안 내고, 6월 2일에 사면 그해 재산세가 없습니다. 잔금일 협상에서 실제로 돈이 오가는 포인트입니다.</p>
-
-    <h2>자주 묻는 질문</h2>
-    <details class="faq">
-      <summary>고지서를 잃어버렸어요. 어떻게 내나요?</summary>
-      <p>고지서 없이도 위택스·이택스에 로그인하면 부과 내역이 조회되고 바로 납부할 수 있습니다. 종이 고지서가 필요하면 가까운 구청이나 동주민센터에서 재발급받을 수 있어요.</p>
-    </details>
-    <details class="faq">
-      <summary>7월 31일을 넘기면 어떻게 되나요?</summary>
-      <p>3%의 가산금이 붙습니다. 세액이 일정 금액 이상이면 매달 중가산금이 추가로 붙을 수 있고, 장기 체납 시 재산 압류까지 갈 수 있으니 기한 내 납부가 최선입니다. 자동이체를 걸어두면 매년 신경 쓸 일이 없어집니다.</p>
-    </details>
-    <details class="faq">
-      <summary>부부 공동명의인데 고지서가 두 장 왔어요. 정상인가요?</summary>
-      <p>정상입니다. 공동명의 주택은 전체 세액을 지분 비율로 나눠 각자에게 고지됩니다. 합계는 단독명의와 같아요. 다만 카드 무이자 할부 실적 기준을 맞추려는 경우, 금액이 나뉘면 조건 충족이 어려울 수 있다는 점은 참고하세요.</p>
-    </details>
-    <details class="faq">
-      <summary>9월에 또 내라는데 이중 부과 아닌가요?</summary>
-      <p>아닙니다. 주택분 재산세는 연간 세액의 절반씩 7월과 9월에 나눠 내는 구조입니다. 7월 고지서와 9월 고지서를 합친 것이 1년 치예요. 연간 세액이 20만 원 이하인 경우만 7월에 한 번에 냅니다.</p>
-    </details>
-
-    <p style="margin-top:28px">내 재산세가 적정한지 궁금하다면, 공시가격으로 직접 검산해보세요. 고지서 금액과 비교해보면 1주택 특례가 제대로 적용됐는지도 확인할 수 있습니다.</p>
+    <h2 id="check">납부 전 3분 체크리스트</h2>
+    <div class="check">
+      <div class="title">고지서가 왔다면 결제 전에 이것부터 확인하세요</div>
+      <ul>
+        <li>고지서의 <strong>납세자명</strong>과 <strong>주택 주소</strong>가 맞는지 확인</li>
+        <li>7월 고지서인지, 9월 고지서인지 확인</li>
+        <li>공동명의라면 지분별로 고지서가 나뉘어 나온 것이 정상인지 확인</li>
+        <li>1세대 1주택 특례나 감면이 적용되어야 하는데 누락된 것은 아닌지 확인</li>
+        <li>카드 납부를 할 경우 카드 한도와 무이자 할부 이벤트를 먼저 확인</li>
+        <li>금액이 250만 원을 초과한다면 분납 가능 여부를 확인</li>
+      </ul>
+    </div>
 
     <a class="tool-cta" href="/property-tax.html">
       <span class="t">🧮 주택 재산세 계산기로 검산하기 →</span>
-      <span class="d">공시가격 입력 한 번으로 7월분·9월분 예상액 확인</span>
+      <span class="d">공시가격만 입력하면 7월분·9월분 예상액을 확인할 수 있습니다.</span>
     </a>
+
+    <h2 id="method">재산세 납부 방법 한눈에 보기</h2>
+    <p>재산세는 지방세이므로 위택스가 기본 창구입니다. 서울시 주택은 이택스에서도 조회·납부할 수 있습니다. 고지서를 잃어버려도 전자납부번호가 없어도, 본인 인증 후 부과 내역을 조회하면 바로 납부할 수 있습니다.</p>
+    <table class="info">
+      <thead><tr><th>방법</th><th>추천 상황</th><th>주의사항</th></tr></thead>
+      <tbody>
+        <tr><td>위택스·이택스</td><td>가장 표준적인 온라인 납부</td><td>로그인 후 ‘나의 할일’ 또는 납부 메뉴 확인</td></tr>
+        <tr><td>은행 앱</td><td>주거래 은행에서 바로 처리하고 싶을 때</td><td>지방세/공과금 메뉴에서 조회</td></tr>
+        <tr><td>카드 납부</td><td>실적·할부·무이자 혜택을 활용할 때</td><td>납부 후 취소가 제한될 수 있음</td></tr>
+        <tr><td>ARS·ATM</td><td>온라인 사용이 어렵거나 고지서가 있을 때</td><td>고지서의 전자납부번호 확인</td></tr>
+        <tr><td>자동이체</td><td>매년 납부를 자주 놓치는 경우</td><td>계좌 잔액·카드 유효기간 관리 필요</td></tr>
+      </tbody>
+    </table>
+
+    <div class="steps">
+      <div class="step"><span class="n">위택스 납부</span><h3>로그인 → 납부할 지방세 선택 → 결제수단 선택</h3><p>위택스에 로그인하면 최근 부과된 지방세가 표시됩니다. 재산세 항목을 선택한 뒤 계좌이체, 신용카드, 간편결제 등 가능한 결제수단으로 납부합니다.</p></div>
+      <div class="step"><span class="n">서울시 이택스</span><h3>서울 소재 주택은 이택스·STAX 앱도 활용</h3><p>서울시 재산세는 서울시 이택스 또는 STAX 앱에서 조회·납부할 수 있습니다. 위택스와 중복으로 확인되는 경우가 있어도 실제 납부는 한 번만 하면 됩니다.</p></div>
+      <div class="step"><span class="n">전자고지</span><h3>카카오톡·네이버 전자문서 확인</h3><p>전자고지를 신청했다면 종이 고지서 대신 앱 알림으로 도착합니다. 고지서가 우편으로 오지 않았다고 방치하지 말고 전자문서함도 함께 확인하세요.</p></div>
+    </div>
+
+    <h2 id="card">카드 납부: 수수료보다 ‘취소 불가’와 혜택 조건을 보세요</h2>
+    <p>재산세는 카드 납부가 가능한 지방세입니다. 다만 카드사별 무이자 할부, 부분 무이자, 포인트 적립 제외 여부는 매년 달라집니다. 납부 직전에 카드사 앱에서 ‘지방세’, ‘재산세’, ‘무이자’ 이벤트를 검색해 본인 카드가 대상인지 확인하는 것이 좋습니다.</p>
+    <div class="warnbox"><strong>주의:</strong> 세금 카드 납부는 일반 쇼핑 결제처럼 쉽게 취소되지 않을 수 있습니다. 결제 전 세목, 납세자, 금액, 납부월, 카드 한도를 확인하세요.</div>
+    <table class="info">
+      <tbody>
+        <tr><th>카드 실적</th><td>일부 카드는 지방세 납부액을 전월 실적에서 제외합니다. 카드사 약관과 이벤트 조건을 확인하세요.</td></tr>
+        <tr><th>무이자 할부</th><td>재산세 시즌에 2~6개월 무이자 또는 부분 무이자 행사가 자주 열립니다. 카드사별 조건이 다릅니다.</td></tr>
+        <tr><th>공동명의</th><td>고지서가 지분별로 나뉘면 카드별 최소 결제금액 조건을 충족하지 못할 수 있습니다.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="installment">250만 원 초과라면 분납도 확인하세요</h2>
+    <p>재산세 납부세액이 250만 원을 초과하면 지방세법상 분할납부가 가능합니다. 고지서를 받은 뒤 관할 시·군·구청 세무부서에 문의하거나 위택스에서 분납 신청 가능 여부를 확인하세요. 단순히 현금흐름을 나누는 목적이라면 카드 무이자 할부가 더 간편할 수 있고, 카드 한도가 부족하거나 납부액이 큰 경우에는 분납이 유리할 수 있습니다.</p>
+    <table class="info">
+      <thead><tr><th>상황</th><th>추천 선택</th></tr></thead>
+      <tbody>
+        <tr><td>카드 무이자 할부가 있고 한도가 충분함</td><td>카드 할부가 가장 간편</td></tr>
+        <tr><td>납부세액이 250만 원 초과이고 카드 한도가 부족함</td><td>분납 가능 여부 확인</td></tr>
+        <tr><td>자동이체를 걸어두었지만 큰 금액이 부담됨</td><td>출금 전 고지서 확인 후 분납 상담</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="late">납부 기한을 넘겼다면</h2>
+    <p>기한을 넘겼다면 먼저 위택스나 이택스에서 현재 납부 가능한 금액을 조회하세요. 납부지연가산세 등 추가 부담이 생길 수 있으므로, 고지서를 다시 받을 때까지 기다리기보다 온라인 조회 후 바로 처리하는 것이 좋습니다. 이미 체납 상태가 오래 지속되면 압류 등 불이익이 생길 수 있습니다.</p>
+    <div class="check">
+      <div class="title">기한을 놓쳤을 때 순서</div>
+      <ol>
+        <li>위택스·이택스 로그인 후 체납 또는 미납 지방세 조회</li>
+        <li>현재 납부금액과 가산금 포함 여부 확인</li>
+        <li>카드·계좌이체로 즉시 납부</li>
+        <li>금액이 크거나 고지 내역이 이상하면 관할 구청 세무과 문의</li>
+      </ol>
+    </div>
+
+    <h2>관련 글·계산기</h2>
+    <div class="relgrid">
+      <a href="/property-tax.html"><strong>주택 재산세 계산기</strong><span>공시가격으로 7월·9월 예상액 계산</span></a>
+      <a href="/guide-property-tax-check.html"><strong>재산세 조회 방법</strong><span>고지서 오기 전·후 확인 방법</span></a>
+      <a href="/tax.html"><strong>세금 계산기 모음</strong><span>재산세·부가세 등 세금 도구</span></a>
+      <a href="/region.html"><strong>지역소식</strong><span>지역별 세금·지원금·생활 정보</span></a>
+    </div>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <details class="faq"><summary>고지서를 잃어버렸는데 납부할 수 있나요?</summary><p>가능합니다. 위택스나 이택스에 로그인하면 본인에게 부과된 재산세를 조회하고 바로 납부할 수 있습니다. 종이 고지서가 꼭 필요하면 관할 구청이나 주민센터에서 재발급받을 수 있습니다.</p></details>
+    <details class="faq"><summary>7월에 냈는데 9월에 또 고지서가 왔습니다. 이중 부과인가요?</summary><p>대부분 정상입니다. 주택분 재산세는 연간 세액을 7월과 9월에 나누어 부과합니다. 7월과 9월 고지서를 합친 금액이 1년치입니다.</p></details>
+    <details class="faq"><summary>재산세를 카드로 내면 수수료가 있나요?</summary><p>재산세는 카드 납부가 가능한 지방세입니다. 다만 카드사 혜택, 실적 인정, 무이자 할부 여부는 카드사 정책에 따라 달라집니다. 결제 전 카드사 이벤트 페이지를 확인하세요.</p></details>
+    <details class="faq"><summary>카드로 납부한 뒤 취소할 수 있나요?</summary><p>세금 납부는 일반 카드 결제와 달리 취소가 제한될 수 있습니다. 납부 전 세목, 납세자, 금액, 납부월, 카드 한도를 확인한 뒤 결제하는 것이 안전합니다.</p></details>
+    <details class="faq"><summary>분납은 누구나 가능한가요?</summary><p>아닙니다. 재산세 납부세액이 250만 원을 초과하는 경우 분할납부 대상이 될 수 있습니다. 실제 신청 가능 여부와 방법은 위택스 또는 관할 지자체 세무부서에 확인하세요.</p></details>
+    <details class="faq"><summary>자동이체를 신청하면 세액공제가 있나요?</summary><p>지자체에 따라 전자송달이나 자동이체 신청 시 소액 세액공제 혜택이 있을 수 있습니다. 적용 여부와 금액은 지역별로 다르므로 관할 지자체 안내를 확인해야 합니다.</p></details>
+    <details class="faq"><summary>공동명의 주택은 누가 납부하나요?</summary><p>공동명의 주택은 지분 비율에 따라 각 명의자에게 고지서가 나뉘어 나옵니다. 각자 본인 명의로 고지된 금액을 납부하면 됩니다.</p></details>
+    <details class="faq"><summary>6월 2일에 집을 샀는데 재산세가 안 나왔습니다.</summary><p>재산세는 매년 6월 1일 현재 소유자에게 부과됩니다. 6월 2일 이후 취득했다면 해당 연도 재산세는 전 소유자에게 부과되는 것이 일반적입니다.</p></details>
+    <details class="faq"><summary>고지서 금액이 계산기보다 많이 다릅니다.</summary><p>세부담상한, 감면, 도시지역분, 공동명의, 지자체별 조정 등이 반영되면 계산기와 실제 고지서가 달라질 수 있습니다. 차이가 크다면 고지서의 산출 내역을 확인하고 관할 세무부서에 문의하세요.</p></details>
+    <details class="faq"><summary>납부 마감일이 공휴일이면 어떻게 되나요?</summary><p>납부기한 마지막 날이 토요일·공휴일인 경우 다음 영업일로 연장되는 것이 일반적입니다. 다만 실제 마감일은 고지서와 위택스 안내를 기준으로 확인하세요.</p></details>
   </article>
 
-  <p class="disclaimer">본 글은 2026년 기준 일반적인 제도 안내이며, 카드사 행사·지자체별 감면 등 세부 내용은 변경될 수 있습니다. 정확한 사항은 위택스, 관할 지자체, 카드사 공지를 기준으로 확인하세요.</p>
-
-  <footer>
-    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>
-  </footer>
+  <p class="disclaimer">본 글은 2026년 기준 일반적인 재산세 납부 안내입니다. 세액, 분납 가능 여부, 전자송달 세액공제, 카드사 혜택은 지자체와 카드사 정책에 따라 달라질 수 있습니다. 정확한 납부금액과 마감일은 위택스, 이택스 또는 관할 지방자치단체 고지서를 기준으로 확인하세요.</p>
+  <footer>문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a></footer>
 </div>
 </body>
 </html>

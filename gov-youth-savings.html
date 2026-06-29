@@ -3,146 +3,358 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 청년미래적금 신청방법·조건·금리 총정리 (도약계좌 갈아타기 포함)</title>
-<meta name="description" content="2026년 6월 출시 청년미래적금 신청 조건(만 19~34세), 금리(최고 8%), 정부 기여금(최대 12%), 월 납입한도(50만원), 청년도약계좌 갈아타기 방법까지 총정리했습니다.">
+<title>2026 청년미래적금 총정리 - 신청조건·기여금·갈아타기·만기금액 계산</title>
+<meta name="description" content="2026 청년미래적금 신청조건, 소득기준, 일반형·우대형 정부기여금, 신청일정, 청년도약계좌 갈아타기 순서, 만기 예상금액 계산까지 한 번에 정리했습니다.">
 <link rel="canonical" href="https://calcloude.com/gov-youth-savings.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="calcloude">
+<meta property="og:title" content="2026 청년미래적금 총정리 - 조건·기여금·갈아타기">
+<meta property="og:description" content="월 최대 50만원, 3년 만기, 일반형 6%·우대형 12% 정부기여금과 비과세 혜택을 쉽게 정리했습니다.">
+<meta property="og:url" content="https://calcloude.com/gov-youth-savings.html">
+<meta name="twitter:card" content="summary">
 <style>
-  :root {
-    --ink: #1f2a24;
-    --paper: #fbfaf7;
-    --line: #d9d4c8;
-    --accent: #1e6b50;
-    --accent-soft: #e8f1ec;
-    --warn: #8a5a14;
-    --muted: #6b6f68;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.8; }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
-  nav.top { font-size: 14px; }
-  nav.top a { color: var(--muted); text-decoration: none; }
-  nav.top a:hover { color: var(--accent); }
-  header { padding: 24px 0 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
-  .eyebrow { display: inline-block; font-size: 13px; letter-spacing: 0.08em; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 2px 12px; margin-bottom: 14px; }
-  h1 { font-size: 27px; line-height: 1.4; letter-spacing: -0.01em; }
-  .meta { color: var(--muted); font-size: 13.5px; margin: 12px 0 18px; }
-  article h2 { font-size: 21px; margin: 38px 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); letter-spacing: -0.01em; }
-  article p { margin-bottom: 15px; font-size: 15.5px; }
-  article ul { margin: 0 0 15px 22px; font-size: 15.5px; }
-  article li { margin-bottom: 8px; }
-  .keybox { background: var(--accent-soft); border: 1px solid #c5dcd1; border-radius: 10px; padding: 14px 18px; font-size: 14.5px; color: #195741; margin: 18px 0; }
-  .keybox strong { color: #114433; }
-  table.info { width: 100%; border-collapse: collapse; font-size: 14px; margin: 14px 0 18px; background: #fff; }
-  table.info th, table.info td { border: 1px solid var(--line); padding: 9px 10px; text-align: left; vertical-align: top; }
-  table.info th { background: var(--accent-soft); font-size: 13.5px; }
-  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
-  .vs .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
-  .vs .card .t { font-weight: 800; font-size: 15px; margin-bottom: 8px; }
-  .vs .card .t.new { color: var(--accent); }
-  .vs .card p { font-size: 13.8px; margin-bottom: 6px; color: #3c443f; }
-  details.faq { background: #fff; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px; }
-  details.faq summary { cursor: pointer; font-weight: 700; font-size: 15px; padding: 14px 16px; list-style: none; }
-  details.faq summary::before { content: "Q. "; color: var(--accent); }
-  details.faq p { padding: 0 16px 14px; font-size: 14.5px; color: #3c443f; }
-  .disclaimer { margin-top: 40px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
-  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
-  footer a { color: var(--muted); }
-  @media (max-width: 480px) { h1 { font-size: 22px; } .vs { grid-template-columns: 1fr; } }
-
-.cl-topbar{background:#fff;border-bottom:1px solid #d9d4c8;position:sticky;top:0;z-index:50;margin-bottom:8px;}
-.cl-topbar-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px;}
-.cl-brand{font-weight:800;font-size:18px;color:#1e6b50;text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
-.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1;}
-.cl-navlinks::-webkit-scrollbar{display:none;}
-.cl-navlinks a{color:#1f2a24;text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap;}
-.cl-navlinks a:hover{background:#e8f1ec;color:#1e6b50;}
+:root{
+  --ink:#1f2a24; --paper:#fbfaf7; --line:#d9d4c8;
+  --accent:#1e6b50; --soft:#e8f1ec; --muted:#6b6f68;
+  --blue:#1e5e9a; --blue-soft:#e8f0fb; --warn:#8a5a14;
+  --hot:#b3431e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 64px}
+.cl-topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;margin:0 -20px 8px}
+.cl-topbar-inner{max-width:760px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:54px}
+.cl-brand{font-weight:800;font-size:18px;color:var(--accent);text-decoration:none;letter-spacing:-.02em;flex-shrink:0}
+.cl-navlinks{display:flex;gap:2px;overflow-x:auto;flex:1}
+.cl-navlinks::-webkit-scrollbar{display:none}
+.cl-navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px;white-space:nowrap}
+.cl-navlinks a:hover{background:var(--soft);color:var(--accent)}
+header{padding:28px 0 10px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.eyebrow{display:inline-block;font-size:13px;letter-spacing:.08em;color:var(--blue);border:1px solid var(--blue);border-radius:999px;padding:2px 12px;margin-bottom:14px;background:#fff}
+h1{font-size:28px;line-height:1.38;letter-spacing:-.02em}
+.meta{color:var(--muted);font-size:13.5px;margin-top:12px}
+.lead{font-size:16px;margin-top:16px}
+.summary{display:grid;gap:10px;background:var(--blue-soft);border:1px solid #cddcf1;border-radius:14px;padding:16px 18px;margin:20px 0;color:#163e69}
+.summary strong{color:#0f3154}
+.summary .row{display:flex;gap:10px;font-size:14.8px}
+.summary .check{font-weight:900;color:var(--blue)}
+.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+.toc .t{font-weight:800;margin-bottom:8px;color:var(--accent)}
+.toc a{display:inline-block;margin:4px 8px 4px 0;padding:5px 10px;border-radius:999px;background:var(--soft);color:var(--accent);text-decoration:none;font-size:13.5px;font-weight:700}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+.stat .k{font-size:12.5px;color:var(--muted)}
+.stat .v{font-size:17px;font-weight:900;color:var(--accent);margin-top:2px}
+article h2{font-size:22px;margin:42px 0 13px;padding-left:12px;border-left:4px solid var(--accent);letter-spacing:-.01em}
+article h3{font-size:17px;margin:24px 0 8px}
+article p{margin-bottom:15px;font-size:15.6px}
+article ul,article ol{margin:0 0 16px 22px;font-size:15.5px}
+article li{margin-bottom:8px}
+.note{background:#fff8e9;border:1px solid #ead7a9;border-radius:12px;padding:14px 16px;color:var(--warn);font-size:14.5px;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0 18px;background:#fff}
+th,td{border:1px solid var(--line);padding:10px 11px;text-align:left;vertical-align:top}
+th{background:var(--soft);font-size:13.5px}
+.badge{display:inline-block;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:800;background:var(--soft);color:var(--accent)}
+.badge.blue{background:var(--blue-soft);color:var(--blue)}
+.badge.warn{background:#fff1d6;color:#9a5a00}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.card strong{color:var(--accent)}
+.step{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px}
+.step .n{background:var(--accent);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;margin-top:2px}
+.step h3{font-size:15.8px;margin:0 0 5px}
+.step p{font-size:14.7px;margin:0;color:#3c443f}
+.calcbox{background:#fff;border:1.5px solid var(--accent);border-radius:16px;padding:20px;margin:20px 0;box-shadow:0 2px 10px rgba(31,42,36,.05)}
+.calcbox .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.field label{display:block;font-weight:800;font-size:14px;margin-bottom:6px}
+.input{position:relative}
+.input input,.input select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px 48px 12px 12px;background:var(--paper);font-size:16px;font-weight:800;color:var(--ink)}
+.input .unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);font-weight:700}
+button.go{width:100%;border:0;background:var(--accent);color:#fff;border-radius:10px;padding:14px;font-size:16px;font-weight:900;margin-top:14px;cursor:pointer}
+.result{display:none;background:var(--soft);border-radius:14px;padding:16px;margin-top:16px}
+.result.show{display:block}
+.result .big{font-size:27px;font-weight:900;color:var(--accent);line-height:1.3}
+.result .small{font-size:13.5px;color:#315f4c;margin-top:8px}
+.checklist{display:grid;gap:8px;margin:14px 0}
+.checklist div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.5px}
+.mistake{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:12px 0}
+.mistake .x{color:var(--hot);font-weight:900}
+.mistake .o{color:var(--accent);font-weight:900}
+.related{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.related a{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 15px;text-decoration:none;color:var(--ink);font-weight:800;font-size:14.5px}
+.related a span{display:block;color:var(--muted);font-weight:500;font-size:12.8px;margin-top:3px}
+.related a:hover{border-color:var(--accent);background:var(--soft)}
+details.faq{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+details.faq summary{cursor:pointer;font-weight:800;font-size:15px;padding:14px 16px;list-style:none}
+details.faq summary::before{content:"Q. ";color:var(--accent)}
+details.faq p{padding:0 16px 14px;font-size:14.5px;color:#3c443f;margin:0}
+.disclaimer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+footer{margin-top:28px;font-size:13px;color:var(--muted)}
+footer a{color:var(--muted)}
+@media(max-width:620px){
+  h1{font-size:23px}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .calcbox .grid,.related{grid-template-columns:1fr}
+  .step{display:block}
+  .step .n{margin-bottom:8px}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="cl-topbar"><div class="cl-topbar-inner"><a href="/" class="cl-brand">calcloude</a><nav class="cl-navlinks"><a href="/gov.html">🏛 정부지원</a><a href="/region.html">📍 지역소식</a><a href="/tax.html">🧾 세금</a><a href="/labor.html">👷 노무</a><a href="/blog.html">가이드</a></nav></div></div>
+  <div class="cl-topbar"><div class="cl-topbar-inner">
+    <a href="/" class="cl-brand">calcloude</a>
+    <nav class="cl-navlinks">
+      <a href="/gov.html">🏛 정부지원</a>
+      <a href="/region.html">📍 지역소식</a>
+      <a href="/tax.html">🧾 세금</a>
+      <a href="/labor.html">👷 노무</a>
+      <a href="/blog.html">가이드</a>
+    </nav>
+  </div></div>
+
   <header>
-    <span class="eyebrow">정부지원 · 청년</span>
-    <h1>2026 청년미래적금 신청방법·조건·금리 총정리 (도약계좌 갈아타기 포함)</h1>
-    <p class="meta">2026년 6월 출시 기준</p>
+    <span class="eyebrow">정부지원 · 청년 자산형성</span>
+    <h1>2026 청년미래적금 총정리 — 신청조건, 기여금, 갈아타기, 만기금액 계산</h1>
+    <p class="meta">최종 업데이트: 2026년 6월 29일 · 서민금융진흥원·금융위원회 공식 안내 기준</p>
+    <p class="lead">청년미래적금은 월 최대 50만 원을 3년 동안 자유롭게 납입하면 은행 이자에 더해 정부기여금과 이자소득 비과세 혜택을 받을 수 있는 정책형 적금입니다. 특히 기존 청년도약계좌 가입자는 갈아타기 순서를 틀리면 혜택을 놓칠 수 있으므로 절차를 꼭 확인해야 합니다.</p>
   </header>
+
+  <section class="summary" aria-label="핵심 요약">
+    <div class="row"><span class="check">✔</span><span><strong>가입대상</strong>: 만 19~34세 청년. 병역이행기간은 최대 6년까지 연령 계산에서 제외됩니다.</span></div>
+    <div class="row"><span class="check">✔</span><span><strong>핵심혜택</strong>: 월 최대 50만 원, 3년 만기, 일반형 6% 또는 우대형 12% 정부기여금 + 이자소득 비과세.</span></div>
+    <div class="row"><span class="check">✔</span><span><strong>주의사항</strong>: 청년도약계좌 갈아타기는 청년미래적금 가입 승인·계좌개설 후 기존 계좌를 특별중도해지해야 합니다.</span></div>
+  </section>
+
+  <nav class="toc" aria-label="목차">
+    <div class="t">목차</div>
+    <a href="#conditions">가입조건</a>
+    <a href="#benefit">기여금</a>
+    <a href="#calculator">만기금액 계산</a>
+    <a href="#schedule">신청일정</a>
+    <a href="#switch">도약계좌 갈아타기</a>
+    <a href="#mistakes">주의사항</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="k">월 납입한도</div><div class="v">50만원</div></div>
+    <div class="stat"><div class="k">가입기간</div><div class="v">3년</div></div>
+    <div class="stat"><div class="k">기여금</div><div class="v">6% / 12%</div></div>
+    <div class="stat"><div class="k">세금혜택</div><div class="v">비과세</div></div>
+  </div>
+
   <article>
-    <p>청년도약계좌가 종료되고 2026년 6월, 새로운 청년 자산형성 상품 <strong>청년미래적금</strong>이 출시됩니다. 5년짜리 도약계좌의 긴 기간이 부담스러웠던 분들을 위해 <strong>3년(36개월)으로 기간을 줄이고</strong>, 정부 기여금 비율을 높였어요. 기존 도약계좌 가입자라면 갈아타기도 가능합니다.</p>
+    <h2 id="conditions">청년미래적금 가입조건</h2>
+    <p>청년미래적금은 청년의 기초자산 형성을 돕기 위한 정책형 금융상품입니다. 기본적으로 나이, 개인소득 또는 매출, 가구소득 조건을 함께 봅니다. 기존 글에서 흔히 헷갈리던 부분은 가구소득 기준인데, 공식 안내상 일반형은 기준 중위소득 200% 이하, 맞벌이 2인 가구는 250% 이하 기준이 적용됩니다. 우대형은 더 낮은 소득·가구 기준을 충족해야 합니다.</p>
 
-    <div class="keybox">
-      <strong>핵심 요약</strong> — 만 19~34세, 개인소득 7,500만 원 이하, 가구소득 중위 180% 이하. 월 최대 50만 원씩 3년 납입 시 정부 기여금(최대 12%) + 은행 금리(최고 8%) + 비과세로 <strong>최대 약 2,255만 원 수령</strong>. 도약계좌 갈아타기 시 우대금리 100% 보장.
-    </div>
-
-    <h2>청년미래적금 핵심 조건</h2>
-    <table class="info">
+    <table>
       <tbody>
-        <tr><th>가입 나이</th><td>만 19세 이상 ~ 34세 이하 (병역 이행 기간만큼 연장, 최대 만 40세)</td></tr>
-        <tr><th>소득 기준</th><td>개인 총급여 7,500만 원 이하 (단, 6,000만 원 초과 시 기여금 없고 비과세만 적용)</td></tr>
-        <tr><th>가구 소득</th><td>기준 중위소득 180% 이하</td></tr>
-        <tr><th>가입 기간</th><td>3년 (36개월)</td></tr>
-        <tr><th>월 납입 한도</th><td>최대 50만 원 (자유적립)</td></tr>
-        <tr><th>은행 금리</th><td>기본 5% + 우대 최대 3%p = 최고 8% (은행별 상이)</td></tr>
-        <tr><th>정부 기여금</th><td>소득 구간에 따라 기여금 매칭 비율 6% 또는 12%</td></tr>
-        <tr><th>세금 혜택</th><td>이자소득세 비과세</td></tr>
-        <tr><th>신청 방법</th><td>취급은행 앱 비대면 신청 (매월 정해진 신청 기간, 약 2주)</td></tr>
+        <tr><th>나이</th><td>만 19~34세 청년. 병역이행기간은 최대 6년까지 연령 계산에서 제외</td></tr>
+        <tr><th>상품유형</th><td>3년 만기 자유적립식 적금</td></tr>
+        <tr><th>납입한도</th><td>월 최대 50만 원, 연간 600만 원</td></tr>
+        <tr><th>세금혜택</th><td>이자소득 비과세</td></tr>
+        <tr><th>신청방법</th><td>취급 금융기관 앱에서 비대면 신청</td></tr>
       </tbody>
     </table>
 
-    <h2>소득 구간별 정부 기여금</h2>
-    <table class="info">
-      <thead><tr><th>개인 총급여</th><th>기여금 매칭 비율</th><th>월 최대 기여금</th></tr></thead>
+    <h3>소득기준과 기여금 유형</h3>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>대표 기준</th><th>정부기여금</th></tr>
+      </thead>
       <tbody>
-        <tr><td>2,400만 원 이하</td><td>12% (우대형)</td><td>월 약 24,000원</td></tr>
-        <tr><td>2,400만 ~ 3,600만 원</td><td>12% (우대형)</td><td>월 약 24,000원</td></tr>
-        <tr><td>3,600만 ~ 4,800만 원</td><td>6% (일반형)</td><td>월 약 12,000원</td></tr>
-        <tr><td>4,800만 ~ 6,000만 원</td><td>6% (일반형)</td><td>월 약 12,000원</td></tr>
-        <tr><td>6,000만 ~ 7,500만 원</td><td>기여금 없음</td><td>비과세 혜택만</td></tr>
+        <tr><td><span class="badge warn">기여금 미대상</span></td><td>총급여 6,000만 원 초과~7,500만 원 이하 또는 종합소득 4,800만 원 초과~6,300만 원 이하, 가구 중위소득 200% 이하</td><td>없음, 비과세만 적용</td></tr>
+        <tr><td><span class="badge">일반형</span></td><td>일반소득자 총급여 6,000만 원 이하 또는 종합소득 4,800만 원 이하. 소상공인은 연매출 3억 원 이하</td><td>납입액의 6%</td></tr>
+        <tr><td><span class="badge blue">우대형</span></td><td>중소기업 신규·재직자 총급여 3,600만 원 이하 또는 종합소득 2,600만 원 이하, 소상공인은 연매출 1억 원 이하 등 우대 요건 충족</td><td>납입액의 12%</td></tr>
       </tbody>
     </table>
 
-    <h2>청년도약계좌 갈아타기</h2>
-    <p>기존 청년도약계좌 가입자도 청년미래적금으로 갈아탈 수 있습니다. 일반 중도해지 시 우대금리가 사라지는 불이익이 있지만, <strong>갈아타기 목적의 해지는 본인이 충족한 우대금리를 100% 보장하고 이자를 전액 지급</strong>합니다. 가입 기간이 2년 이상이고 정부 기여금 비율이 더 높아지는 경우라면 갈아타기가 유리할 수 있어요.</p>
+    <div class="note">※ 실제 일반형·우대형 판정은 가입 신청 후 소득심사와 우대형 자격심사를 통해 자동 분류됩니다. 신청자가 임의로 일반형/우대형을 선택하는 구조가 아닙니다.</div>
 
-    <div class="vs">
-      <div class="card">
-        <div class="t">청년도약계좌 (구)</div>
-        <p>가입 기간: 5년</p>
-        <p>월 납입 한도: 70만 원</p>
-        <p>정부 기여금: 월 최대 33,000원</p>
-        <p>상태: 신규 가입 종료</p>
+    <h2 id="benefit">정부기여금과 만기 수령 구조</h2>
+    <p>청년미래적금의 핵심은 은행 금리보다 <strong>정부기여금</strong>입니다. 매월 납입한 금액에 대해 일반형은 6%, 우대형은 12%를 정부가 매칭해 주고, 여기에 은행 이자가 붙습니다. 이자소득은 비과세라 일반 적금보다 실수령액이 유리합니다.</p>
+
+    <table>
+      <thead><tr><th>월 납입액</th><th>일반형 월 기여금 6%</th><th>우대형 월 기여금 12%</th><th>3년 원금</th></tr></thead>
+      <tbody>
+        <tr><td>10만 원</td><td>6,000원</td><td>12,000원</td><td>360만 원</td></tr>
+        <tr><td>30만 원</td><td>18,000원</td><td>36,000원</td><td>1,080만 원</td></tr>
+        <tr><td>50만 원</td><td>30,000원</td><td>60,000원</td><td>1,800만 원</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="calculator">청년미래적금 만기금액 간단 계산기</h2>
+    <p>아래 계산기는 매달 같은 금액을 36개월 납입한다고 가정해 원금, 정부기여금, 단순 이자를 합산한 예상액을 보여줍니다. 실제 은행별 금리, 납입일, 월별 납입액 변화, 우대금리 충족 여부에 따라 달라질 수 있으므로 참고용으로만 보세요.</p>
+
+    <div class="calcbox">
+      <h3>내 예상 만기금액 계산</h3>
+      <div class="grid">
+        <div class="field">
+          <label for="monthly">월 납입액</label>
+          <div class="input"><input id="monthly" value="500,000" inputmode="numeric"><span class="unit">원</span></div>
+        </div>
+        <div class="field">
+          <label for="type">기여금 유형</label>
+          <div class="input"><select id="type"><option value="0.06">일반형 6%</option><option value="0.12">우대형 12%</option><option value="0">기여금 없음</option></select></div>
+        </div>
+        <div class="field">
+          <label for="rate">예상 연 금리</label>
+          <div class="input"><input id="rate" value="7" inputmode="decimal"><span class="unit">%</span></div>
+        </div>
+        <div class="field">
+          <label for="months">납입기간</label>
+          <div class="input"><input id="months" value="36" inputmode="numeric"><span class="unit">개월</span></div>
+        </div>
       </div>
-      <div class="card">
-        <div class="t new">청년미래적금 (신)</div>
-        <p>가입 기간: 3년</p>
-        <p>월 납입 한도: 50만 원</p>
-        <p>정부 기여금: 월 최대 24,000원</p>
-        <p>상태: 2026년 6월 출시</p>
+      <button class="go" type="button" onclick="calcMaturity()">예상 만기금액 계산하기</button>
+      <div class="result" id="calcResult">
+        <div class="big" id="maturityAmt">-</div>
+        <div class="small" id="maturityDesc">-</div>
       </div>
     </div>
 
-    <h2>신청 방법</h2>
-    <ul>
-      <li>서민금융진흥원 공식 홈페이지 또는 취급은행 앱에서 <strong>가입 자격 사전 확인</strong> (개인·가구소득 심사 2~3주 소요)</li>
-      <li>자격 확인 후 매월 정해진 신청 기간(약 2주)에 <strong>취급은행 앱 비대면 신청</strong></li>
-      <li>은행별 우대금리 조건(재무상담 이수, 카드 실적 등)을 확인해 최고 금리를 챙기세요</li>
-    </ul>
+    <h2 id="schedule">신청 일정과 절차</h2>
+    <p>최초 가입 신청은 2026년 6월 22일 출시와 함께 시작됐고, 신청 후 소득·가구요건·우대형 자격심사를 거쳐 계좌를 개설하는 방식입니다. 금융위원회 안내에 따르면 최초 신청 기간에는 출생연도 끝자리 5부제가 운영됐고, 이후 기간에는 모두 신청 가능했습니다.</p>
 
-    <h2>자주 묻는 질문</h2>
-    <details class="faq">
-      <summary>대학생도 가입할 수 있나요?</summary>
-      <p>소득이 있다면 가능합니다. 개인 소득이 있고 나이·가구소득 기준을 충족하면 재학 여부와 무관하게 신청할 수 있어요. 단 소득이 없다면 가입 대상이 아닙니다.</p>
-    </details>
-    <details class="faq">
-      <summary>3년 안에 중도해지하면 어떻게 되나요?</summary>
-      <p>특별 중도해지 사유(결혼, 출산, 사망, 생애최초 주택 구입, 6개월 이상 입원치료, 천재지변, 해외이주, 퇴직·폐업 후 6개월 이상 실직)가 아닌 경우 정부 기여금을 반환하고 비과세 혜택이 사라지며 이자에 세금이 부과됩니다. 가입 전 3년 완납 여부를 충분히 고려하세요.</p>
-    </details>
-    <details class="faq">
-      <summary>청년희망적금과 중복 가입이 되나요?</summary>
-      <p>청년희망적금과 청년미래적금은 중복 가입이 불가능합니다. 청년희망적금 만기 후 청년미래적금으로 이동하는 연계 상품 출시 여부는 정부 발표를 확인하세요.</p>
-    </details>
+    <div class="step"><div class="n">1</div><div><h3>취급기관 앱에서 가입 신청</h3><p>농협, 신한, 우리, 하나, 기업, 국민, 수협, iM, 부산, 광주, 전북, 경남, 카카오, 토스, 우정사업본부 등 취급기관 앱에서 비대면으로 신청합니다.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h3>가입요건 확인</h3><p>개인소득, 가구요건, 중소기업 또는 소상공인 우대요건 등을 심사합니다. 공식 안내상 가입신청 마지막일로부터 4~6주가 걸릴 수 있습니다.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h3>가입 가능 여부 안내</h3><p>심사 후 가입 가능 여부가 안내됩니다. 일반형·우대형은 심사 결과에 따라 자동 분류됩니다.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h3>계좌 개설 후 납입 시작</h3><p>정해진 계좌개설 기간 안에 계좌를 개설해야 하며, 기간이 지나면 개설이 불가능할 수 있습니다.</p></div></div>
+
+    <h2 id="switch">청년도약계좌에서 갈아타기</h2>
+    <p>청년도약계좌와 청년미래적금은 원칙적으로 중복가입이 제한됩니다. 다만 기존 청년도약계좌 가입자의 선택권 보장을 위해 최초 가입 신청 기간에는 갈아타기가 허용됐습니다. 가장 중요한 순서는 <strong>청년미래적금 가입 승인 → 청년미래적금 계좌 개설 → 청년도약계좌 특별중도해지</strong>입니다.</p>
+
+    <div class="card">
+      <strong>갈아타기 핵심 순서</strong>
+      <ol style="margin-top:10px">
+        <li>청년미래적금 가입 신청</li>
+        <li>가입요건 심사 후 가입 가능 통보 확인</li>
+        <li>청년미래적금 계좌 개설</li>
+        <li>청년도약계좌 앱에서 청년미래적금 가입 목적의 특별중도해지 신청</li>
+        <li>해지 다음 영업일 이후 청년미래적금 납입 시작</li>
+      </ol>
+    </div>
+
+    <div class="note">계좌개설 전에 청년도약계좌를 먼저 해지하면 갈아타기로 인정되지 않을 수 있습니다. 기존 납입금, 정부기여금, 비과세 혜택을 지키려면 반드시 순서를 지키세요.</div>
+
+    <h2 id="mistakes">자주 하는 실수와 체크리스트</h2>
+    <div class="mistake"><p><span class="x">실수 1.</span> 청년도약계좌를 먼저 해지한다</p><p><span class="o">정답:</span> 청년미래적금 가입 승인과 계좌개설 후 특별중도해지를 진행해야 합니다.</p></div>
+    <div class="mistake"><p><span class="x">실수 2.</span> 소상공인확인서를 늦게 준비한다</p><p><span class="o">정답:</span> 소상공인 자격으로 심사받으려면 가입 신청 전 모든 사업장의 소상공인확인서를 준비해야 합니다.</p></div>
+    <div class="mistake"><p><span class="x">실수 3.</span> 최고금리만 보고 가입한다</p><p><span class="o">정답:</span> 은행별 우대금리 조건, 재무상담 이수, 자동이체 조건 등을 확인해야 실제 금리가 달라집니다.</p></div>
+
+    <div class="checklist">
+      <div>□ 나이 요건: 만 19~34세 또는 병역기간 차감 후 요건 충족</div>
+      <div>□ 2025년 소득 확인 가능 여부 확인</div>
+      <div>□ 소상공인은 소상공인확인서 발급 여부 확인</div>
+      <div>□ 청년도약계좌 가입자는 갈아타기 순서 확인</div>
+      <div>□ 은행별 금리와 우대조건 비교</div>
+      <div>□ 3년 동안 월 납입을 유지할 수 있는 금액으로 설정</div>
+    </div>
+
+    <h2>이런 사람은 이렇게 판단하세요</h2>
+    <table>
+      <thead><tr><th>상황</th><th>추천 판단</th></tr></thead>
+      <tbody>
+        <tr><td>월 50만 원을 3년간 꾸준히 납입 가능</td><td>청년미래적금의 기여금 혜택을 최대한 활용하기 좋습니다.</td></tr>
+        <tr><td>소득이 낮고 중소기업 신규·재직 요건 가능</td><td>우대형 12% 대상인지 꼭 확인하세요.</td></tr>
+        <tr><td>청년도약계좌를 이미 오래 납입 중</td><td>무조건 갈아타기보다 남은 기간, 월 납입 가능액, 기여금 손익을 비교해야 합니다.</td></tr>
+        <tr><td>3년 내 목돈이 필요할 가능성이 큼</td><td>중도해지 시 혜택이 줄 수 있으므로 월 납입액을 낮춰 유지 가능성을 높이는 편이 낫습니다.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>함께 보면 좋은 글</h2>
+    <div class="related">
+      <a href="/gov-earned-income-tax-credit.html">근로장려금 총정리<span>소득이 낮은 청년이라면 함께 확인</span></a>
+      <a href="/gov-learning-card.html">국민내일배움카드<span>취업·이직 준비 훈련비 지원</span></a>
+      <a href="/region.html">지역 청년지원금<span>서울·경기·부산 등 지역 혜택</span></a>
+      <a href="/insurance.html">4대보험 계산기<span>월급에서 실제 빠지는 금액 확인</span></a>
+    </div>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <details class="faq"><summary>대학생도 가입할 수 있나요?</summary><p>소득이 확인된다면 가능합니다. 나이와 개인소득, 가구소득 요건을 충족해야 하며, 소득이 없는 경우에는 가입이 어렵습니다.</p></details>
+    <details class="faq"><summary>아르바이트 소득도 인정되나요?</summary><p>국세청에 신고되어 확인 가능한 근로소득이라면 심사 대상 소득으로 볼 수 있습니다. 다만 최종 가입 여부는 공식 심사 결과를 기준으로 합니다.</p></details>
+    <details class="faq"><summary>프리랜서도 가입할 수 있나요?</summary><p>종합소득이 확인되고 기준을 충족하면 일반 소득자로 신청할 수 있습니다. 종합소득 기준은 총급여 기준과 다르게 적용됩니다.</p></details>
+    <details class="faq"><summary>소상공인은 어떤 서류가 필요한가요?</summary><p>소상공인 자격으로 심사받으려면 중소기업현황정보시스템에서 소상공인확인서를 준비해야 합니다. 사업장이 여러 개라면 모든 사업장 확인서가 필요할 수 있습니다.</p></details>
+    <details class="faq"><summary>청년도약계좌와 동시에 가입할 수 있나요?</summary><p>원칙적으로 중복가입은 제한됩니다. 갈아타기 대상자는 청년미래적금 가입 승인 후 계좌를 먼저 개설하고, 이후 청년도약계좌를 특별중도해지해야 합니다.</p></details>
+    <details class="faq"><summary>갈아타기하면 청년도약계좌 기여금을 잃나요?</summary><p>청년미래적금 가입 목적의 특별중도해지 절차를 정상적으로 밟으면 기존 납입금에 대한 기여금과 비과세 혜택이 적용될 수 있습니다. 단, 순서를 지키는 것이 중요합니다.</p></details>
+    <details class="faq"><summary>월 50만 원을 꼭 넣어야 하나요?</summary><p>아닙니다. 자유적립식이므로 월 최대 50만 원 한도 내에서 납입할 수 있습니다. 다만 기여금은 납입액에 비례하므로 많이 넣을수록 정부기여금도 커집니다.</p></details>
+    <details class="faq"><summary>중도해지하면 어떻게 되나요?</summary><p>일반 중도해지 시 정부기여금과 비과세 혜택이 줄거나 적용되지 않을 수 있습니다. 가입 전 3년 동안 유지 가능한 금액으로 납입 계획을 세우는 것이 중요합니다.</p></details>
+    <details class="faq"><summary>은행별 금리는 어디서 비교하나요?</summary><p>취급 금융기관 앱과 은행연합회 소비자포털의 예금상품금리 비교 메뉴에서 확인할 수 있습니다. 기본금리는 5% 수준이며, 은행별 우대금리 조건이 다를 수 있습니다.</p></details>
+    <details class="faq"><summary>만기 후 금액은 정확히 얼마인가요?</summary><p>월 납입액, 납입일, 은행 금리, 우대금리 충족 여부, 기여금 유형에 따라 달라집니다. 본문 계산기는 단순 추정용이며 정확한 금액은 공식 만기금액 계산기 또는 가입 금융기관을 기준으로 확인하세요.</p></details>
   </article>
-  <p class="disclaimer">본 글은 2026년 6월 출시 예정인 청년미래적금의 사전 발표 내용을 기반으로 작성되었습니다. 은행별 금리·우대조건, 신청 기간, 기여금 세부 기준은 출시 후 변경될 수 있으며, 가입 전 서민금융진흥원 공식 홈페이지와 취급은행에서 최신 정보를 반드시 확인하세요.</p>
-  <footer>문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a></footer>
+
+  <p class="disclaimer">본 글은 2026년 6월 29일 기준 서민금융진흥원과 금융위원회의 청년미래적금 공식 안내를 바탕으로 작성한 참고용 정보입니다. 가입 가능 여부, 일반형·우대형 판정, 금리와 일정은 개인별 심사 결과와 취급기관 안내에 따라 달라질 수 있습니다. 가입 전 서민금융진흥원, 청년미래적금 공식 사이트, 취급 금융기관의 최신 공지를 반드시 확인하세요.</p>
+
+  <footer>
+    문의: kyona20250718@gmail.com · <a href="/privacy.html">개인정보처리방침</a>
+  </footer>
 </div>
+
+<script>
+(function(){
+  function commaInput(el){
+    el.addEventListener('input', function(){
+      var raw = this.value.replace(/[^0-9]/g,'');
+      this.value = raw ? Number(raw).toLocaleString('ko-KR') : '';
+    });
+  }
+  commaInput(document.getElementById('monthly'));
+})();
+function won(n){return Math.round(n).toLocaleString('ko-KR') + '원';}
+function calcMaturity(){
+  var monthly = Number(document.getElementById('monthly').value.replace(/[^0-9]/g,''));
+  var type = Number(document.getElementById('type').value);
+  var rate = Number(String(document.getElementById('rate').value).replace(/[^0-9.]/g,'')) / 100;
+  var months = Number(document.getElementById('months').value.replace(/[^0-9]/g,''));
+  if(!monthly || !months){return;}
+  monthly = Math.min(monthly, 500000);
+  months = Math.min(Math.max(months,1),36);
+  var principal = monthly * months;
+  var subsidy = monthly * type * months;
+  // 매월 말 납입, 단리 근사: 평균 예치기간을 반영한 보수적 추정
+  var avgYears = (months + 1) / 24;
+  var interest = (principal + subsidy) * rate * avgYears;
+  var total = principal + subsidy + interest;
+  document.getElementById('calcResult').className = 'result show';
+  document.getElementById('maturityAmt').textContent = '예상 만기금액 약 ' + won(total);
+  document.getElementById('maturityDesc').textContent =
+    '원금 ' + won(principal) + ' + 정부기여금 ' + won(subsidy) + ' + 예상 이자 약 ' + won(interest) +
+    ' 기준입니다. 실제 금액은 은행별 금리와 납입일에 따라 달라집니다.';
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"홈","item":"https://calcloude.com/"},
+        {"@type":"ListItem","position":2,"name":"정부지원","item":"https://calcloude.com/gov.html"},
+        {"@type":"ListItem","position":3,"name":"청년미래적금","item":"https://calcloude.com/gov-youth-savings.html"}
+      ]
+    },
+    {
+      "@type":"Article",
+      "headline":"2026 청년미래적금 총정리 — 신청조건, 기여금, 갈아타기, 만기금액 계산",
+      "description":"2026 청년미래적금 신청조건, 정부기여금, 청년도약계좌 갈아타기, 만기 예상금액 계산을 정리한 가이드입니다.",
+      "author":{"@type":"Organization","name":"calcloude"},
+      "publisher":{"@type":"Organization","name":"calcloude"},
+      "dateModified":"2026-06-29",
+      "mainEntityOfPage":"https://calcloude.com/gov-youth-savings.html"
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"대학생도 가입할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"소득이 확인된다면 가능합니다. 나이와 개인소득, 가구소득 요건을 충족해야 하며, 소득이 없는 경우에는 가입이 어렵습니다."}},
+        {"@type":"Question","name":"청년도약계좌와 동시에 가입할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"원칙적으로 중복가입은 제한됩니다. 갈아타기 대상자는 청년미래적금 가입 승인 후 계좌를 먼저 개설하고, 이후 청년도약계좌를 특별중도해지해야 합니다."}},
+        {"@type":"Question","name":"월 50만 원을 꼭 넣어야 하나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 자유적립식이므로 월 최대 50만 원 한도 내에서 납입할 수 있습니다."}}
+      ]
+    }
+  ]
+}
+</script>
 </body>
 </html>
