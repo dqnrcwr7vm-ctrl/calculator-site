@@ -1,0 +1,7 @@
+{
+  "name": "calculator-site",
+  "pages_build_output_dir": "public",
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [{"binding": "GAME_DB", "database_name": "foureign-rooms", "database_id": "0122aafb-ae49-4e95-ac56-d2f2e956ae4b"}]
+}
