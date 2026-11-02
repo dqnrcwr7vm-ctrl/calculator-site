@@ -1,0 +1,132 @@
+@import url('dungeon-hud.css?v=end-turn-4');
+.party-turn-panel{width:min(1600px,100%);border:1px solid #658f91;background:#0d222b;padding:16px;margin-bottom:14px;color:#e6e9dc}.party-turn-panel h2{font-size:20px;color:#f2d794;margin:0 0 12px}.party-loadouts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.party-loadouts article{border:1px solid #42616d;background:#08151d;padding:12px}.party-loadouts article[data-active=true]{border-color:#f3d181;background:#253438}.party-loadouts small{float:right;color:#9ed5cf}.party-loadouts ul{padding-left:18px;font-size:14px;line-height:1.8;margin-bottom:0}.party-intents{color:#ffc28e;line-height:1.7}.party-turn-panel button{padding:9px 14px;background:#1b4148;border:1px solid #6f969c;margin:4px}.party-turn-panel button:disabled{opacity:.4}.party-log{line-height:1.8;font-size:14px}.party-mode .archer-controls,.party-mode .dwarf-controls,.party-mode #demo,.party-mode #test-clear,.party-mode #resurrection-test-defeat,.party-mode .resurrection-controls,.party-mode #monster-actions{display:none!important}.party-mode .preview-controls label:has(#character-select),.party-mode #skill-set-label{display:none!important}.party-mode .party-turn-panel select{padding:8px;background:#19333c;color:#fff}.party-mode .galleon-tools{line-height:1.6}.party-mode #galleon-tools>br:nth-of-type(2){display:none}@media(max-width:760px){.party-loadouts{grid-template-columns:repeat(2,1fr)}.party-loadouts article{padding:8px}.party-loadouts small{float:none;display:block}}
+.party-mode .intent{right:1.5%;top:9cqw;max-width:43%;white-space:normal;line-height:1.5}.party-turn-panel details>p{font-size:13px;color:#b7c8c9;line-height:1.7}
+.campaign-mode #party-reroll{display:none!important}
+
+/* Enemy health stays internal in party combat. */
+.party-mode .boss .boss-bar,.party-mode .boss>p{display:none!important}
+
+.party-mode .enemy-name,.party-mode .intent,.party-mode .party-intents{display:none!important}
+
+/* Player-facing layout; keep runtime control nodes available to companion AI. */
+.game-view #galleon-tools,.game-view .party-turn-panel,.game-view .preview-controls,.game-view .archer-controls,.game-view .dwarf-controls,.game-view .resurrection-controls,.game-view .mechanic-loadout{display:none!important}
+.game-view{padding:12px}
+.game-view .screen{width:min(1600px,100%,calc((100dvh - 24px)*16/9))}
+.game-view .commands>h2{visibility:hidden}
+.game-view .defeat-dialog[hidden]{display:none}
+
+.target-picker{position:absolute;right:2%;bottom:2%;display:flex;align-items:center;gap:12px;padding:5px 8px;background:#07121ed9;border:1px solid #a28a5e;color:#ffe4a2;font-size:clamp(11px,1.1cqw,18px)}.target-picker[hidden]{display:none}.target-picker button{background:#152736;border:1px solid #9b885f;padding:6px 12px;color:#ffe4a2}.target-picker button:disabled{opacity:.4}
+
+.game-view .boss{display:none!important}
+#target-prompt{position:absolute;top:3%;left:50%;transform:translateX(-50%);padding:12px 18px;background:#081827ee;border:1px solid #e7c77d;color:#ffe5a0;text-align:center;z-index:5;font-size:clamp(12px,1.3cqw,20px);min-width:260px}#target-prompt[hidden]{display:none}#target-prompt strong,#target-prompt span{display:block}#target-prompt span{font-size:.75em;margin:7px 0;color:#c6d4df}#target-prompt button{padding:6px 10px;margin:3px;background:#213744;border:1px solid #bca36d}
+
+/* Target selection is communicated by the monster marker only. */
+.game-view #target-prompt,.game-view .target-picker{display:none!important}
+
+/* Match the overhead arrow's shared-clock pulse while awaiting a target. */
+.game-view .command-grid button.target-pending{border-color:#ffe49a;outline:2px solid rgba(255,225,133,calc(.45 + var(--target-glow,0)*.55));outline-offset:1px;box-shadow:0 0 calc(5px + var(--target-glow,0)*12px) rgba(255,213,100,calc(.3 + var(--target-glow,0)*.5)),inset 0 0 0 2px #b89b4c}
+
+.game-view .command-grid .ability-icon,.game-view .command-grid kbd,.game-view .command-grid small{display:none!important}.game-view .command-grid button{justify-content:center;padding:.8cqw;font-size:1.1cqw}.game-view .commands>h2{visibility:visible}
+
+#charge-status{position:absolute;top:3%;right:3%;padding:10px 16px;background:#25142bea;border:1px solid #e5b57a;color:#ffe0a0;font-size:clamp(12px,1.3cqw,21px)}#charge-status[hidden]{display:none}
+
+#party-configure{position:absolute;right:2%;top:2%;padding:6px 12px;background:#122535cf;border:1px solid #8c7956;font-size:clamp(10px,1cqw,16px)}#charge-status{top:12%}#roster-choices{display:flex;justify-content:center;gap:16px;margin:20px 0}#roster-choices select{padding:8px;background:#132736;color:#ffe6ac;border:1px solid #ad9462}#party-setup[hidden]{display:none}#roster-error{color:#ffa5a5}
+
+#roster-choices{flex-wrap:wrap}#roster-choices label{display:flex;align-items:center;gap:6px}
+
+/* Four permanent skill positions and the lobby's pixel typography. */
+@font-face{font-family:Galmuri11;src:url('../fonts/Galmuri11.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Galmuri11;src:url('../fonts/Galmuri11-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+.game-view,.game-view *{font-family:Galmuri11,monospace!important;font-synthesis:none;-webkit-font-smoothing:none}
+.game-view .command-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
+.game-view .command-grid button{font-size:1.65cqw;font-weight:700;line-height:1.35;text-align:center;white-space:normal;overflow-wrap:anywhere;word-break:keep-all;padding:.3cqw .5cqw;min-width:0;gap:0}
+.game-view .command-grid button span{font-size:inherit;line-height:inherit;white-space:normal;max-width:100%}
+.game-view .command-grid button.empty-skill-slot:disabled{background:#050c14;border-color:#394651;box-shadow:inset 0 0 0 2px #030810;cursor:default;opacity:.65}
+.game-view .command-grid button.empty-skill-slot:hover{background:#050c14;border-color:#394651;box-shadow:inset 0 0 0 2px #030810}
+
+/* Main combat map uses regular weight; draft cards retain their chosen emphasis. */
+.game-view .scene,.game-view .scene *,.game-view .hud,.game-view .hud *{font-weight:400!important}
+
+/* Universal campaign actions retain the four learned skill slots. */
+#common-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.35cqw;margin-top:.6cqw;flex-shrink:0}
+#common-actions[hidden]{display:none}
+#common-actions button{background:#21172e;border:1px solid #aa8f5b;color:#ffe5b0;font:1.05cqw Galmuri11,monospace;padding:.55cqw .15cqw;white-space:nowrap}
+#common-actions button:disabled{opacity:.4;cursor:default}
+#common-actions button:hover:not(:disabled){background:#483451;border-color:#ffe1a2}
+#common-actions button.target-pending{outline:2px solid #ffe1a2}
+#dungeon-intents{position:absolute;left:2%;top:30%;max-width:70%;padding:.5cqw .8cqw;background:#101323dd;color:#dbeeff;border-left:2px solid #829bba;font:1cqw/1.6 Galmuri11,monospace;pointer-events:none}
+
+#dungeon-tactics{position:absolute;left:2%;top:22%;width:70%;display:flex;flex-direction:column;gap:.3cqw;pointer-events:none}
+#dungeon-tactics #dungeon-intents{position:static;max-width:100%;font-size:clamp(6px,.9cqw,16px)}
+
+/* Normal encounters show only CLEAR; boss result panels keep their presentation. */
+.game-view #clear-overlay.simple-clear{background:transparent;backdrop-filter:none;animation:none;pointer-events:none}
+.game-view #clear-overlay.simple-clear .clear-panel{min-width:0;padding:0;background:none;border:0;box-shadow:none}
+.game-view #clear-overlay.simple-clear .clear-panel:before,.game-view #clear-overlay.simple-clear .clear-panel:after,.game-view #clear-overlay.simple-clear .clear-panel>*:not(h2){display:none}
+.game-view #clear-overlay.simple-clear h2{font:400 clamp(32px,5cqw,80px)/1.2 Galmuri11,monospace;color:#ffe6a6;text-shadow:0 3px 5px #000,0 0 24px #b68943;letter-spacing:.12em}
+
+/* Victory lettering: ivory/gold face, hard dark edge and a solid contrast band. */
+.game-view #clear-overlay{animation:none}
+.game-view #clear-overlay #clear-title{
+ position:relative;z-index:1;font-family:Galmuri11,monospace!important;font-weight:700!important;
+ font-size:clamp(36px,7.2cqw,116px);line-height:1.3;letter-spacing:.10em;color:#fff3c9;
+ -webkit-text-stroke:1px #5a320b;paint-order:stroke fill;
+ text-shadow:0 3px 0 #ce983e,0 6px 0 #684318,2px 8px 0 #08060d,-2px 8px 0 #08060d,0 10px 18px #000,0 0 32px #e5b95688;
+ opacity:calc(.4 + var(--clear-reveal,1)*.6);
+ transform:translateY(calc((1 - var(--clear-reveal,1))*8px)) scale(calc(.9 + var(--clear-reveal,1)*.1));
+}
+.game-view #clear-overlay.simple-clear{background:linear-gradient(transparent 26%,#09061133 50%,transparent 74%)}
+.game-view #clear-overlay.simple-clear .clear-panel{
+ width:100%;box-sizing:border-box;padding:1.6cqw 2cqw 2.4cqw;
+ background:linear-gradient(90deg,transparent,#0c0819ed 18%,#130d20fa 50%,#0c0819ed 82%,transparent);
+}
+.game-view #clear-overlay.simple-clear .clear-panel:before,.game-view #clear-overlay.simple-clear .clear-panel:after{
+ content:'';display:block;position:absolute;left:8%;right:8%;width:auto;height:2px;padding:0;
+ background:linear-gradient(90deg,transparent,#b3833b 18%,#fff2b9 50%,#b3833b 82%,transparent);
+ box-shadow:0 0 10px #e7b65b66;
+}
+.game-view #clear-overlay.simple-clear .clear-panel:before{top:0}
+.game-view #clear-overlay.simple-clear .clear-panel:after{top:auto;bottom:0}
+.game-view #clear-overlay.simple-clear #clear-title{margin:0}
+.game-view #clear-overlay:not(.simple-clear) .clear-panel{
+ background:linear-gradient(120deg,#140c22f7,#08060ffb 55%,#1d1229f7);
+ border:2px solid #e3bc6b;box-shadow:0 0 0 4px #120b1b,0 0 0 5px #846330,0 14px 70px #000c;
+}
+.game-view #clear-overlay.dungeon-complete .clear-panel{width:min(94%,1000px);min-width:0;box-sizing:border-box;border-color:#ffe4a1;box-shadow:0 0 0 4px #130b20,0 0 0 6px #c0984c,0 0 75px #d8ab513d,0 20px 80px #000c}
+.game-view #clear-overlay.dungeon-complete #clear-title{font-size:clamp(24px,5.5cqw,88px);letter-spacing:.025em;white-space:normal;overflow-wrap:normal;text-wrap:balance;color:#fff7db}
+@media(max-width:600px){
+ .game-view #clear-overlay #clear-title{-webkit-text-stroke:.6px #5a320b;text-shadow:0 2px 0 #ce983e,0 4px 0 #684318,0 6px 8px #000,0 0 18px #e5b95688}
+ .game-view #clear-overlay.simple-clear .clear-panel{padding:12px 8px 16px}
+}
+@media(prefers-reduced-motion:reduce){.game-view #clear-overlay #clear-title{transform:none;opacity:1}}
+
+/* Failure is immediately readable during its short return countdown. */
+.game-view #party-defeat{animation:none;background:#080711b8;z-index:20}
+.game-view #party-defeat .clear-panel{min-width:0;width:min(82%,720px);box-sizing:border-box;background:#180e1ff5;border:2px solid #c68480;box-shadow:0 0 0 4px #100b19,0 16px 65px #000b}
+.game-view #party-defeat h2{font-family:Galmuri11,monospace;font-weight:700;color:#ffe0d6;font-size:clamp(26px,4cqw,64px);text-shadow:0 3px 0 #662e38;margin:.7cqw 0 1.3cqw}
+.game-view #party-defeat p{color:#e4d6dc;font-size:clamp(12px,1.3cqw,20px);line-height:1.8}
+.game-view #party-defeat button{font-size:clamp(12px,1.2cqw,18px)}
+
+/* Four learned slots, then permanent guard and end-turn commands. */
+.game-view .hud .command-grid{grid-template-rows:repeat(3,minmax(0,1fr));gap:.45cqw}
+.game-view .hud .command-grid button{font-size:1.2cqw;line-height:1.25;padding-top:.25cqw;padding-bottom:.25cqw;min-height:0}
+.game-view .hud .command-grid .default-command{background:linear-gradient(145deg,#243542,#171c2c);border-color:#929bb1;color:#dce8f3}
+.game-view .hud .command-grid #party-end-turn{position:relative;inset:auto;z-index:auto;padding:.25cqw 1cqw .25cqw 1.7cqw;font:inherit;font-size:1.2cqw;line-height:1.25;box-shadow:inset 0 0 0 2px #110d1a}
+#dungeon-menu-open{position:absolute;right:calc(2% + clamp(90px,8cqw,130px));top:2%;padding:6px 12px;background:#122535e8;border:1px solid #a78a5a;color:#eadcc4;font-size:clamp(10px,1cqw,16px)}
+#dungeon-menu{box-sizing:border-box;width:min(86vw,640px);padding:clamp(20px,3vw,44px);color:#f5e6c7;background:linear-gradient(135deg,#32213e,#130e1f);border:2px solid #d1ae70;box-shadow:0 0 0 4px #140f20,0 22px 80px #000b;text-align:center;font-family:Galmuri11,monospace}
+#dungeon-menu::backdrop{background:#080710b8}
+#dungeon-menu h2{margin:0 0 20px;font-size:clamp(22px,3vw,38px);color:#ffe6ae}
+#dungeon-menu p{font-size:clamp(12px,1.2vw,16px);line-height:1.8;color:#d3c6d5}
+.dungeon-menu-buttons{display:grid;gap:12px;margin-top:28px}
+#dungeon-menu button{padding:14px 20px;border:1px solid #c4a76b;background:#382842;color:#ffe9bb;font:inherit;font-size:clamp(14px,1.4vw,18px);cursor:pointer}
+#dungeon-menu [data-abandon]{background:#3b1e2a;border-color:#bb7d82;color:#ffc6c1}
+#dungeon-menu button:hover,#dungeon-menu button:focus-visible{outline:2px solid #ffe0a0;outline-offset:3px;background:#58405d}
+@media(max-height:480px){#dungeon-menu{padding:18px 28px}#dungeon-menu h2{margin-bottom:10px}.dungeon-menu-buttons{margin-top:14px;gap:8px}#dungeon-menu button{padding:10px}}
+
+/* Individual enemy labels replace the old single-boss header. */
+#enemy-status{position:absolute;inset:0;pointer-events:none;z-index:1}
+#enemy-status[hidden]{display:none}
+.enemy-status-plate{position:absolute;transform:translateX(-50%);width:12.5%;padding:.2cqw .4cqw .3cqw;background:#160f20e8;border:1px solid #a68a60;box-shadow:0 2px 5px #0009}
+.enemy-status-name{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;color:#ffedc5;font:clamp(8px,1cqw,16px) Galmuri11,monospace;line-height:1.35;margin-bottom:.2cqw}
+.enemy-status-bar{height:clamp(3px,.45cqw,8px);background:#260e1c;border:1px solid #6e4857;overflow:hidden}
+.enemy-status-bar i{display:block;height:100%;background:linear-gradient(#ff9090,#c53451)}

@@ -185,7 +185,7 @@ function setDemo(value){if(value&&(finisher||window.ArcherSkills?.busy||window.W
 function updatePhase(state){const label=current.def.clip==='combinedAssembly'?'초 합체! · 파츠 조립 / 탑승':current.def.clip==='combinedDrill'&&state.phase==='advancing'?'적 앞으로 돌진':state.phase==='charging'?'가슴 빔 충전 · 다음 턴 발사':state.phase==='beam-recovery'?'가슴 빔 발사 완료 · 턴 종료 대기':state.phase==='acting'?current.def.name+' 사용':phaseNames[state.phase];if(label===lastPhase)return;lastPhase=label;document.querySelector('#phase-label').textContent=label;document.querySelector('#message').textContent=current.def.clip==='item'?'제자리에서 물약 사용':label;}
 function enemyTargets(){
  const p={...positions[4],...(runState.round<3?{y:535,h:enemy().height}:{})};
- return [{id:'primary',name:enemy().name,isBoss:config.isBoss??runState.round===3,element:enemy().element??assets[4].element??'neutral',attackType:enemy().attackType||(runState.round<3?'melee':'ranged'),...p,...mainEnemyHit,get hp(){return bossHp;},set hp(value){bossHp=value;}},...(window.EnemyFormation?.units||[])];
+ return [{id:'primary',name:enemy().name,maxHp:enemy().max??enemy().hp,isBoss:config.isBoss??runState.round===3,element:enemy().element??assets[4].element??'neutral',attackType:enemy().attackType||(runState.round<3?'melee':'ranged'),...p,...mainEnemyHit,get hp(){return bossHp;},set hp(value){bossHp=value;}},...(window.EnemyFormation?.units||[])];
 }
 function damageEnemyTargets(targets,amount,area=false,hit={}){
  // Resolve the entire living snapshot synchronously before triggering clear/finisher.
@@ -542,6 +542,7 @@ function render(now){
    }finally{if(wrapped)ctx.restore();}
   });
   window.EnemyFormation?.draw(ctx,elapsed,renderPositions,enemyTargets());
+  window.EnemyStatus?.update(enemyTargets(),!!finisher||runState.stage!=='battle');
   window.MonsterAttackVFX?.draw(ctx,'front',elapsed,renderPositions,enemyTargets());
   window.EnemyFormation?.feedback(ctx,enemyTargets(),elapsed);
   window.HealerSkills?.drawEnemy(ctx,elapsed);
