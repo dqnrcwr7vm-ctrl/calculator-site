@@ -10,9 +10,13 @@
     try {
      const image = new Image();
      await new Promise((resolve, reject) => {
-      image.onload = resolve;
-      image.onerror = () => reject(new Error('Image load failed: ' + url));
-      image.src = url;
+      let timer;
+      const settle=(error)=>{clearTimeout(timer);image.onload=image.onerror=null;error?reject(error):resolve();};
+      image.onload=()=>settle();
+      image.onerror=()=>settle(new Error('Image load failed: '+url));
+      timer=setTimeout(()=>{settle(new Error('Image load timed out: '+url));image.src='';},20000);
+      const attemptURL=new URL(url);if(attempt)attemptURL.searchParams.set('retry',String(attempt));
+      image.src=attemptURL.href;
      });
      if (image.decode) {
       try { await image.decode(); }
