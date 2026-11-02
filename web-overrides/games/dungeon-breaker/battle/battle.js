@@ -351,13 +351,17 @@ function effects(state,target){
  }
  ctx.restore();
 }
+function requestBattleFrame(callback){
+ try{if(window.parent!==window&&window.parent.GameScreen?.ownsFrame(window))return window.parent.requestAnimationFrame(callback);}catch{}
+ return window.requestAnimationFrame(callback);
+}
 function render(now){
  // A full-screen draft has no visible battlefield. Freeze its clock and skip
  // high-density canvas drawing, portraits, statuses and HUD DOM mutations.
  if(!ready||window.EntryLoading?.active||(!document.querySelector('#loot-overlay').hidden&&document.querySelector('#loot-overlay').classList.contains('skill-draft'))){
   previous=now;
   if(document.documentElement.classList.contains('initial-draft')){window.DungeonMusic?.setPaused(false);window.DungeonMusic?.select('lobby');}
-  requestAnimationFrame(render);return;
+  requestBattleFrame(render);return;
  }
 
  if(window.DungeonMenu?.isOpen)paused=true;
@@ -558,7 +562,7 @@ function render(now){
   if(state)effects(state,renderPositions[4]);
   window.WizardSkills?.draw(ctx,renderPositions,elapsed);
   if(!finisher)window.PartyStatusIcons?.draw(ctx,renderPositions,enemyTargets(),elapsed);
- }requestAnimationFrame(render);
+ }requestBattleFrame(render);
 }
 if(config.robots)document.querySelector('#mechanic-reset').onclick=()=>{runState.stage='battle';runState.slots=runState.slots.map(slot=>({...slot,...(slot.quantity!==undefined?{quantity:config.skillCatalog.find(s=>s.id===slot.id)?.quantity??slot.quantity}:{})}));resetBattle();};
 const pauseButton=document.querySelector('#pause');
@@ -640,4 +644,4 @@ window.addEventListener('campaignprepared',initializeBattle,{once:true});
 if(window.GalleonCampaign?.prepare())window.EntryLoading?.finish().catch(error=>window.EntryLoading?.fail(error));
 else initializeBattle();
 
-document.addEventListener('visibilitychange',()=>previous=0);requestAnimationFrame(render);
+document.addEventListener('visibilitychange',()=>previous=0);requestBattleFrame(render);

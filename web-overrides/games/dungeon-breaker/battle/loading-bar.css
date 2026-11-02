@@ -1,4 +1,4 @@
 /* Indeterminate: the next page's assets do not have a known total yet. */
 .game-loading-track{width:min(340px,76vw);height:12px;margin:24px auto 0;overflow:hidden;position:relative;border:1px solid #a48954;border-radius:3px;background:#20182c;box-shadow:0 0 14px #d4b26918;box-sizing:border-box}
-.game-loading-fill{display:block;width:0%;height:100%;background:linear-gradient(90deg,#7755ad,#d6b168 65%,#fff1bc);box-shadow:0 0 14px #efd88b88;transition:width .15s linear;transform:none;animation:none}
+.game-loading-fill{display:block;width:0%;height:100%;background:linear-gradient(90deg,#7755ad,#d6b168 65%,#fff1bc);box-shadow:0 0 14px #efd88b88;transform:none;animation:none}
 .loading-count{display:block;margin-top:12px;font-variant-numeric:tabular-nums}
