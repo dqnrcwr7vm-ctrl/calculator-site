@@ -351,14 +351,23 @@ function effects(state,target){
  }
  ctx.restore();
 }
-let battleFrameHost=window,battleFrameId=0,battleFrameStopped=false;
-try{if(window.parent!==window&&window.parent.GameScreen?.ownsFrame(window))battleFrameHost=window.parent;}catch{}
+let battleFrameId=0,battleFrameTimer=0,battleFrameStopped=false;
 function requestBattleFrame(callback){
- if(!battleFrameStopped)battleFrameId=battleFrameHost.requestAnimationFrame(callback);
+ if(battleFrameStopped)return;
+ let delivered=false;
+ const deliver=()=>{
+  if(delivered||battleFrameStopped)return;
+  delivered=true;clearTimeout(battleFrameTimer);window.cancelAnimationFrame(battleFrameId);
+  if(document.hidden){requestBattleFrame(callback);return;}
+  callback(performance.now());
+ };
+ battleFrameId=window.requestAnimationFrame(deliver);
+ // WebKit may suspend an iframe's animation callbacks across screen changes.
+ // A visible game must keep advancing; normal rAF wins and cancels this timer.
+ battleFrameTimer=setTimeout(deliver,100);
  return battleFrameId;
 }
-// The shell survives floor navigation; release its callback to the old document.
-window.addEventListener('pagehide',()=>{battleFrameStopped=true;battleFrameHost.cancelAnimationFrame(battleFrameId);});
+window.addEventListener('pagehide',()=>{battleFrameStopped=true;window.cancelAnimationFrame(battleFrameId);clearTimeout(battleFrameTimer);});
 window.addEventListener('pageshow',event=>{if(event.persisted){battleFrameStopped=false;previous=0;requestBattleFrame(render);}});
 function render(now){
  // A full-screen draft has no visible battlefield. Freeze its clock and skip
