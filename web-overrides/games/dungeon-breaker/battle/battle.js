@@ -351,10 +351,15 @@ function effects(state,target){
  }
  ctx.restore();
 }
+let battleFrameHost=window,battleFrameId=0,battleFrameStopped=false;
+try{if(window.parent!==window&&window.parent.GameScreen?.ownsFrame(window))battleFrameHost=window.parent;}catch{}
 function requestBattleFrame(callback){
- try{if(window.parent!==window&&window.parent.GameScreen?.ownsFrame(window))return window.parent.requestAnimationFrame(callback);}catch{}
- return window.requestAnimationFrame(callback);
+ if(!battleFrameStopped)battleFrameId=battleFrameHost.requestAnimationFrame(callback);
+ return battleFrameId;
 }
+// The shell survives floor navigation; release its callback to the old document.
+window.addEventListener('pagehide',()=>{battleFrameStopped=true;battleFrameHost.cancelAnimationFrame(battleFrameId);});
+window.addEventListener('pageshow',event=>{if(event.persisted){battleFrameStopped=false;previous=0;requestBattleFrame(render);}});
 function render(now){
  // A full-screen draft has no visible battlefield. Freeze its clock and skip
  // high-density canvas drawing, portraits, statuses and HUD DOM mutations.
@@ -606,6 +611,9 @@ async function preloadBattle(){
  const files=new Set();
  await loadResources(async src=>{files.add(src);return null;});
  files.add('assets/melee-demon-sheet.webp');
+ for(const effect of Object.values(config.effects||{}))effect.frames.forEach(src=>files.add(src));
+ for(const robot of Object.values(config.robots||{}))for(const clip of Object.values(robot.actions))clip.frames.forEach(src=>files.add(src));
+ if(window.ActiveDungeon?.environment)files.add('../imagegen/dungeon-concepts-v2/'+ActiveDungeon.environment+'.webp');
  if(assets.some(a=>a.id==='wizard'))for(const layer of ['back','front'])for(let i=1;i<=9;i++)files.add(`../effects/battle-roar-v1/frames/${layer}/aura-${String(i).padStart(2,'0')}.webp`);
  const sources=[...files];let next=0;
  window.EntryLoading?.plan(sources.length+2);
@@ -636,7 +644,7 @@ function initializeBattle(){
  window.EntryLoading?.begin();
  // Sound effects may load in the background; network/decode stalls must not block play.
  Promise.resolve(window.DungeonCombatAudio?.prepare()).catch(error=>console.warn('Audio preload deferred',error));
- init().then(async()=>{window.EntryLoading?.loaded();await window.EntryLoading?.finish();if(new URLSearchParams(location.search).get('showcase')==='all-mechs')previewAllMechs();}).catch(error=>{window.EntryLoading?.fail(error);document.querySelector('#loading').textContent='애니메이션을 불러오지 못했습니다. 다시 시도해 주세요.';console.error(error);});
+ init().then(async()=>{window.EntryLoading?.loaded();await window.EntryLoading?.finish();window.CampaignAssets?.prefetchNext();if(new URLSearchParams(location.search).get('showcase')==='all-mechs')previewAllMechs();}).catch(error=>{window.EntryLoading?.fail(error);document.querySelector('#loading').textContent='애니메이션을 불러오지 못했습니다. 다시 시도해 주세요.';console.error(error);});
 }
 window.addEventListener('campaignprepared',initializeBattle,{once:true});
 // Skill descriptions/icons need no combat PNGs. Load animations only after
