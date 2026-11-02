@@ -1,0 +1,116 @@
+/* Approved mobile bottom party HUD, right commands, engraved controls and press feedback. */
+html.mobile-game[data-game-page=battle]{--party-strip-height:clamp(66px,21vh,88px)}
+html.mobile-game[data-game-page=battle] .screen{
+ display:grid;grid-template-columns:minmax(0,1fr) clamp(180px,23vw,250px);
+ grid-template-rows:minmax(0,1fr) var(--party-strip-height);align-items:stretch;
+ width:var(--play-width);height:var(--play-height);gap:0;aspect-ratio:auto;
+ border:1px solid #9c8053;background:#0b111b;
+}
+html.mobile-game[data-game-page=battle] .scene{
+ grid-column:1;grid-row:1;width:min(100%,calc((var(--play-height) - var(--party-strip-height) - 2px)*16/7));
+ height:auto;aspect-ratio:16/7;align-self:center;justify-self:center;
+ border:0;container-type:inline-size;
+}
+html.mobile-game[data-game-page=battle] .hud{display:contents}
+html.mobile-game[data-game-page=battle] .hud .party{
+ grid-column:1;grid-row:2;width:100%;height:100%;min-height:0;flex:none;
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(0,1fr);
+ gap:6px;padding:10px 6px 5px;container-type:inline-size;
+ border-top:2px solid #b99a65;background:linear-gradient(#30243d,#15101e 18%,#100d18);
+}
+html.mobile-game[data-game-page=battle] .hud .member{
+ display:flex;align-items:center;min-width:0;min-height:0;gap:5px;padding:5px;
+}
+html.mobile-game[data-game-page=battle] .hud .portrait{
+ width:5.3cqw;max-width:40px;height:auto;max-height:100%;aspect-ratio:12/17;flex-shrink:0;
+}
+html.mobile-game[data-game-page=battle] .hud .stats{flex:1;min-width:0;width:auto}
+html.mobile-game[data-game-page=battle] .hud .stats strong{
+ font-size:clamp(10px,1.8cqw,14px);line-height:1.15;margin:0 0 3px;white-space:nowrap;
+}
+html.mobile-game[data-game-page=battle] .hud .stat-line{
+ display:flex;align-items:center;justify-content:space-between;gap:3px;
+ font-size:clamp(8px,1.48cqw,11px);line-height:1.15;letter-spacing:-.025em;margin:2px 0 1px;white-space:nowrap;
+}
+html.mobile-game[data-game-page=battle] .hud .stat-line em{flex:0 0 auto}
+html.mobile-game[data-game-page=battle] .hud .stat-line span{min-width:0;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+html.mobile-game[data-game-page=battle] .hud .bar{height:4px;min-width:0;width:100%}
+html.mobile-game[data-game-page=battle] .hud .role-badge{font-size:8px;min-width:22px;padding:0 3px;top:-6px;line-height:1.3}
+html.mobile-game[data-game-page=battle] .hud .commands{
+ grid-column:2;grid-row:1/3;width:100%;height:100%;min-height:0;min-width:0;
+ display:flex;flex-direction:column;padding:7px;flex:none;
+ border-left:2px solid #b99a65;background:linear-gradient(110deg,#30223e,#17111f 20%);
+}
+html.mobile-game[data-game-page=battle] .hud .command-grid{
+ width:100%;height:100%;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:7px;
+}
+html.mobile-game[data-game-page=battle] .hud .command-grid button{
+ min-width:0;min-height:0;font-size:clamp(12px,1.55vw,17px);line-height:1.45;padding:8px 5px;
+ white-space:normal;word-break:keep-all;overflow-wrap:anywhere;justify-content:center;
+}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn{position:relative;inset:auto;font-size:clamp(12px,1.55vw,17px);line-height:1.45;padding:8px 5px;z-index:auto}
+@media(max-height:330px){
+ html.mobile-game[data-game-page=battle]{--party-strip-height:66px}
+ html.mobile-game[data-game-page=battle] .hud .party{gap:4px;padding:8px 4px 4px}
+ html.mobile-game[data-game-page=battle] .hud .member{padding:3px;gap:4px}
+ html.mobile-game[data-game-page=battle] .hud .portrait{width:4.2cqw;max-width:30px}
+ html.mobile-game[data-game-page=battle] .hud .stats strong{font-size:10px;margin-bottom:1px}
+ html.mobile-game[data-game-page=battle] .hud .stat-line{font-size:clamp(7px,1.42cqw,9px);margin:1px 0;line-height:1.1}
+ html.mobile-game[data-game-page=battle] .hud .bar{height:3px}
+}
+
+
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn)){isolation:isolate;border-color:#c5a56b;color:#fff0ce;background:radial-gradient(ellipse at 50% 0,#8b68805c,transparent 57%),linear-gradient(135deg,#493456,#271b36 52%,#35223f);box-shadow:inset 0 0 0 2px #110d1b,inset 0 0 0 3px #927246,inset 0 5px 10px #e4c39017,inset 0 -8px 14px #08060d8c;text-shadow:0 2px 0 #100b18,0 0 8px #120b18;padding:16px 10px}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn))::before{content:"";position:absolute;inset:4px;border:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20120%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M6%2027V14L14%206H32M68%206H86L94%2014V27M94%2093V106L86%20114H68M32%20114H14L6%20106V93%22%20fill%3D%22none%22%20stroke%3D%22%23e0bb77%22%20stroke-width%3D%221.7%22%2F%3E%3Cpath%20d%3D%22M17%2011H37M63%2011H83L89%2017V38M89%2082V103L83%20109H63M37%20109H17L11%20103V82M11%2038V17Z%22%20fill%3D%22none%22%20stroke%3D%22%239c744b%22%20stroke-width%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M50%203L54%207L50%2011L46%207ZM50%20109L54%20113L50%20117L46%20113Z%22%20fill%3D%22%23d6af68%22%2F%3E%3Cpath%20d%3D%22M20%2016H34M66%2016H80M20%20104H34M66%20104H80%22%20stroke%3D%22%23cab295%22%20stroke-opacity%3D%22.25%22%20stroke-width%3D%22.7%22%2F%3E%3C%2Fsvg%3E") center/100% 100% no-repeat;z-index:0}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn))::after{content:"";position:absolute;inset:12px;border:1px solid #c5a27d16;pointer-events:none;z-index:-2}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn)):disabled{filter:saturate(.45);opacity:.6}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn)):hover:not(:disabled){border-color:#ffe5a0;background:radial-gradient(ellipse at 50% 0,#bb8db74d,transparent 60%),linear-gradient(135deg,#61466f,#342142 55%,#483052)}
+html.mobile-game[data-game-page=battle] .hud .command-grid button>span{position:relative;z-index:2}
+html.mobile-game[data-game-page=battle] .hud .command-grid button kbd{z-index:3}
+html.mobile-game[data-game-page=battle] .hud #party-basic-guard{isolation:isolate;border:1px solid #a88b61;background:linear-gradient(145deg,#303344,#1a1d2c 65%,#111723);box-shadow:inset 0 0 0 2px #0d0b15,inset 0 0 0 3px #6f5b6d55,inset 0 6px 16px #0003;text-shadow:0 2px 0 #080810,0 0 5px #080810;color:#f5e8ce}
+html.mobile-game[data-game-page=battle] .hud #party-basic-guard::before{content:"";position:absolute;inset:12% 9%;border:0;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20110%22%3E%3Cdefs%3E%3Cpath%20id%3D%22shield%22%20d%3D%22M50%2010L83%2021V49L78%2067L66%2083L50%2096L34%2083L22%2067L17%2049V21Z%22%2F%3E%3Cpath%20id%3D%22inside%22%20d%3D%22M50%2023L70%2030V49L66%2061L58%2072L50%2080L42%2072L34%2061L30%2049V30Z%22%2F%3E%3C%2Fdefs%3E%3Cuse%20href%3D%22%23shield%22%20transform%3D%22translate%281.4%202.2%29%22%20fill%3D%22%23263044%22%20stroke%3D%22%2377768b%22%20stroke-width%3D%222.6%22%2F%3E%3Cuse%20href%3D%22%23shield%22%20fill%3D%22%23151a28%22%20stroke%3D%22%23090d17%22%20stroke-width%3D%224%22%2F%3E%3Cuse%20href%3D%22%23inside%22%20fill%3D%22%231c2332%22%20stroke%3D%22%23515669%22%20stroke-width%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M50%2029V72M36%2044H64%22%20stroke%3D%22%230b101b%22%20stroke-width%3D%225%22%2F%3E%3Cpath%20d%3D%22M52%2031V72M38%2046H64%22%20stroke%3D%22%23707486%22%20stroke-opacity%3D%22.22%22%20stroke-width%3D%221.5%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;opacity:.9;pointer-events:none;z-index:-2}
+html.mobile-game[data-game-page=battle] .hud #party-basic-guard::after{content:"";position:absolute;inset:6px;border:1px solid #b2987140;border-bottom-color:#c2a98666;pointer-events:none;z-index:-1}
+html.mobile-game[data-game-page=battle] .hud #party-basic-guard:hover:not(:disabled){filter:brightness(1.15)}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn{isolation:isolate;border:1px solid #a88b61;background:linear-gradient(145deg,#3d2c49,#251a32 65%,#1b1425);box-shadow:inset 0 0 0 2px #0d0b15,inset 0 0 0 3px #6f5b6d55,inset 0 6px 16px #0003;text-shadow:0 2px 0 #080810,0 0 5px #080810;color:#f5e8ce}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn::before{content:"";position:absolute;inset:12% 9%;border:0;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20110%20100%22%3E%3Cdefs%3E%3Cpath%20id%3D%22next%22%20d%3D%22M13%2019L48%2050L13%2081V61L26%2050L13%2039ZM48%2019L83%2050L48%2081V61L61%2050L48%2039ZM91%2021H99V79H91Z%22%2F%3E%3C%2Fdefs%3E%3Cuse%20href%3D%22%23next%22%20transform%3D%22translate%281.3%202%29%22%20fill%3D%22%23735c7b%22%20stroke%3D%22%238e738c%22%20stroke-width%3D%221.7%22%2F%3E%3Cuse%20href%3D%22%23next%22%20fill%3D%22%231b1225%22%20stroke%3D%22%230c0813%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M17%2025L44%2050L17%2075M52%2025L79%2050L52%2075M96%2026V75%22%20fill%3D%22none%22%20stroke%3D%22%23765b82%22%20stroke-opacity%3D%22.3%22%20stroke-width%3D%221%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;opacity:.9;pointer-events:none;z-index:-2}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn::after{content:"";position:absolute;inset:6px;border:1px solid #b2987140;border-bottom-color:#c2a98666;pointer-events:none;z-index:-1}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn:hover:not(:disabled){filter:brightness(1.15)}
+
+
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot)::before{z-index:-2}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot)::after{z-index:-1;width:auto;height:auto;display:block;background:transparent;transform:none;box-shadow:none}
+
+
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn)){background:radial-gradient(ellipse at 50% 9%,#76528766,transparent 62%),linear-gradient(150deg,#3f2b4d,#20162c 62%,#35203e);box-shadow:inset 0 0 0 2px #110c18,inset 0 0 0 3px #967044,inset 0 7px 14px #dabd8c12,inset 0 -12px 20px #090611bb;border-color:#b1945c;padding:19px 10px;text-shadow:0 2px 0 #0b0812,0 0 7px #090710}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn))::before{inset:3px;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20120%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22gold%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23f8dfa1%22%2F%3E%3Cstop%20offset%3D%22.3%22%20stop-color%3D%22%23b68a46%22%2F%3E%3Cstop%20offset%3D%22.7%22%20stop-color%3D%22%2370522e%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e7bf70%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M18%204H82L96%2018V102L82%20116H18L4%20102V18Z%22%20fill%3D%22none%22%20stroke%3D%22%23100d18%22%20stroke-width%3D%226%22%2F%3E%3Cpath%20d%3D%22M18%204H82L96%2018V102L82%20116H18L4%20102V18Z%22%20fill%3D%22none%22%20stroke%3D%22url%28%23gold%29%22%20stroke-width%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M20%2010H80L90%2020V100L80%20110H20L10%20100V20Z%22%20fill%3D%22none%22%20stroke%3D%22%23c2a37a%22%20stroke-opacity%3D%22.4%22%20stroke-width%3D%22.8%22%2F%3E%3Cpath%20d%3D%22M5%2032V18L18%205H34M66%205H82L95%2018V32M95%2088V102L82%20115H66M34%20115H18L5%20102V88%22%20fill%3D%22none%22%20stroke%3D%22%23f2d591%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M40%205L50%2014L60%205M40%20115L50%20106L60%20115%22%20fill%3D%22%231c132b%22%20stroke%3D%22%23bb9459%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M50%204L54%208L50%2012L46%208ZM50%20108L54%20112L50%20116L46%20112Z%22%20fill%3D%22%23ad8fca%22%20stroke%3D%22%23efcf8a%22%20stroke-width%3D%22.75%22%2F%3E%3C%2Fsvg%3E");opacity:1;z-index:-2}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:not(.empty-skill-slot):not(:where(#party-basic-guard)):not(:where(#party-end-turn))::after{inset:22px 13px;border:0;border-top:1px solid #c09dc124;border-bottom:1px solid #c09dc124;background:linear-gradient(90deg,transparent,#c3a1d009,transparent);z-index:-1}
+html.mobile-game[data-game-page=battle] .hud #party-basic-guard{box-shadow:inset 0 0 0 2px #080811,inset 0 0 0 3px #5a4a6355,inset 0 9px 18px #07071170,inset 0 -1px 0 #a18a7155;text-shadow:0 2px 0 #080810,0 0 6px #080810,0 0 3px #080810}
+html.mobile-game[data-game-page=battle] .hud #party-basic-guard::before{inset:10% 7%;opacity:.76;z-index:-2}
+html.mobile-game[data-game-page=battle] .hud #party-basic-guard::after{inset:7px;border-top-color:#080811;border-left-color:#080811;border-right-color:#8b7b7955;border-bottom-color:#a7958766;box-shadow:inset 0 2px 4px #0004;z-index:-1}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn{box-shadow:inset 0 0 0 2px #080811,inset 0 0 0 3px #5a4a6355,inset 0 9px 18px #07071170,inset 0 -1px 0 #a18a7155;text-shadow:0 2px 0 #080810,0 0 6px #080810,0 0 3px #080810}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn::before{inset:10% 7%;opacity:.76;z-index:-2}
+html.mobile-game[data-game-page=battle] .hud #party-end-turn::after{inset:7px;border-top-color:#080811;border-left-color:#080811;border-right-color:#8b7b7955;border-bottom-color:#a7958766;box-shadow:inset 0 2px 4px #0004;z-index:-1}
+
+
+html.mobile-game[data-game-page=battle] .hud .command-grid :is(button,#party-basic-guard,#party-end-turn):not(.empty-skill-slot){
+ --button-depth:0 3px 0 #090710,0 4px 5px #0008;
+ box-shadow:var(--button-depth),inset 0 0 0 2px #100c18,inset 0 0 0 3px #96704488,inset 0 3px 2px #efd7a933,inset 0 -5px 8px #08060d99;
+ transform:translateY(-2px);transition:transform 90ms ease-out,box-shadow 90ms ease-out,filter 90ms ease-out;
+ touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;
+}
+html.mobile-game[data-game-page=battle] .hud .command-grid :is(button,#party-basic-guard,#party-end-turn):not(.empty-skill-slot):active:not(:disabled){
+ transform:translateY(2px) scale(.975);filter:brightness(.84);
+ box-shadow:0 1px 0 #ab8d5a44,inset 0 0 0 2px #080610,inset 0 0 0 3px #7c603d,inset 0 7px 12px #000b,inset 3px 0 8px #0006,inset 0 -1px 0 #edd09d55;
+ border-color:#8f744b;text-shadow:0 1px 1px #000;
+ transition-duration:45ms;
+}
+html.mobile-game[data-game-page=battle] .hud .command-grid :is(button,#party-basic-guard,#party-end-turn):not(.empty-skill-slot):active:not(:disabled)::before{filter:brightness(.8);transform:translateY(1px)}
+html.mobile-game[data-game-page=battle] .hud .command-grid :is(button,#party-basic-guard,#party-end-turn):disabled{transform:none;cursor:default}
+@media(prefers-reduced-motion:reduce){html.mobile-game[data-game-page=battle] .hud .command-grid :is(button,#party-basic-guard,#party-end-turn):not(.empty-skill-slot){transition:none}}
+/* Preserve target-selection feedback over the decorative button layers. */
+html.mobile-game[data-game-page=battle] .hud .command-grid :is(button,#party-basic-guard,#party-end-turn).target-pending{
+ border-color:#ffe49a;outline:2px solid rgba(255,225,133,calc(.45 + var(--target-glow,0)*.55));outline-offset:1px;
+ box-shadow:0 0 calc(5px + var(--target-glow,0)*12px) rgba(255,213,100,calc(.3 + var(--target-glow,0)*.5)),inset 0 0 0 2px #b89b4c;
+}
+html.mobile-game[data-game-page=battle] .hud .command-grid button:focus-visible{outline:2px solid #ffe7a9;outline-offset:2px}
+html.mobile-game[data-game-page=battle] .hud:before{display:none}
