@@ -1,0 +1,51 @@
+<!doctype html>
+<html data-game-page="title" lang="ko" data-game-shell="true">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#09080d"><title>DUNGEON BREAKER</title>
+  <link rel="stylesheet" href="title.css?v=raised-menu-fade-20261030">
+  <script src="game-navigation.js?v=mobile-landscape-20261102"></script>
+<link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="DUNGEON BREAKER"><link rel="apple-touch-icon" href="app-icons/apple-touch-icon.png"><link rel="stylesheet" href="mobile-game.css?v=mobile-landscape-20261102"><script src="mobile-game.js?v=mobile-landscape-20261102"></script></head>
+<body>
+<main class="title-screen" data-phase="ready">
+  <div class="scene" aria-label="DUNGEON BREAKER 오프닝과 메인 메뉴">
+    <video id="intro" autoplay muted playsinline preload="auto" aria-hidden="true" src="opening-adventure-v7-everyday/runtime/opening-full-frame-v4.mp4"></video>
+    <img id="still" class="still" src="opening-adventure-v7-everyday/runtime/ending-full-frame-v4.webp" alt="DUNGEON BREAKER 공식 로고와 모험을 앞둔 여섯 동료" hidden>
+    <h1 class="sr-only">DUNGEON BREAKER</h1>
+    <nav class="main-menu" aria-label="메인 메뉴" inert>
+      <a class="menu-button primary" href="lobby/index.html?v=normal-entry-20261027"><i class="pointer" aria-hidden="true"></i>게임 시작</a>
+      <button class="menu-button" id="settings-open">설정</button>
+      <button class="menu-button" id="exit-open">나가기</button>
+    </nav>
+    <button class="minor skip" id="skip" aria-keyshortcuts="Enter" hidden>오프닝 건너뛰기 · Enter »</button>
+    <button class="minor replay" id="replay" hidden>↻ 오프닝 다시 보기</button>
+
+  </div>
+  <p class="sr-only" id="status" role="status" aria-live="polite">오프닝을 준비하고 있습니다.</p>
+</main>
+<audio id="bgm" src="opening-adventure-v6-bgm/assets/main-theme.m4a" loop preload="auto" data-game-persistent></audio>
+<dialog id="settings" aria-labelledby="settings-title">
+  <form method="dialog" class="panel">
+    <p class="panel-caption">DUNGEON BREAKER</p><h2 id="settings-title">설정</h2>
+    <label class="setting-row" for="music-enabled"><span>배경 음악</span><input id="music-enabled" type="checkbox" checked></label>
+    <label class="setting-row volume-row" for="music-volume"><span>음량 <output id="volume-value" for="music-volume">65%</output></span><input id="music-volume" type="range" min="0" max="100" step="1" value="65"></label>
+    <label class="setting-row" for="effects-enabled"><span>버튼 효과음</span><input id="effects-enabled" type="checkbox" checked></label>
+    <label class="setting-row volume-row" for="effects-volume"><span>효과음 음량 <output id="effects-value">80%</output></span><input id="effects-volume" type="range" min="0" max="100" step="1" value="80"></label>
+    <label class="setting-row" for="voices-enabled"><span>캐릭터 음성</span><input id="voices-enabled" type="checkbox" checked></label>
+    <label class="setting-row volume-row" for="voices-volume"><span>음성 음량 <output id="voices-value">90%</output></span><input id="voices-volume" type="range" min="0" max="100" step="1" value="90"></label>
+    <label class="setting-row" for="combat-sfx-enabled"><span>전투 효과음</span><input id="combat-sfx-enabled" type="checkbox" checked></label>
+    <label class="setting-row volume-row" for="combat-sfx-volume"><span>전투 효과음 음량 <output id="combat-sfx-value">75%</output></span><input id="combat-sfx-volume" type="range" min="0" max="100" step="1" value="75"></label>
+    <label class="setting-row" for="opening-enabled"><span>시작 애니메이션<small>다음 실행부터 적용됩니다</small></span><input id="opening-enabled" type="checkbox" checked></label>
+    <button type="button" class="menu-button" id="fullscreen">전체 화면</button>
+    <button class="menu-button primary" value="close">완료</button>
+    <p class="dialog-help">↑↓ 이동 · ←→ 음량 · Enter 선택 · ESC 닫기</p>
+  </form>
+</dialog>
+<dialog id="exit" aria-labelledby="exit-title">
+  <form method="dialog" class="panel"><p class="panel-caption">DUNGEON BREAKER</p><h2 id="exit-title">게임을 나갈까요?</h2><button class="menu-button primary" value="cancel" autofocus>계속하기</button><button class="menu-button" value="quit">나가기</button><p class="dialog-help">↑↓ 이동 · Enter 선택 · ESC 닫기</p></form>
+</dialog>
+<section class="farewell" hidden aria-label="게임 종료">
+  <img src="imagegen/dungeon-breaker-pixel-logo-transparent-v1.webp" alt="DUNGEON BREAKER" width="1774" height="887"><p>다음 모험에서 다시 만나요.</p><button class="menu-button primary" id="return">메인 화면으로</button>
+</section>
+<script src="music/catalog.js?v=20261029"></script><script src="music/player.js?v=20261029"></script><script src="music/page.js?v=draft-music-20261031"></script><script src="title.js?v=draft-music-20261031"></script>
+<script src="audio/ui-player.js?v=20261029-1"></script><script src="audio/voices-approved-v1/catalog.js?v=20261030-1"></script><script src="audio/voice-player.js?v=20261030-1"></script><script src="audio/impact-profiles.js?v=weapon-impacts-20261030"></script><script src="audio/combat-player.js?v=magic-effects-20261031"></script></body></html>
