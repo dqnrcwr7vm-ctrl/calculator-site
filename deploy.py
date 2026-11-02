@@ -9,3 +9,7 @@ for name in ['dungeon-breaker-web-20261102-01.zip', 'dungeon-breaker-web-2026110
 # Complete dynamic wizard frame sequences.
 for name in ['dungeon-breaker-web-20261102-86.zip', 'dungeon-breaker-web-20261102-87.zip', 'dungeon-breaker-web-20261102-88.zip']:
     with ZipFile(name) as bundle: bundle.extractall("public")
+
+# Small source patches override packaged assets without repacking the game.
+from shutil import copytree
+copytree("web-overrides", "public", dirs_exist_ok=True)
