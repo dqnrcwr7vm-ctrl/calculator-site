@@ -14,7 +14,7 @@
  };
  // Player-facing draft copy deliberately omits combat magnitudes and resource costs.
  const selectionDescriptions={
- 'living-water':'자신을 포함한 아군 전체의 MP를 2턴 동안 매 턴 최대치의 10%씩 회복합니다. MP 80.',
+ 'living-water':'자신을 포함한 살아 있는 아군 전체의 마나를 이번 턴과 다음 턴이 끝날 때 회복합니다. 다시 사용하면 지속 기간이 갱신됩니다.',
   "party-end-turn": "마나를 조금 회복하고 차례를 마칩니다. 마나 부족으로 배운 스킬을 사용할 수 없다면 체력도 조금 회복합니다.",
   "party-wait": "스킬을 사용하지 않고 다음 동료에게 행동을 넘깁니다.",
   "combined-gun": "합체 메카의 기관총으로 선택한 적을 공격합니다.",
