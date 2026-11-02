@@ -126,7 +126,10 @@
 /* Individual enemy labels replace the old single-boss header. */
 #enemy-status{position:absolute;inset:0;pointer-events:none;z-index:1}
 #enemy-status[hidden]{display:none}
-.enemy-status-plate{position:absolute;transform:translateX(-50%);width:12.5%;padding:.2cqw .4cqw .3cqw;background:#160f20e8;border:1px solid #a68a60;box-shadow:0 2px 5px #0009}
+.enemy-status-plate{position:absolute;transform:translate(-50%,-100%);width:12.5%;padding:.2cqw .4cqw .3cqw;background:#160f20e8;border:1px solid #a68a60;box-shadow:0 2px 5px #0009}
 .enemy-status-name{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;color:#ffedc5;font:clamp(8px,1cqw,16px) Galmuri11,monospace;line-height:1.35;margin-bottom:.2cqw}
 .enemy-status-bar{height:clamp(3px,.45cqw,8px);background:#260e1c;border:1px solid #6e4857;overflow:hidden}
 .enemy-status-bar i{display:block;height:100%;background:linear-gradient(#ff9090,#c53451)}
+
+/* Keep boss traits away from tall monsters' overhead health/status rows. */
+.game-view #boss-affixes{left:2.3cqw;right:auto!important;top:21%!important;max-width:42%!important}
