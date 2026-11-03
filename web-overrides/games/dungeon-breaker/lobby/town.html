@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DUNGEON BREAKER · 마을</title><link rel="stylesheet" href="town-facilities.css?v=forge-100-v2"><script src="../game-navigation.js"></script></head><body>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DUNGEON BREAKER · 마을</title><link rel="stylesheet" href="town-facilities.css?v=forge-auto-v1"><script src="../game-navigation.js"></script></head><body>
 <main class="town" aria-label="마을 시설 선택">
 <header class="topbar"><a class="back" href="index.html" aria-label="모험 지도로 돌아가기">← 모험 지도</a><button class="fullscreen" data-game-fullscreen aria-label="전체화면" aria-pressed="false">⛶</button></header>
 <div class="plaza-viewport"><section class="plaza" aria-label="광장의 상점, 길드사무소, 게시판, 대장간">
@@ -11,7 +11,22 @@
 </section></div>
 <a class="brand" href="../index.html" aria-label="DUNGEON BREAKER 메인 화면"><img src="../imagegen/dungeon-breaker-pixel-logo-transparent-v1.webp" width="1774" height="887" alt="DUNGEON BREAKER"></a>
 </main>
-<dialog id="facility-dialog" aria-labelledby="facility-title" aria-describedby="facility-description"><button class="close" aria-label="닫기">×</button><h2 id="facility-title"></h2><div class="dialog-rule" aria-hidden="true">◆</div><p id="facility-description"></p><section id="forge-panel" aria-label="무기 강화" hidden>
+<dialog id="facility-dialog" aria-labelledby="facility-title" aria-describedby="facility-description"><button class="close" aria-label="닫기">×</button>
+<header class="facility-intro">
+  <div class="forge-scene" role="img"><canvas id="forge-motion" aria-hidden="true"></canvas><span id="forge-outcome" aria-hidden="true"></span></div>
+  <h2 id="facility-title"></h2><div class="dialog-rule" aria-hidden="true">◆</div><p id="facility-description"></p>
+</header>
+<section id="forge-greeting" aria-labelledby="forge-speaker">
+  <div class="forge-dialogue">
+    <h3 id="forge-speaker">대장장이</h3>
+    <p id="forge-greeting-line">어서 와! 오늘은 어떤 무기를 벼려 줄까?</p>
+    <div class="forge-choices">
+      <button id="forge-enter" type="button">강화하기</button>
+      <button id="forge-leave" type="button">나가기</button>
+    </div>
+  </div>
+</section>
+<section id="forge-panel" aria-label="무기 강화" hidden>
 <div class="forge-heading"><span>장착 무기 선택</span><strong class="forge-wallet">미스릴 <b id="forge-balance">—</b>개</strong></div>
 <div id="forge-roles" aria-label="강화할 캐릭터"></div>
 <div class="forge-bench">
@@ -23,6 +38,12 @@
 <div id="forge-looks" role="group" aria-label="무기 외형 미리보기"><button type="button" value="" aria-pressed="true">장착 중</button><button type="button" value="30">+30 광채</button><button type="button" value="60">+60 불꽃</button><button type="button" value="100">+100 각성</button></div>
 <p class="forge-rule" id="forge-rule"></p>
 <div class="forge-actions"><button id="forge-submit" type="button" disabled>1회 강화</button><button id="forge-batch" type="button" disabled>최대 10회 시도</button></div>
+<div class="forge-auto-controls">
+  <label for="forge-auto-target">목표 강화 <span>+<input id="forge-auto-target" type="number" inputmode="numeric" min="1" max="100" step="1" value="30" required></span></label>
+  <button id="forge-auto" type="button" aria-pressed="false" disabled>자동 강화</button>
+</div>
+<small class="forge-auto-help">한 번씩 시도하며, 목표에 도달하거나 미스릴이 부족하면 멈춥니다.</small>
+<p id="forge-auto-status" role="status" aria-live="polite"></p>
 <p id="forge-result" role="status" aria-live="polite"></p>
 </section><p class="preparing">시설 내부를 준비하고 있습니다.</p><button class="return">광장으로 돌아가기</button></dialog>
-<script src="../game-data/forge.js?v=forge-100-v2"></script><script src="../game-data/weapon-glow.js?v=forge-combat-poses-v3"></script><script src="town-forge.js?v=forge-100-v2"></script><script src="town-facilities.js?v=forge-board-v1"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=20261029"></script><script src="../audio/ui-player.js?v=20261029-1"></script><script type="module" src="community/forum.js?v=2"></script></body></html>
+<script src="../game-data/forge.js?v=forge-100-v2"></script><script src="../game-data/weapon-glow.js?v=forge-combat-poses-v3"></script><script src="forge-scene.js?v=forge-fx-v1"></script><script src="town-forge-auto.js?v=forge-auto-v1"></script><script src="town-forge.js?v=forge-auto-v1"></script><script src="town-facilities.js?v=forge-fx-v1"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=20261029"></script><script src="../audio/ui-player.js?v=forge-fx-v1"></script><script type="module" src="community/forum.js?v=2"></script></body></html>

@@ -24,3 +24,173 @@ dialog.at-forge{width:570px;padding:20px clamp(16px,4vw,32px);max-height:calc(10
 @media(max-height:480px) and (min-width:600px){#forge-looks{margin:3px 0}.forge-actions{margin-top:3px}#forge-looks button{padding:3px}.at-forge .forge-rule{font-size:10px}}
 
 .forge-equipped-label{display:block;margin-bottom:3px;color:#bfaf9e;font-size:10px}
+
+/* The town marker opens directly onto the smith and her workbench. */
+.forge-scene{display:none}
+dialog.at-forge[open]{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  width:1050px;
+  padding:0;
+}
+.at-forge .facility-intro{
+  grid-row:span 2;
+  display:flex;
+  flex-direction:column;
+  text-align:left;
+  background:#211b1b;
+  border-right:1px solid #866443;
+}
+.at-forge .forge-scene{
+  display:block;
+  position:relative;
+  flex:1;
+  min-height:200px;
+  background:#332b2c url('assets/forge-v1/hot-iron-strike.webp') center 75% / cover no-repeat;
+  border-bottom:1px solid #866443;
+  image-rendering:pixelated;
+}
+#forge-motion{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 75%;image-rendering:pixelated;pointer-events:none}
+.forge-welcome #forge-motion{object-position:center 62%}
+#forge-outcome:not(:empty){
+  position:absolute;z-index:1;top:8%;left:50%;transform:translateX(-50%);
+  padding:8px 16px;border:2px solid #d9ae65;box-shadow:inset 0 0 0 2px #594431,2px 2px #211714;
+  color:#ffe6a4;background:#292124f2;font-size:clamp(16px,2.2vw,26px);white-space:nowrap;pointer-events:none
+}
+#forge-outcome[data-outcome=failure],#forge-outcome[data-outcome=reset]{color:#ffc3b0;border-color:#c48268}
+.forge-welcome .forge-scene::before,.forge-welcome .forge-scene::after{
+  content:"";
+  position:absolute;
+  left:66%;
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+.forge-scene::before{
+  bottom:7%;width:27%;height:3.5%;
+  background:#261c24a8;
+  clip-path:polygon(0 38%,15% 38%,15% 12%,77% 12%,77% 0,90% 0,90% 28%,100% 28%,100% 70%,87% 70%,87% 92%,24% 92%,24% 80%,0 80%);
+}
+.forge-scene::after{
+  bottom:8%;width:54%;height:76%;
+  background:url('assets/forge-v1/blacksmith.webp') center bottom / contain no-repeat;
+  image-rendering:pixelated;
+}
+.at-forge .facility-intro h2{margin:16px 20px 2px;color:#ffe3a8}
+.at-forge .facility-intro #facility-description{margin:0 20px 16px;color:#ddcab0}
+.at-forge #forge-panel{min-width:0;padding:20px 20px 0}
+.at-forge .forge-heading{padding-right:32px;min-height:24px}
+.at-forge .close{z-index:1;top:8px;right:8px;width:34px;height:34px;background:#29232b;color:#f8e6c6}
+.at-forge .return{grid-column:2;justify-self:center;align-self:end;margin:0 12px 16px}
+@media(max-height:480px) and (min-width:720px){
+  dialog.at-forge[open]{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+  .at-forge #forge-panel{padding:8px 12px 0}
+  .at-forge .close{right:auto;left:8px}
+  .at-forge .forge-heading{padding:0}
+  .at-forge #forge-roles{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .at-forge #forge-roles button{padding:4px 8px;min-height:26px}
+  .at-forge .return{margin-bottom:6px;padding:6px 16px}
+}
+@media(max-height:480px) and (min-width:820px){
+  .at-forge #forge-roles{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .at-forge #forge-roles button{padding:4px;gap:2px}
+}
+@media(max-width:719px){
+  dialog.at-forge[open]{display:block;max-width:calc(100vw - 16px);width:510px}
+  .at-forge .facility-intro{border-right:0;border-bottom:1px solid #866443}
+  .at-forge .forge-scene{flex:none;min-height:0;height:clamp(150px,min(54vw,22dvh),260px)}
+  .at-forge .facility-intro h2{margin:10px 14px 0}
+  .at-forge .facility-intro #facility-description{margin:0 14px 8px}
+  .at-forge #forge-panel{padding:12px 14px 0}
+  .at-forge .forge-heading{padding:0}
+  .at-forge .return{margin-bottom:12px}
+}
+
+/* Speak with the smith before opening the workbench. */
+#forge-greeting{display:none}
+dialog.forge-welcome[open]{
+  display:block;
+  width:min(824px,166dvh);
+  max-width:calc(100vw - 20px);
+  background:#241b19;
+}
+.forge-welcome :is(.close,.return,#facility-description){display:none}
+.forge-welcome .facility-intro{position:relative;border:0}
+.forge-welcome .forge-scene{
+  flex:none;
+  height:clamp(145px,min(77vw,59dvh),440px);
+  min-height:0;
+  background-image:url('assets/forge-v1/interior.webp');
+  background-position:center 62%;
+}
+.forge-welcome .facility-intro h2{
+  position:absolute;
+  top:clamp(10px,2vw,20px);left:clamp(10px,2vw,20px);
+  display:flex;align-items:center;gap:10px;
+  margin:0;padding:6px 15px 6px 8px;
+  border:1px solid #ba9255;
+  box-shadow:inset 0 0 0 2px #3b2c24,2px 2px #271918;
+  background:#201a19ef;
+  font-size:clamp(16px,2vw,22px);
+}
+.forge-welcome #facility-title::before{
+  content:"";width:23px;height:28px;
+  background:url('assets/badges/town-forge-shaded-v3.svg') center / contain no-repeat;
+  image-rendering:pixelated;
+}
+.forge-welcome #forge-greeting{
+  display:block;
+  padding:18px 12px 12px;
+  background:linear-gradient(#392922,#201919);
+}
+.forge-dialogue{
+  position:relative;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  min-height:82px;
+  padding:19px 20px 13px;
+  border:1px solid #9e794b;
+  box-shadow:inset 0 0 0 3px #342922,0 0 0 2px #191415;
+  background:#221d20;
+  text-align:left;
+}
+#forge-speaker{
+  position:absolute;left:15px;top:0;transform:translateY(-55%);
+  margin:0;padding:2px 9px 3px;
+  border:1px solid #be935c;
+  background:#52362b;color:#ffe1a4;
+  font-size:13px;font-weight:400;
+}
+#forge-greeting-line{
+  margin:0;color:#fff1d4;
+  font-size:clamp(15px,2vw,20px);line-height:1.6;word-break:keep-all;
+}
+.forge-choices{display:flex;gap:8px;flex-shrink:0}
+.forge-choices button{
+  border:1px solid #947f68;
+  box-shadow:inset 0 0 0 2px #352c2d;
+  padding:8px 14px;min-height:44px;
+  font-size:14px;color:#eadcc7;background:#3c3332;
+}
+.forge-choices #forge-enter{
+  border-color:#ffe0a1;box-shadow:inset 0 0 0 2px #be9056;
+  color:#2a1c17;background:#edc889;
+}
+.forge-choices button:hover{filter:brightness(1.12)}
+.forge-choices button:focus-visible{outline-offset:2px}
+@media(max-width:600px){
+  .forge-dialogue{flex-direction:column;align-items:start;gap:12px;padding:17px 14px 12px}
+  .forge-choices{width:100%}
+  .forge-choices button{flex:1}
+}
+@media(max-height:480px) and (orientation:landscape){
+  .forge-welcome .forge-scene{height:53dvh}
+  .forge-welcome #forge-greeting{padding:14px 9px 8px}
+  .forge-dialogue{min-height:64px;gap:8px;padding:12px 12px 6px}
+  #forge-greeting-line{font-size:15px}
+}
+
+.forge-auto-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0 3px;padding-top:8px;border-top:1px solid #685548}
+.forge-auto-controls label{display:flex;align-items:center;gap:7px;font-size:12px;color:#eed8b6}.forge-auto-controls label span{white-space:nowrap}
+#forge-auto-target{width:4.3em;max-width:100%;border:1px solid #70616a;background:#221f29;color:#fff2cc;padding:6px 3px;font:inherit;text-align:center}
+#forge-auto{min-height:36px;padding:6px 14px;color:#b8eee7;background:#253a3c;border:1px solid #7ea8a2;font-family:inherit}
+#forge-auto[aria-pressed="true"]{background:#633937;border-color:#d68f7f;color:#fff1dd}
+#forge-auto:disabled{opacity:.6;cursor:default}.forge-auto-help,#forge-auto-status{font-size:10px;line-height:1.5;color:#cbc0af}#forge-auto-status{margin:5px 0;color:#b6ebe3}#forge-auto-status:empty{display:none}
