@@ -15,8 +15,8 @@ const ROBOTS={rivet:{hp:320,reduction:0},mole:{hp:420,reduction:0},bulwark:{hp:6
 // modules capture damage values so casts, tooltips and drafts share one balance.
 const SINGLE_TARGET_DAMAGE={
  hero:{'fire-slash':1600,'frost-slash':1600,'lightning-slash':1600,'leaf-slash':1600,'dark-slash':1600},
- dwarf:{'dwarf-bash':900,'dwarf-mjolnir':1400},
- archer:{sniping:6000,'leg-bind':300},
+ dwarf:{'dwarf-bash':1200,'dwarf-mjolnir':1600},
+ archer:{sniping:5000,'leg-bind':300},
  wizard:{fireball:2700,'ice-spear':2700,'thunder-ball':2700,void:2700},
  mechanic:{'combined-gun':1300,'combined-drill':1700}
 };

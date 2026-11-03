@@ -24,6 +24,18 @@
     if (!target || (target.pathname === location.pathname && target.hash)) return null;
     return target;
   }
+  function canFullscreen(doc) {
+    return doc.fullscreenEnabled && typeof doc.documentElement.requestFullscreen === 'function';
+  }
+  function syncFullscreenButton() {
+    const button = document.querySelector('[data-game-fullscreen]');
+    if (!button) return;
+    const active = !!host.document.fullscreenElement;
+    button.hidden = !active && !canFullscreen(host.document);
+    button.setAttribute('aria-label', active ? '전체화면 해제' : '전체화면');
+    button.setAttribute('aria-pressed', String(active));
+  }
+  document.addEventListener('DOMContentLoaded', syncFullscreenButton);
   if (host !== window) {
     window.GameScreen = {
       get fullscreen() { return host.GameScreen.fullscreen; },
@@ -32,15 +44,7 @@
       ownsFrame: () => false,
       scriptURL
     };
-    const syncButton = () => {
-      const button = document.querySelector('[data-game-fullscreen]');
-      if (button) {
-        button.setAttribute('aria-label', host.GameScreen.fullscreen ? '전체화면 해제' : '전체화면');
-        button.setAttribute('aria-pressed', String(host.GameScreen.fullscreen));
-      }
-    };
-    window.addEventListener('gamefullscreenchange', syncButton);
-    document.addEventListener('DOMContentLoaded', syncButton);
+    window.addEventListener('gamefullscreenchange', syncFullscreenButton);
     document.addEventListener('click', event => {
       if (event.target.closest('[data-game-fullscreen]')) {
         host.GameScreen.toggleFullscreen().catch(() => {});
@@ -56,11 +60,7 @@
   function notify() {
     window.dispatchEvent(new Event('gamefullscreenchange'));
     try { view?.contentWindow.dispatchEvent(new Event('gamefullscreenchange')); } catch {}
-    const button = document.querySelector('[data-game-fullscreen]');
-    if (button) {
-      button.setAttribute('aria-label', document.fullscreenElement ? '전체화면 해제' : '전체화면');
-      button.setAttribute('aria-pressed', String(!!document.fullscreenElement));
-    }
+    syncFullscreenButton();
   }
   function navigate(href) {
     const target = internalTarget(href);
@@ -81,7 +81,12 @@
       view.allow = 'fullscreen; autoplay';
       view.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483647;background:#000;display:block';
       view.addEventListener('load', () => {
-        try { document.title = view.contentDocument.title; } catch {}
+        try {
+          const page = view.contentDocument;
+          document.title = page.title;
+          view.dataset.gamePage = page.documentElement.dataset.gamePage || '';
+          view.contentWindow.GameMobile?.sync();
+        } catch {}
         notify();
       });
       (document.fullscreenElement || document.body).append(view);
@@ -89,10 +94,16 @@
         if (!persistent || !media.hasAttribute('data-game-persistent')) media.pause();
       });
     }
+    delete view.dataset.gamePage;
     view.src = target.href;
     window.dispatchEvent(new Event('gamescreenenter'));
     view.focus();
     return true;
+  }
+  async function enterFullscreen() {
+    if (document.fullscreenElement || !canFullscreen(document)) return;
+    await document.documentElement.requestFullscreen({ navigationUI: 'hide' });
+    try { await window.screen.orientation?.lock?.('landscape'); } catch {}
   }
   window.GameScreen = {
     get fullscreen() { return !!document.fullscreenElement; },
@@ -100,8 +111,7 @@
     navigate,
     async toggleFullscreen() {
       if (document.fullscreenElement) await document.exitFullscreen();
-      else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen();try{await screen.orientation?.lock?.("landscape");}catch{}}
-      else window.GameMobile?.showInstallHelp();
+      else await enterFullscreen();
     },
     scriptURL
   };
@@ -113,6 +123,11 @@
       return;
     }
     const target = clickedLink(event);
-    if (target && navigate(target.href)) event.preventDefault();
+    if (!target) return;
+    if (event.target.closest('[data-game-start]') && window.matchMedia('(any-pointer: coarse)').matches && !window.GameMobile?.standalone()) {
+      // Request during the tap, but let the lobby load even if the browser declines.
+      enterFullscreen().catch(() => {});
+    }
+    if (navigate(target.href)) event.preventDefault();
   });
 })();

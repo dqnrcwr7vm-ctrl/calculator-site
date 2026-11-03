@@ -9,6 +9,8 @@ let activeEffect=null,deployedRobot=null,robotImages={};
 const config=window.BATTLE_CONFIG||{};
 if(config.partyTurns)window.MonsterRaster?.mount(canvas);
 Object.entries(config.positions||{}).forEach(([i,p])=>Object.assign(positions[i],p));
+const mechanicIndex=assets.findIndex(asset=>asset.id==='mechanic');
+window.MechFormation?.alignRivet?.(positions[mechanicIndex]);
 // Shared world proportions for every live dungeon; authored canvases/anchors stay intact.
 const sceneSize=window.BattleSceneSize;
 positions.forEach((p,i)=>p.h=i<4?p.h*sceneSize.ally:Math.max(sceneSize.minEnemy,p.h*sceneSize.enemy));
@@ -506,6 +508,7 @@ function render(now){
   window.DwarfSkills?.draw(ctx,'back',actor,renderPositions[4],current,state,elapsed);
   let robotDrawn=0;
   [...renderPositions.keys()].sort((a,b)=>renderPositions[a].y-renderPositions[b].y).forEach(i=>{
+   if(i===mechanicIndex && window.MechFormation?.rivet.behindMechanic)window.PartyMechanic?.drawRivet?.(ctx,elapsed);
    if(i===4&&bossHp<=0&&(window.PartyTurns?!window.PartyTurns.enemyPose('primary',elapsed):!finisher))return;
    const wrapped=i===4&&!!window.WizardSkills&&bossHp>0;
    if(wrapped&&!window.WizardSkills.beginEnemy(ctx,enemyTargets()[0],elapsed))return;

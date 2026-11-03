@@ -11,6 +11,28 @@ function frame(c,t){t=Math.max(0,t)%total(c);for(let i=0;i<c.durations.length;i+
 function damage(es,n,id,audioSkillId,deferFinish=false){if(!es.length)return false;const result=link.damage(caster,es,n,false,{...window.PlayerBalance?.hit('mechanic',id||active?.id),role:'mechanic',audioSkillId:audioSkillId||id||active?.id});if(result.lethal){if(!deferFinish){active=null;petAction=null;link.finish();}return true;}return false;}
 function aSafeTime(a,age){return a.id==='combined-beam'?Math.min(age,319):a.id==='combined-fire'?560+age:age;}
 const targets=()=>link.enemies().filter(e=>e.hp>0&&(!window.WizardSkills||WizardSkills.canSelect(e)));
+function drawRobot(g,robot,now){
+ const r=data.robots[robot.id], attacking=petAction?.id===robot.id;
+ const clip=attacking?'attack':guard&&r.actions.guard?'guard':'idle';
+ const im=robotFrames[robot.id]?.[clip]?.[frame(r.actions[clip],attacking?now-petAction.started:now)];
+ if(!im)return;
+ const scale=r.height/r.sourceHeight,origin=window.MechFormation[robot.id];
+ const moving=robot.id==='mole'&&attacking;
+ const unit={id:robot.id,...origin,action:moving?{clip:'attack',started:petAction.started}:null};
+ const target=moving?petAction.targetPosition:null,home=moving?RobotVFX.pose(unit,now,target,r.height):origin;
+ g.drawImage(im,home.x-r.anchor[0]*scale,home.y-r.anchor[1]*scale,r.size[0]*scale,r.size[1]*scale);
+ if(!origin.behindMechanic)drawRobotStatus(g,robot,home);
+ if(moving)RobotVFX.weapon(g,unit,now,target,r.height);
+}
+function drawRobotStatus(g,robot,home){
+ const r=data.robots[robot.id];
+ g.save();
+ g.fillStyle='#111923';g.fillRect(home.x-40,home.y+8,80,6);
+ g.fillStyle=robot.hp/r.maxHp<.35?'#ef7767':'#70dbc1';g.fillRect(home.x-40,home.y+8,80*robot.hp/r.maxHp,6);
+ g.font='bold 15px Galmuri11, monospace';g.textAlign='center';g.lineWidth=4;g.strokeStyle='#080912';g.fillStyle='#fff3ce';
+ const label=Math.max(0,3-robot.turns)+'턴';
+ g.strokeText(label,home.x,home.y+32);g.fillText(label,home.x,home.y+32);g.restore();
+}
 window.PartyMechanic={caster,specs,get busy(){return !!active||!!petAction;},get state(){return {items,guard,robots:robots.map(r=>({...r})),robot:robots.length?{...robots[robots.length-1]}:null,combined,beam:beam?{...beam}:null};},commands(){return combined?['combined-gun','combined-drill','combined-beam','combined-guard']:null;},
 async load(load){const uses=id=>!window.CampaignAssets||CampaignAssets.uses('mechanic',id);if(uses('super-combine'))await MechanicBeamVFX.load(load);if(uses('mine-explosion'))frames=await Promise.all(Array.from({length:18},(_,i)=>load('../skills/mechanic-mine-explosion-v1/frames/frame-'+String(i+1).padStart(2,'0')+'.webp')));for(const [id,r]of Object.entries(data.robots)){if(!Object.entries(specs).some(([key,s])=>s.robotId===id&&uses(key))&&!window.GalleonCampaign?.state.mechanicRobots?.some(r=>r.id===id))continue;robotFrames[id]={};for(const [key,c]of Object.entries(r.actions))robotFrames[id][key]=await Promise.all(c.frames.map(load));}},
 start(id,target,now){if(active||petAction||!specs[id]||id==='mechanic-item'&&!items||id==='super-combine'&&(robots.length<2||combined)||id==='combined-beam'&&(combined<2||beam))return false;if(combined&&specs[id].robotId)return false;if(window.PartyResources&&!PartyResources.can('mechanic',id))return false;if(specs[id].single&&(!target||target.hp<=0||(window.WizardSkills&&!WizardSkills.canSelect(target))))return false;active={id,target:target?.id,started:now,hit:false};return true;},
@@ -29,7 +51,17 @@ update(now,bridge){link=bridge;if((actor.currentHp??actor.hp)<=0){robots=[];comb
  if(a.id==='mechanic-item'){items--;actor.currentHp=Math.min(actor.hp,(actor.currentHp??actor.hp)+600);bridge.hit(caster,0);}}
  if(age>=s.end){active=null;if(!a.automatic)PartyTurns.complete(now);}},
 pose(i,now){if(i!==caster)return null;if(active){const s=specs[active.id],age=now-active.started;return active.id==='mine-explosion'&&age>=release?{clip:'idle',time:now}:{clip:s.clip,time:aSafeTime(active,age)};}if(beam)return {clip:'combinedBeam',time:319};if(combined)return {clip:guard&&PartyTurns.cycle.phase==='enemies'?'combinedGuard':'combinedIdle',time:now%total(actor.actions.combinedIdle)};return guard&&PartyTurns.cycle.phase==='enemies'?{clip:'guard',time:550}:null;},
-draw(g,now,es,positions){if(positions&&(beam||active?.id==='combined-fire')){const p=positions[caster],e=es.find(e=>e.hp>0)||positions[4];MechanicBeamVFX.draw(g,p,e,beam?{phase:'charging'}:{phase:'acting',local:560+now-active.started},now);}for(const robot of robots){const r=data.robots[robot.id],clip=petAction?.id===robot.id?'attack':guard&&r.actions.guard?'guard':'idle',c=r.actions[clip],im=robotFrames[robot.id]?.[clip]?.[frame(c,petAction?.id===robot.id?now-petAction.started:now)];if(im){const scale=r.height/r.sourceHeight,origin=window.MechFormation[robot.id],moving=robot.id==='mole'&&petAction?.id===robot.id,unit={id:robot.id,...origin,action:moving?{clip:'attack',started:petAction.started}:null},target=moving?petAction.targetPosition:null,home=moving?RobotVFX.pose(unit,now,target,r.height):origin;g.drawImage(im,home.x-r.anchor[0]*scale,home.y-r.anchor[1]*scale,r.size[0]*scale,r.size[1]*scale);g.save();g.fillStyle='#111923';g.fillRect(home.x-40,home.y+8,80,6);g.fillStyle=robot.hp/r.maxHp<.35?'#ef7767':'#70dbc1';g.fillRect(home.x-40,home.y+8,80*robot.hp/r.maxHp,6);g.font='bold 15px Galmuri11, monospace';g.textAlign='center';g.lineWidth=4;g.strokeStyle='#080912';g.fillStyle='#fff3ce';g.strokeText(Math.max(0,3-robot.turns)+'턴',home.x,home.y+32);g.fillText(Math.max(0,3-robot.turns)+'턴',home.x,home.y+32);g.restore();if(moving)RobotVFX.weapon(g,unit,now,target,r.height);}}if(active?.id==='mine-explosion'){const t=now-active.started-release,f=Math.floor(t/80),e=es.find(e=>e.id===active.target);if(f>=0&&f<18&&e)g.drawImage(frames[f],e.x-230,e.y-460*500/576,460,460);}},
+drawRivet(g,now){
+ const rivet=robots.find(robot=>robot.id==='rivet');
+ if(rivet)drawRobot(g,rivet,now);
+},
+draw(g,now,es,positions){
+ if(positions&&(beam||active?.id==='combined-fire')){const p=positions[caster],e=es.find(e=>e.hp>0)||positions[4];MechanicBeamVFX.draw(g,p,e,beam?{phase:'charging'}:{phase:'acting',local:560+now-active.started},now);}
+ for(const robot of robots){
+   if(robot.id==='rivet' && window.MechFormation.rivet.behindMechanic)drawRobotStatus(g,robot,window.MechFormation.rivet);
+   else drawRobot(g,robot,now);
+ }
+ if(active?.id==='mine-explosion'){const t=now-active.started-release,f=Math.floor(t/80),e=es.find(e=>e.id===active.target);if(f>=0&&f<18&&e)g.drawImage(frames[f],e.x-230,e.y-460*500/576,460,460);}},
 incoming(i,n){if(i!==caster)return n;const reduction=Math.max(0,...robots.filter(r=>data.robots[r.id].role==='guard').map(r=>data.robots[r.id].reduction));return Math.round(n*(guard?.5:1)*(1-reduction));},
 enemyHit(plan,n,targets){if(n<=0||!robots.length)return;const threatened=plan.tauntRobot?robots.filter(r=>r.id===plan.tauntRobot):plan.target==='all'?[...robots]:targets.includes(caster)?[robots.find(r=>r.id==='bulwark')||robots[0]]:[];for(const r of threatened){const reduction=data.robots[r.id].reduction||0,protectedDamage=window.PartyBasicActions?.incoming(caster,n)??n;r.hp=Math.max(0,r.hp-Math.round(protectedDamage*(guard?.5:1)*(1-reduction)));}robots=robots.filter(r=>r.hp>0);if(petAction&&!robots.some(r=>r.id===petAction.id))petAction=null;},
 end(){guard=false;const expired=robots.filter(r=>++r.turns>=3);robots=robots.filter(r=>r.turns<3);for(const r of expired)if(link&&damage(targets().slice(0,1),r.hp,undefined,'robot-explosion'))break;if(combined&&!--combined)beam=null;},

@@ -1,34 +1,32 @@
 /* Only the current game entry pages opt in. Keep historical previews unchanged. */
-:root{--game-width:100vw;--game-height:100dvh;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px);--play-width:calc(var(--game-width) - var(--safe-left) - var(--safe-right));--play-height:calc(var(--game-height) - var(--safe-top) - var(--safe-bottom))}
+:root{--game-width:100vw;--game-height:100vh;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px);--play-width:calc(var(--game-width) - var(--safe-left) - var(--safe-right));--play-height:calc(var(--game-height) - var(--safe-top) - var(--safe-bottom))}
+@supports(height:100dvh){:root{--game-height:100dvh}}
 html.game-embedded{--safe-top:0px;--safe-bottom:0px;--safe-left:0px;--safe-right:0px}
 .mobile-game,.mobile-game body{width:var(--game-width);height:var(--game-height);min-height:0;margin:0;overflow:hidden;overscroll-behavior:none}
 .mobile-game body{box-sizing:border-box;padding:var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left)}
 .mobile-game #game-view{inset:auto!important;left:var(--safe-left)!important;top:var(--safe-top)!important;width:var(--play-width)!important;height:var(--play-height)!important;z-index:2147483000!important}
+.mobile-game #game-view:is([data-game-page=lobby],[data-game-page=selection]){left:0!important;top:0!important;width:var(--game-width)!important;height:var(--game-height)!important}
+.mobile-game:is([data-game-page=lobby],[data-game-page=selection]) body{padding:0}
 .mobile-portrait:not(.game-embedded) body>main,.mobile-portrait:not(.game-embedded) #game-view{visibility:hidden}
-#game-rotate[hidden],#game-install-open[hidden]{display:none!important}
+#game-rotate[hidden],[data-game-fullscreen][hidden]{display:none!important}
 #game-rotate{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#090810;color:#f5e5bd;text-align:center;padding:32px 24px;font:14px/1.8 Galmuri11,system-ui,sans-serif}
 #game-rotate img{width:min(280px,75vw);height:auto;image-rendering:pixelated}
 #game-rotate h1{font:20px/1.5 Galmuri11,system-ui,sans-serif;margin:24px 0 12px;color:#efd08b}
 #game-rotate p{font:13px/1.8 Galmuri11,system-ui,sans-serif;color:#c5bdcf}
 .rotate-phone{margin:24px auto 0;width:84px;height:46px;border:3px solid #d5b97d;border-radius:8px;font:36px/40px system-ui;color:#d5b97d}
-#game-rotate button,#game-install-open,#game-install-help button{font:13px/1.5 Galmuri11,system-ui,sans-serif;color:#ffe5ad;background:#2c2039;border:1px solid #ad8c51;padding:10px 16px;min-height:40px;border-radius:4px;cursor:pointer}
-#game-rotate button{margin-top:24px}
-#game-install-open{position:fixed;top:calc(var(--safe-top) + 8px);right:calc(var(--safe-right) + 8px);z-index:20;font-size:11px;min-height:32px;padding:6px 10px}
-#game-install-help{box-sizing:border-box;width:min(440px,calc(100vw - 32px));max-height:calc(var(--game-height) - 24px);padding:20px;background:#191320;color:#f5e5bd;border:1px solid #c9a660;font:14px/1.7 system-ui,sans-serif;overflow:auto}
-#game-install-help::backdrop{background:#000c}#game-install-help h2{font:20px/1.4 system-ui;margin:0 0 16px}#game-install-help ol{padding-left:22px}#game-install-help li{margin:9px 0}#game-install-help .install-note{font-size:12px;color:#c5bdcf}#game-install-help button{display:block;width:100%;margin-top:16px}
 .mobile-game[data-game-page=title] .title-screen{min-height:0;height:var(--play-height);padding:0}
 .mobile-game[data-game-page=title] .scene{width:min(var(--play-width),calc(var(--play-height)*16/9))}
 .mobile-game[data-game-page=title] .main-menu{width:28%;top:64%;gap:4px}
 .mobile-game[data-game-page=title] .main-menu .menu-button{min-height:0;height:5.3cqw;font-size:clamp(12px,2cqw,20px)}
 .mobile-game[data-game-page=title] .minor{padding:5px 8px;font-size:10px}
-.mobile-game[data-game-page=lobby] .lobby{width:var(--play-width);height:var(--play-height);min-height:0;position:relative}
-.mobile-game[data-game-page=lobby] #map-stage{width:min(var(--play-width),calc(var(--play-height)*1672/941))}
-.mobile-game[data-game-page=lobby] .scene-controls{left:8px;top:8px;gap:5px;opacity:1}
+.mobile-game[data-game-page=lobby] .lobby{width:var(--game-width);height:var(--game-height);min-height:0;position:relative}
+.mobile-game[data-game-page=lobby] #map-stage{width:min(var(--play-width),calc(var(--game-height)*1672/941));left:calc(var(--safe-left) + var(--play-width)/2)}
+.mobile-game[data-game-page=lobby] .scene-controls{left:calc(var(--safe-left) + 8px);top:calc(var(--safe-top) + 8px);gap:5px;opacity:1}
 .mobile-game[data-game-page=lobby] .scene-controls button,.mobile-game[data-game-page=lobby] .scene-controls a{width:34px;height:32px;font-size:20px}
-.mobile-game[data-game-page=lobby] .game-brand{width:110px;bottom:8px;right:8px}
-.mobile-game[data-game-page=lobby] .dossier{left:auto;right:8px;top:8px;bottom:8px;max-height:none;min-height:0;width:min(300px,48%);padding:16px;overflow:auto}
+.mobile-game[data-game-page=lobby] .game-brand{width:110px;bottom:calc(var(--safe-bottom) + 8px);right:calc(var(--safe-right) + 8px)}
+.mobile-game[data-game-page=lobby] .dossier{left:auto;right:calc(var(--safe-right) + 8px);top:calc(var(--safe-top) + 8px);bottom:calc(var(--safe-bottom) + 8px);max-height:none;min-height:0;width:min(300px,48%);padding:16px;overflow:auto}
 /* Roster: real responsive cards instead of a 1600px desktop screenshot. */
-.mobile-game[data-game-page=selection] #app{width:var(--play-width);height:var(--play-height);transform:none!important;display:flex;flex-direction:column;overflow:hidden}
+.mobile-game[data-game-page=selection] #app{width:var(--game-width);height:var(--game-height);padding:var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);transform:none!important;display:flex;flex-direction:column;overflow:hidden}
 .mobile-game[data-game-page=selection] header{height:38px;flex:0 0 38px;padding:0 12px}
 .mobile-game[data-game-page=selection] header nav{font-size:10px;gap:10px}.mobile-game[data-game-page=selection] header nav span:not(.active){display:none}
 .mobile-game[data-game-page=selection] .logo{width:90px;height:36px}.mobile-game[data-game-page=selection] .back{font-size:12px}
@@ -49,13 +47,26 @@ html.game-embedded{--safe-top:0px;--safe-bottom:0px;--safe-left:0px;--safe-right
 .mobile-game[data-game-page=selection] .detail .primary{font-size:12px;min-height:36px;padding:7px 4px;margin-top:auto}.mobile-game[data-game-page=selection] .detail .back-step{font-size:10px;margin:5px 0 0;padding:4px}
 .mobile-game[data-game-page=selection] .partystrip{margin-top:7px;padding:5px;gap:5px}.mobile-game[data-game-page=selection] .slot{padding:6px 4px;font-size:11px;min-height:32px}.mobile-game[data-game-page=selection] .slot small{display:none}
 .mobile-game[data-game-page=selection] .foot{position:static;height:24px;flex:0 0 24px;padding:5px 12px;font-size:10px}.mobile-game[data-game-page=selection] .foot span{display:none}
-@media(max-height:360px){
- .mobile-game[data-game-page=selection] .detail{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:min-content;gap:4px;align-content:space-between;padding:7px}
- .mobile-game[data-game-page=selection] .detail>.eyebrow,.mobile-game[data-game-page=selection] .detail>.tag,.mobile-game[data-game-page=selection] .detail>p{display:none}
- .mobile-game[data-game-page=selection] .detail h2{grid-column:1/-1;font-size:16px;margin:0}
- .mobile-game[data-game-page=selection] .detail .stat{margin:0;font-size:9px;gap:4px}.mobile-game[data-game-page=selection] .stat span{width:30px}
- .mobile-game[data-game-page=selection] .detail .primary{grid-column:1/-1;min-height:32px;margin:0;padding:5px 2px;font-size:11px}
- .mobile-game[data-game-page=selection] .detail .back-step{grid-column:1/-1;margin:0;padding:0;line-height:1.5}
+@media(orientation:landscape) and (max-height:540px){
+ .mobile-game[data-game-page=selection] .classlayout{grid-template-columns:minmax(0,1fr) 36%}
+ .mobile-game[data-game-page=selection] .detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:space-between;align-items:center;gap:4px 8px;padding:8px}
+ .mobile-game[data-game-page=selection] .detail>.eyebrow{display:none}
+ .mobile-game[data-game-page=selection] .detail h2{font-size:16px;line-height:1.2;margin:0}
+ .mobile-game[data-game-page=selection] .detail .tag{justify-self:end;align-self:center;font-size:10px;line-height:1.2;padding:2px 3px;word-break:keep-all}
+ .mobile-game[data-game-page=selection] .detail p{grid-column:1/-1;font-size:12px;line-height:1.35;margin:0;word-break:keep-all}
+ .mobile-game[data-game-page=selection] .detail .stat{margin:0;font-size:10px;line-height:1.3;gap:4px}
+ .mobile-game[data-game-page=selection] .stat span{width:32px}
+ .mobile-game[data-game-page=selection] .detail .primary{grid-column:1/-1;min-height:32px;margin:0;padding:5px 2px;font-size:12px}
+ .mobile-game[data-game-page=selection] .detail .back-step{grid-column:1/-1;margin:0;padding:2px;line-height:1.3}
+}
+@media(orientation:landscape) and (max-height:340px){
+ .mobile-game[data-game-page=selection] header{height:28px;flex-basis:28px}
+ .mobile-game[data-game-page=selection] .logo{height:26px}
+ .mobile-game[data-game-page=selection] h1{font-size:15px;margin:3px 0}
+ .mobile-game[data-game-page=selection] .partystrip{margin-top:4px;padding:3px}
+ .mobile-game[data-game-page=selection] .foot{height:18px;flex-basis:18px;padding-block:2px}
+ .mobile-game[data-game-page=selection] .detail{padding:5px 7px;row-gap:2px}
+ .mobile-game[data-game-page=selection] .detail p{font-size:11px}
 }
 /* Landscape phones: keep authored arena geometry, put legible touch controls beside it. */
 @media(min-aspect-ratio:9/5) and (max-height:600px){

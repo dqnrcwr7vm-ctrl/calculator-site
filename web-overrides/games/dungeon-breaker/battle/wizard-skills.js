@@ -20,7 +20,7 @@ function blackHoleFrame(age,phase='cast'){
  return Math.max(0,Math.min(48,age/4160*48));
 }
 function canBlackHoleCapture(enemy,combat){
- if(enemy.hp<=0)return false;
+ if(enemy.hp<=0||combat?.charge?.enemyId===enemy.id)return false;
  if(!enemy.isBoss)return true;
  const interrupted=combat?.interruptedCharge;
  return !!(interrupted&&interrupted.enemyId===enemy.id&&interrupted.turn===combat.turn&&new Set(interrupted.allies.filter(id=>id!=='wizard')).size>=2);
@@ -65,7 +65,10 @@ Object.assign(api,{
  update(now){if(!bridge)return;
  if(active){const a=active,s=specs[a.id],age=now-a.started;if(!alive()){root.DungeonCombatAudio?.stopSpell(a);if(a.id==='black-hole'&&!model.hole)holeVisual=null;active=null;bridge.buttons();}else{
  root.DungeonVoices?.action('wizard',a.id,a);root.DungeonCombatAudio?.spell('wizard',a.id,a,age);
- if(!a.hit&&age>=(a.id==='black-hole'?4160:s.area?1800:1300)){a.hit=true;if(a.id==='black-hole')model.seal(enemies().filter(e=>a.targets.some(t=>t.id===e.id)),canCapture);else{const targets=enemies().filter(e=>e.hp>0&&(s.area||e.id===a.target));const result=bridge.damage(caster,targets,s.damage,s.area,{element:root.PlayerBalance?.hit('wizard',a.id)?.element ?? ({ice:'water',lightning:'light'}[s.element] || s.element),skillId:a.id,damageType:'magic'});a.lethal=result.lethal;if(a.id==='meteor')model.ground={turn:model.turn,left:2,field:a.field};if(['blizzard','thunderstorm'].includes(a.id))for(const e of targets)if(e.hp>0&&Math.random()<BALANCE.chance)model.inflict(e.id,a.id==='blizzard'?'freeze':'paralysis',now);}root.DwarfSkills?.special('wizard',now);refresh();}
+ if(!a.hit&&age>=(a.id==='black-hole'?4160:s.area?1800:1300)){a.hit=true;if(a.id==='black-hole')model.seal(enemies().filter(e=>a.targets.some(t=>t.id===e.id)),canCapture);else{const targets=enemies().filter(e=>e.hp>0&&(s.area||e.id===a.target));const result=bridge.damage(caster,targets,s.damage,s.area,{element:root.PlayerBalance?.hit('wizard',a.id)?.element ?? ({ice:'water',lightning:'light'}[s.element] || s.element),skillId:a.id,damageType:'magic'});a.lethal=result.lethal;if(a.id==='meteor')model.ground={turn:model.turn,left:2,field:a.field};if(['blizzard','thunderstorm'].includes(a.id))for(const e of targets)if(e.hp>0&&Math.random()<BALANCE.chance)model.inflict(e.id,a.id==='blizzard'?'freeze':'paralysis',now);
+  root.DwarfSkills?.special('wizard',now);
+ }
+ refresh();}
  if(age>=(a.id==='black-hole'?4900:a.stormField?STORM_RELEASE+STORM_DURATION:s.area?3400:2300)){root.DungeonCombatAudio?.stopSpell(a);active=null;if(a.lethal)bridge.finish();else complete(now);bridge.buttons();}
  }}
  if(release)root.DungeonCombatAudio?.spell('wizard','black-hole-release',release,now-release.started);
