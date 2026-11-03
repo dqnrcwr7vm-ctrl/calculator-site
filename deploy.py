@@ -13,3 +13,18 @@ for name in ['dungeon-breaker-web-20261102-86.zip', 'dungeon-breaker-web-2026110
 # Small source patches override packaged assets without repacking the game.
 from shutil import copytree
 copytree("web-overrides", "public", dirs_exist_ok=True)
+
+# Add the town-board route to the packaged Pages advanced-mode worker.
+from pathlib import Path
+worker = Path("public/_worker.js")
+platform_source = worker.read_text()
+entry = "export default {fetch:handle};"
+if platform_source.count(entry) != 1:
+    raise ValueError("Unexpected platform worker entry point")
+board_source = Path("server/town-board.mjs").read_text()
+router = """export default {fetch(request, env, ctx) {
+  const path = new URL(request.url).pathname;
+  if (path === boardRoot || path.startsWith(boardRoot + '/')) return serveTownBoard(request, env);
+  return handle(request, env, ctx);
+}};"""
+worker.write_text(platform_source.replace(entry, board_source + "\n" + router))

@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DUNGEON BREAKER · 마을</title><link rel="stylesheet" href="town-facilities.css?v=smaller-shaded-v3"><script src="../game-navigation.js"></script></head><body>
+<main class="town" aria-label="마을 시설 선택">
+<header class="topbar"><a class="back" href="index.html" aria-label="모험 지도로 돌아가기">← 모험 지도</a><button class="fullscreen" data-game-fullscreen aria-label="전체화면" aria-pressed="false">⛶</button></header>
+<div class="plaza-viewport"><section class="plaza" aria-label="광장의 상점, 길드사무소, 게시판, 대장간">
+<img class="landscape" src="assets/town-plaza-v1.webp" alt="상점 천막, 길드 건물, 게시판과 불이 켜진 대장간이 자리한 픽셀풍 광장" width="1672" height="941">
+<button class="facility shop" data-facility="shop" aria-label="상점" aria-haspopup="dialog" style="--x:16%;--y:72%"><span class="pennant"><img class="badge-art" src="assets/badges/town-shop-shaded-v3.svg" alt="" draggable="false"></span></button>
+<button class="facility guild" data-facility="guild" aria-label="길드사무소" aria-haspopup="dialog" style="--x:15%;--y:42%"><span class="pennant"><img class="badge-art" src="assets/badges/town-guild-shaded-v3.svg" alt="" draggable="false"></span></button>
+<button class="facility board" data-facility="board" aria-label="게시판" aria-haspopup="dialog" style="--x:49%;--y:36%"><span class="pennant"><img class="badge-art" src="assets/badges/town-board-shaded-v3.svg" alt="" draggable="false"></span></button>
+<button class="facility forge" data-facility="forge" aria-label="대장간" aria-haspopup="dialog" style="--x:87%;--y:56%"><span class="pennant"><img class="badge-art" src="assets/badges/town-forge-shaded-v3.svg" alt="" draggable="false"></span></button>
+</section></div>
+<a class="brand" href="../index.html" aria-label="DUNGEON BREAKER 메인 화면"><img src="../imagegen/dungeon-breaker-pixel-logo-transparent-v1.webp" width="1774" height="887" alt="DUNGEON BREAKER"></a>
+</main>
+<dialog id="facility-dialog" aria-labelledby="facility-title" aria-describedby="facility-description"><button class="close" aria-label="닫기">×</button><h2 id="facility-title"></h2><div class="dialog-rule" aria-hidden="true">◆</div><p id="facility-description"></p><p class="preparing">시설 내부를 준비하고 있습니다.</p><button class="return">광장으로 돌아가기</button></dialog>
+<script src="town-facilities.js?v=board-v1"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=20261029"></script><script src="../audio/ui-player.js?v=20261029-1"></script><script type="module" src="community/forum.js?v=1"></script></body></html>
