@@ -44,7 +44,33 @@
  }
  function snapshot(){const consume=window.PartyTurns?.clearConsumesTurn!==false;state.timedBuffs={roar:window.BattleRoar?.snapshot(consume),archer:window.ArcherSkills?.snapshotBuffs(consume),healer:window.HealerSkills?.snapshotBuffs(consume),dwarf:window.DwarfSkills?.snapshotBuffs(consume)};state.party=BATTLE_ASSETS.slice(0,4).map(a=>({id:a.id,hp:a.currentHp??a.hp}));state.wizardMp=window.WizardSkills?.mp??null;state.heroMp=window.PartyHero?.mp??null;state.resources=window.PartyResources?.snapshot();state.mechanicRobots=window.PartyMechanic?.snapshotRobots(consume)||[];}
  function advance(){if(departing)return;departing=true;state.floor++;state.cleared=false;save();window.EntryLoading?.begin("floor");location.replace(url());}
- function final(){let lobby=document.querySelector('#clear-lobby');if(!lobby){lobby=document.createElement('button');lobby.id='clear-lobby';lobby.type='button';lobby.textContent='로비로 돌아가기';lobby.onclick=()=>{const url=new URL('../lobby/index.html',location.href);if(!window.GameScreen?.navigate?.(url.href))location.assign(url.href);};document.querySelector('.clear-buttons').append(lobby);}lobby.hidden=false;const overlay=document.querySelector('#clear-overlay');overlay.classList.add('dungeon-complete');overlay.style.setProperty('--clear-reveal','1');overlay.hidden=false;document.querySelector('#clear-title').textContent='DUNGEON CLEAR!!' ;document.querySelector('.clear-location').textContent=floorLabel(9)+' · '+BATTLE_ASSETS[4].name;document.querySelector('.clear-description').textContent='';const button=document.querySelector('#replay-clear');button.textContent='새 탐험 시작';button.onclick=()=>location.assign(location.pathname+'?campaign=1'+(q.get('team')?'&team='+q.get('team'):''));}
+ function finishFloor(){
+  delete state.mithrilPending;
+  if(state.floor===9){state.complete=true;save();final();}
+  else if([4,8].includes(state.floor)){begin('mid');render();}
+  else advance();
+ }
+ let awarding=false;
+ async function creditFloor(){
+  if(awarding)return;
+  awarding=true;
+  try{
+   await GameForge.claim(key,state.floor);
+  }catch(error){
+   awarding=false;
+   const overlay=document.querySelector('#clear-overlay');
+   overlay.hidden=false;overlay.classList.remove('simple-clear');overlay.style.setProperty('--clear-reveal','1');
+   document.querySelector('.clear-description').textContent='미스릴 보상을 저장하지 못했습니다.';
+   const retry=document.querySelector('#replay-clear');
+   retry.hidden=false;retry.style.display='inline-block';retry.textContent='보상 저장 다시 시도';retry.onclick=creditFloor;
+   return;
+  }
+  awarding=false;
+  state.lastMithrilFloor=state.floor;
+  state.lastMithrilAmount=GameForge.reward(state.floor);
+  finishFloor();
+ }
+ function final(){let lobby=document.querySelector('#clear-lobby');if(!lobby){lobby=document.createElement('button');lobby.id='clear-lobby';lobby.type='button';lobby.textContent='로비로 돌아가기';lobby.onclick=()=>{const url=new URL('../lobby/index.html',location.href);if(!window.GameScreen?.navigate?.(url.href))location.assign(url.href);};document.querySelector('.clear-buttons').append(lobby);}lobby.hidden=false;const overlay=document.querySelector('#clear-overlay');overlay.classList.add('dungeon-complete');overlay.style.setProperty('--clear-reveal','1');overlay.hidden=false;document.querySelector('#clear-title').textContent='DUNGEON CLEAR!!' ;document.querySelector('.clear-location').textContent=floorLabel(9)+' · '+BATTLE_ASSETS[4].name;document.querySelector('.clear-description').textContent=state.lastMithrilFloor===9?'미스릴 +'+(state.lastMithrilAmount??12):'';const button=document.querySelector('#replay-clear');button.textContent='새 탐험 시작';button.onclick=()=>location.assign(location.pathname+'?campaign=1'+(q.get('team')?'&team='+q.get('team'):''));}
  function render(){
   const d=state.draft;if(!d)return;document.title='DUNGEON BREAKER';const role=team()[d.unit],actor=BATTLE_ASSETS.find(a=>a.id===role),need=d.kind==='initial'?2:1;
   document.querySelector('#clear-overlay').hidden=true;const overlay=document.querySelector('#loot-overlay');overlay.hidden=false;overlay.classList.add('skill-draft');
@@ -71,8 +97,8 @@
  fail,returnToSelection,abandon(){state.abandoned=true;fail();returnToSelection();},
  prepare(){if(state.failed){returnToSelection();return true;}if(state.started)return false;if(!state.draft)begin('initial');render();return true;},
  equipped(){return (state.skills[BATTLE_ASSETS[0].id]||[]).slice(0,4).map(id=>({...catalog().find(s=>s.id===id)}));},
- mount(b){if(state.failed){returnToSelection();return;}bridge=b;document.body.classList.add('campaign-mode');restore();apply();document.querySelector('#party-reroll').hidden=true;if(state.complete){bridge.completed();final();return;}if(state.cleared)bridge.completed();if(!state.started&&!state.draft)begin('initial');if(state.draft)render();else if(state.cleared)advance();},
- clear(){if(state.failed||state.cleared||bridge.enemies().some(e=>e.hp>0))return;state.cleared=true;if(state.floor<9&&window.PartyResources?.enabled){for(const a of BATTLE_ASSETS.slice(0,4))if((a.currentHp??a.hp)>0){PartyResources.recover(a.id,[4,8].includes(state.floor)?.35:.25);if([4,8].includes(state.floor))a.currentHp=Math.min(a.hp,(a.currentHp??a.hp)+Math.round(a.hp*.1));}}snapshot();if(state.floor===9){state.complete=true;save();final();}else if([4,8].includes(state.floor)){begin('mid');render();}else{save();advance();}},
+ mount(b){if(state.failed){returnToSelection();return;}bridge=b;document.body.classList.add('campaign-mode');restore();apply();document.querySelector('#party-reroll').hidden=true;if(state.complete){bridge.completed();final();return;}if(state.cleared)bridge.completed();if(state.mithrilPending){creditFloor();return;}if(!state.started&&!state.draft)begin('initial');if(state.draft)render();else if(state.cleared)advance();},
+ clear(){if(!state.started||state.draft||state.failed||state.cleared||bridge.enemies().some(e=>e.hp>0))return;state.cleared=true;if(state.floor<9&&window.PartyResources?.enabled){for(const a of BATTLE_ASSETS.slice(0,4))if((a.currentHp??a.hp)>0){PartyResources.recover(a.id,[4,8].includes(state.floor)?.35:.25);if([4,8].includes(state.floor))a.currentHp=Math.min(a.hp,(a.currentHp??a.hp)+Math.round(a.hp*.1));}}snapshot();if(window.GameForge){state.mithrilPending=true;save();creditFloor();}else finishFloor();},
  update(){},reset(){if(state.failed){returnToSelection();return;}departing=false;restore();apply();if(state.draft)render();}
  };
 })();

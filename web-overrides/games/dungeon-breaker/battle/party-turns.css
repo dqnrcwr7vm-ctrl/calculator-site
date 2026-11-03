@@ -135,3 +135,7 @@
 .game-view #boss-affixes{left:2.3cqw;right:auto!important;top:21%!important;max-width:42%!important}
 
 .enemy-status-name{font-size:calc(var(--enemy-name-size,1)*1cqw);text-overflow:clip}
+
+.game-view.campaign-mode #clear-overlay.simple-clear .clear-panel>.clear-description{
+ display:block;margin:.5em 0 0;color:#b4f1ff;font:400 clamp(12px,1.4cqw,21px)/1.4 Galmuri11,monospace;
+}

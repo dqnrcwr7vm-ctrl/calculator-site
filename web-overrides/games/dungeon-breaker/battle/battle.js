@@ -111,13 +111,17 @@ const load=src=>{
  imageLoads.set(src,task);task.catch(()=>imageLoads.delete(src));return task;
 };
 function frameAt(clip,time,loop=true){let t=loop?time%duration(clip):Math.min(Math.max(0,time),duration(clip)-1);for(let i=0;i<clip.durations.length;i++){if(t<clip.durations[i])return i;t-=clip.durations[i];}return clip.frames.length-1;}
+let equippedWeaponLevels={};
 function drawSprite(index,frame,x,y,height,clip='idle'){
  const a=assets[index],b=a.bounds,registration=a.actions?.[clip]?.registration?.[frame],scale=height/(b[3]-b[1])*(registration?.scale||1);
  const im=(a.id==='wizard'&&clip==='magic'?window.WizardCasting?.image(window.WizardSkills?.element||current?.def.element,frame):null)||(clip==='idle'?images[index][frame]:actionImages[index+':'+clip][frame]);
  // Fixed idle anchor and scale across every action, including oversized weapon poses.
  const anchor=registration?.anchor||a.actions?.[clip]?.anchor||a.anchor||[(b[0]+b[2])/2,b[3]];
  const draw=(...args)=>index===4&&window.MonsterRaster?window.MonsterRaster.image(ctx,...args):ctx.drawImage(...args);
- draw(im,Math.round(x-anchor[0]*scale),Math.round(y-anchor[1]*scale),Math.round((a.actions?.[clip]?.size||a.size)[0]*scale),Math.round((a.actions?.[clip]?.size||a.size)[1]*scale));
+ const [sw,sh]=a.actions?.[clip]?.size||a.size;
+ const left=Math.round(x-anchor[0]*scale),top=Math.round(y-anchor[1]*scale),w=Math.round(sw*scale),h=Math.round(sh*scale);
+ draw(im,left,top,w,h);
+ if(index<4&&equippedWeaponLevels[a.id])WeaponGlow.draw(ctx,a.id,clip,frame,equippedWeaponLevels[a.id],im,left,top,w,h,elapsed);
 }
 function buildUI(){assets.slice(0,4).forEach((a,i)=>{
  const card=document.createElement('article');card.className='member'+(i===0?' selected':'');if(window.PartyRoster)card.style.order=String(window.PartyRoster.order.indexOf(i));card.setAttribute('aria-label',a.name+(i===0?' · 내 캐릭터':' · 동료'));
@@ -190,6 +194,8 @@ function enemyTargets(){
 function damageEnemyTargets(targets,amount,area=false,hit={}){
  // Resolve the entire living snapshot synchronously before triggering clear/finisher.
  const living=targets.filter(t=>t.hp>0&&(area||!window.WizardSkills||window.WizardSkills.canSelect(t)));
+ const level=equippedWeaponLevels[hit.role];
+ if(level)amount=Math.round(amount*(100+GameForge.attackPercent(level))/100);
  for(const target of living){
   let received=window.PartyMonsterBalance?.resolveHit?.(target,amount,hit);
   if(!received){const damage=window.PartyMonsterBalance?.incoming?.(target,amount,hit)??amount;received={damage,landed:damage>0};}
@@ -259,7 +265,7 @@ function showClear(){
  // Campaign floors keep live buff state until it is checkpointed. Standalone
  // battles retain their original cleanup, and a new expedition starts fresh.
  if(!window.GalleonCampaign)window.HealerSkills?.reset();assets.slice(0,4).forEach((a,i)=>applyPartyHit(i,0));
- document.querySelector('.clear-description').textContent=enemy().name+' 처치';
+ document.querySelector('.clear-description').textContent=window.GalleonCampaign&&window.GameForge?'미스릴 +'+GameForge.reward(GalleonCampaign.floor):enemy().name+' 처치';
  const clearOverlay=document.querySelector('#clear-overlay');
  clearOverlay.classList.toggle('dungeon-complete',!!config.isFinalBoss);
  clearOverlay.style.setProperty('--clear-reveal','0');
@@ -633,6 +639,7 @@ async function preloadBattle(){
 }
 async function init(){
  await preloadBattle();
+ if(window.GalleonCampaign&&window.GameForge)equippedWeaponLevels=(await GameForge.read()).levels;
  images.length=0;portraits.length=0;
  await loadResources(load);
  const wi=assets.findIndex(a=>a.id==='wizard');if(wi>=0)await window.WizardCasting?.load(load,actionImages[wi+':magic']);

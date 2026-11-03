@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DUNGEON BREAKER · 마을</title><link rel="stylesheet" href="town-facilities.css?v=smaller-shaded-v3"><script src="../game-navigation.js"></script></head><body>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DUNGEON BREAKER · 마을</title><link rel="stylesheet" href="town-facilities.css?v=forge-100-v2"><script src="../game-navigation.js"></script></head><body>
 <main class="town" aria-label="마을 시설 선택">
 <header class="topbar"><a class="back" href="index.html" aria-label="모험 지도로 돌아가기">← 모험 지도</a><button class="fullscreen" data-game-fullscreen aria-label="전체화면" aria-pressed="false">⛶</button></header>
 <div class="plaza-viewport"><section class="plaza" aria-label="광장의 상점, 길드사무소, 게시판, 대장간">
@@ -11,5 +11,18 @@
 </section></div>
 <a class="brand" href="../index.html" aria-label="DUNGEON BREAKER 메인 화면"><img src="../imagegen/dungeon-breaker-pixel-logo-transparent-v1.webp" width="1774" height="887" alt="DUNGEON BREAKER"></a>
 </main>
-<dialog id="facility-dialog" aria-labelledby="facility-title" aria-describedby="facility-description"><button class="close" aria-label="닫기">×</button><h2 id="facility-title"></h2><div class="dialog-rule" aria-hidden="true">◆</div><p id="facility-description"></p><p class="preparing">시설 내부를 준비하고 있습니다.</p><button class="return">광장으로 돌아가기</button></dialog>
-<script src="town-facilities.js?v=board-v1"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=20261029"></script><script src="../audio/ui-player.js?v=20261029-1"></script><script type="module" src="community/forum.js?v=2"></script></body></html>
+<dialog id="facility-dialog" aria-labelledby="facility-title" aria-describedby="facility-description"><button class="close" aria-label="닫기">×</button><h2 id="facility-title"></h2><div class="dialog-rule" aria-hidden="true">◆</div><p id="facility-description"></p><section id="forge-panel" aria-label="무기 강화" hidden>
+<div class="forge-heading"><span>장착 무기 선택</span><strong class="forge-wallet">미스릴 <b id="forge-balance">—</b>개</strong></div>
+<div id="forge-roles" aria-label="강화할 캐릭터"></div>
+<div class="forge-bench">
+ <figure class="forge-figure"><canvas id="forge-preview" width="240" height="180" aria-label="장착 무기 미리보기"></canvas><figcaption><span id="forge-preview-label">장착 중</span><strong id="forge-weapon"></strong></figcaption></figure>
+ <div class="forge-details"><span class="forge-equipped-label">장착 무기 강화</span><div id="forge-step"></div>
+ <dl><div><dt>공격 피해</dt><dd id="forge-attack"></dd></div><div><dt>성공</dt><dd id="forge-chance"></dd></div><div><dt>단계 유지</dt><dd id="forge-hold"></dd></div><div><dt>+0 초기화</dt><dd id="forge-reset"></dd></div><div><dt>1회 비용</dt><dd id="forge-cost"></dd></div></dl>
+
+ </div></div>
+<div id="forge-looks" role="group" aria-label="무기 외형 미리보기"><button type="button" value="" aria-pressed="true">장착 중</button><button type="button" value="30">+30 광채</button><button type="button" value="60">+60 불꽃</button><button type="button" value="100">+100 각성</button></div>
+<p class="forge-rule" id="forge-rule"></p>
+<div class="forge-actions"><button id="forge-submit" type="button" disabled>1회 강화</button><button id="forge-batch" type="button" disabled>최대 10회 시도</button></div>
+<p id="forge-result" role="status" aria-live="polite"></p>
+</section><p class="preparing">시설 내부를 준비하고 있습니다.</p><button class="return">광장으로 돌아가기</button></dialog>
+<script src="../game-data/forge.js?v=forge-100-v2"></script><script src="../game-data/weapon-glow.js?v=forge-combat-poses-v3"></script><script src="town-forge.js?v=forge-100-v2"></script><script src="town-facilities.js?v=forge-board-v1"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=20261029"></script><script src="../audio/ui-player.js?v=20261029-1"></script><script type="module" src="community/forum.js?v=2"></script></body></html>
