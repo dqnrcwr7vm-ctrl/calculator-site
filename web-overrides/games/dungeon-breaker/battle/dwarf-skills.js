@@ -23,7 +23,7 @@ class DwarfCombat {
  stunned(id){return this.stuns.get(id)===this.turn;}
  target(enemyId,party,preferred=1){const alive=party.map((a,i)=>({a,i})).filter(({a})=>(a.currentHp??a.hp)>0);if(!alive.length)return null;if(this.taunts.get(enemyId)===this.turn&&alive.some(x=>x.i===0))return 0;return alive.find(x=>x.i===preferred)?.i??alive[0].i;}
  get defenseTurns(){return Math.max(0,this.defenseUntil-this.turn+1);}
- snapshotBuffs(){return {defense:this.defenseTurns};}
+ snapshotBuffs(consumeTurn=false){return {defense:Math.max(0,this.defenseTurns-(consumeTurn?1:0))};}
  restoreBuffs(saved){const value=Number(saved?.defense),n=Number.isFinite(value)?Math.max(0,Math.min(this.balance.buffTurns??3,Math.floor(value))):0;this.defenseUntil=n?this.turn+n-1:0;}
  incoming(actorIndex,amount){return Math.round(amount*(actorIndex===0&&this.defenseTurns>0?1-this.balance.defenseReduction:1));}
  endTurn(){this.turn++;this.taunts.clear();this.stuns.clear();if(this.defenseUntil<this.turn)this.defenseUntil=0;this.charge=null;this.cancelled=false;this.interruptedCharge=null;}
@@ -82,7 +82,7 @@ Object.assign(api,{
  incoming(i,n){return models.incoming(i,n);},
  beginCharge(id,now){models.startCharge(id);chargeAt=now;cancelAt=null;},
  endPartyTurn(){models.endTurn();refresh();},
- snapshotBuffs(){return assets.slice(0,4).some(a=>a.id==='dwarf'&&(a.currentHp??a.hp)>0)?models.snapshotBuffs():{defense:0};},
+ snapshotBuffs(consumeTurn=false){return assets.slice(0,4).some(a=>a.id==='dwarf'&&(a.currentHp??a.hp)>0)?models.snapshotBuffs(consumeTurn):{defense:0};},
  restoreBuffs(saved){models.restoreBuffs(assets.slice(0,4).some(a=>a.id==='dwarf'&&(a.currentHp??a.hp)>0)?saved:null);if(bridge)refresh();},
  special(actorId,now,skillId,targetId){
   if(config.partyTurns){

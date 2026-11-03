@@ -1,7 +1,7 @@
 /* One overhead layout for status indicators. Reads combat state; never mutates it. */
 (function(root){
 'use strict';
-const SIZE=36,GAP=5,COLUMNS=5,images=new Map();
+const SIZE=36,GAP=5,ROW_GAP=21,COLUMNS=5,images=new Map();
 const sources=Object.fromEntries(['blessing-attack','blessing-defense','blessing-health','barrier','water','attack','defense','eagle','guard','aim'].map(id=>[id,'../effects/status-icons-v1/'+id+'.svg']));
 const pixels={
  taunt:['...###...','...###...','...###...','...###...','...###...','.........','...###...','...###...','.........'],
@@ -17,9 +17,9 @@ const pixels={
 };
 const alive=a=>a&&(a.currentHp??a.hp)>0;
 function layout(p,icons){
- const rows=Math.ceil(icons.length/COLUMNS),top=Math.max(10,p.y-p.h-16-rows*(SIZE+GAP)+GAP);
+ const rows=Math.ceil(icons.length/COLUMNS),top=Math.max(10,p.y-p.h-16-rows*(SIZE+ROW_GAP)+ROW_GAP);
  return icons.map((icon,i)=>{const row=Math.floor(i/COLUMNS),count=Math.min(COLUMNS,icons.length-row*COLUMNS);
-  return {...icon,x:Math.round(p.x-(count*SIZE+(count-1)*GAP)/2+(i%COLUMNS)*(SIZE+GAP)),y:Math.round(top+row*(SIZE+GAP)),size:SIZE};});
+  return {...icon,x:Math.round(p.x-(count*SIZE+(count-1)*GAP)/2+(i%COLUMNS)*(SIZE+GAP)),y:Math.round(top+row*(SIZE+ROW_GAP)),size:SIZE};});
 }
 function collect(positions,enemies,now,buffsOnly=false){
  const units=[],party=root.BATTLE_ASSETS.slice(0,4),healer=root.HealerSkills?.model,dwarf=root.DwarfSkills?.model;
@@ -35,12 +35,12 @@ function collect(positions,enemies,now,buffsOnly=false){
  }
  party.forEach((a,i)=>{
   if(!alive(a))return;const icons=[],add=(id,tone='positive',extra={})=>{if(!icons.some(c=>c.id===id))icons.push({id,tone,...extra});};
-  if(healer?.blessed.has(i)){add('blessing-attack');add('blessing-defense');add('blessing-health');}
-  if(healer?.barriers.has(i))add('barrier');if(healer?.livingWaterUntil.has(i))add('water');
-  for(const id of root.BattleRoar?.statusKinds(now)||[])add(id);
-  if(a.id==='archer'&&root.ArcherSkills?.model.eagleTurns)add('eagle');
+  if(healer?.blessed.has(i)){for(const id of ['blessing-attack','blessing-defense','blessing-health'])add(id,'positive',{turns:healer.remaining('blessing',i)});}
+  if(healer?.barriers.has(i))add('barrier','positive',{turns:healer.remaining('barrier',i)});if(healer?.livingWaterUntil.has(i))add('water','positive',{turns:healer.remaining('living-water',i)});
+  for(const id of root.BattleRoar?.statusKinds(now)||[])add(id,'positive',{turns:root.BattleRoar.remaining(id)});
+  if(a.id==='archer'&&root.ArcherSkills?.model.eagleTurns)add('eagle','positive',{turns:root.ArcherSkills.model.eagleTurns});
   if(a.id==='archer'&&root.ArcherSkills?.model.sniping)add('aim');
-  if(a.id==='dwarf'&&dwarf?.defenseTurns>0||root.PartyBasicActions?.incoming(i,100)<100||root.PartyHero?.caster===i&&root.PartyHero.state.guard||root.PartyMechanic?.caster===i&&root.PartyMechanic.state.guard)add('guard');
+  if(a.id==='dwarf'&&dwarf?.defenseTurns>0||root.PartyBasicActions?.incoming(i,100)<100||root.PartyHero?.caster===i&&root.PartyHero.state.guard||root.PartyMechanic?.caster===i&&root.PartyMechanic.state.guard)add('guard','positive',{turns:a.id==='dwarf'&&dwarf?.defenseTurns>0?dwarf.defenseTurns:1});
   if(sourcesOfTaunt.has(i))add('taunt','taunt');
   for(const s of a.statuses||[]){const id=typeof s==='string'?s:s.kind;if(pixels[id])add(id,'negative');}
   units.push({id:'ally:'+i,p:positions[i],icons});
@@ -60,6 +60,7 @@ function paint(g,icon){
   g.imageSmoothingEnabled=false;g.drawImage(im,...c,x+(size-w)/2,y+(size-h)/2,w,h);
  }else if(pixels[id]){g.fillStyle=color;pixels[id].forEach((row,py)=>[...row].forEach((pixel,px)=>{if(pixel==='#')g.fillRect(x+4+px*3,y+4+py*3,3,3);}));}
  if(id==='charge')for(let i=0;i<2;i++){g.fillStyle=i<(root.DwarfSkills?.model.charge?.allies.size||0)?'#fff1a2':'#70566a';g.fillRect(x+10+i*10,y+30,6,3);}
+ if(icon.turns>0){g.font='bold 14px Galmuri11, monospace';g.textAlign='center';g.textBaseline='top';g.lineWidth=4;g.strokeStyle='#080912';g.fillStyle='#fff3ce';const text=icon.turns+'턴';g.strokeText(text,x+size/2,y+size+3);g.fillText(text,x+size/2,y+size+3);}
  g.restore();
 }
 root.PartyStatusIcons={size:SIZE,layout,collect,enabled:()=>!!root.BATTLE_CONFIG?.partyTurns,buffsEnabled:()=>true,

@@ -29,11 +29,11 @@ class HealerState{
  damage(i,n){return Math.round(n*(this.blessed.has(i)?1+BALANCE.blessing:1));}
  incoming(i,n){if(n<=0)return 0;let damage=Math.round(n/(this.blessed.has(i)?1+BALANCE.blessing:1));const shield=this.barriers.get(i)||0,absorbed=Math.min(shield,damage);if(shield){if(shield===absorbed){this.barriers.delete(i);this.barrierUntil.delete(i);}else this.barriers.set(i,shield-absorbed);}return damage-absorbed;}
  remaining(id,i){return Math.max(0,(this[id==='living-water'?'livingWaterUntil':id==='blessing'?'blessingUntil':'barrierUntil'].get(i)||0)-this.turn+1);}
- snapshotBuffs(){
+ snapshotBuffs(consumeTurn=false){
   return Object.fromEntries(this.party.filter(a=>hp(a)>0).map(a=>{const i=this.party.indexOf(a);return [a.id,{
-   blessing:this.blessed.has(i)?this.remaining('blessing',i):0,
-   barrier:{turns:this.barriers.has(i)?this.remaining('barrier',i):0,hp:this.barriers.get(i)||0},
-   livingWater:this.remaining('living-water',i)
+   blessing:this.blessed.has(i)?Math.max(0,this.remaining('blessing',i)-(consumeTurn?1:0)):0,
+   barrier:{turns:this.barriers.has(i)?Math.max(0,this.remaining('barrier',i)-(consumeTurn?1:0)):0,hp:this.barriers.get(i)||0},
+   livingWater:Math.max(0,this.remaining('living-water',i)-(consumeTurn?1:0))
   }];}));
  }
  restoreBuffs(saved){
@@ -114,7 +114,7 @@ function drawLivingWater(g,positions,now){
  document.querySelector('#scene').dataset.livingWaterPhase=fade>0?'fading':'orbit';
 }
 Object.assign(api,{model,specs,caster,start,requestHolyLight,cancelTarget,damage:(i,n)=>model.damage(i,n),incoming:(i,n)=>model.incoming(i,n),fallen:i=>model.fallen(i),
- snapshotBuffs:()=>model.snapshotBuffs(),
+ snapshotBuffs:consumeTurn=>model.snapshotBuffs(consumeTurn),
  restoreBuffs(saved){model.restoreBuffs(saved);if(bridge)refresh();},
  endTurn(){model.endTurn(restoreMana).forEach(i=>bridge?.sync(i));if(bridge)refresh();},
  async load(load){await Promise.all(Object.entries(specs).filter(([id])=>!root.CampaignAssets||root.CampaignAssets.uses('priest',id)).map(async([id,s])=>{fx[id]={};await Promise.all((id==='living-water'?['angel']:id==='holy-light'?['beam','impact']:id==='barrier'?['back','front','beam']:id==='sanctuary'?['back','front','rise-back','rise-front']:['back','front']).map(async layer=>{

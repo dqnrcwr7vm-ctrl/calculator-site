@@ -133,3 +133,5 @@
 
 /* Keep boss traits away from tall monsters' overhead health/status rows. */
 .game-view #boss-affixes{left:2.3cqw;right:auto!important;top:21%!important;max-width:42%!important}
+
+.enemy-status-name{font-size:calc(var(--enemy-name-size,1)*1cqw);text-overflow:clip}
