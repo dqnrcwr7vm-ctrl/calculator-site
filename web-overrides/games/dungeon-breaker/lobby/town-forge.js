@@ -1,135 +1,193 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const dialog = $('facility-dialog'), panel = $('forge-panel');
-  const button = $('forge-submit'), mode = $('forge-auto'), goal = $('forge-auto-target');
-  const result = $('forge-result'), outcome = $('forge-outcome');
-  const {weapons, steps, attackPercent} = GameForge;
-  let role = null, profile, request = 0, busy = false;
-  const auto = createForgeAuto({dialog, panel, state: () => ({role, profile, busy}), attempt: enhance, render});
-
-  function clearResult() {
-    result.textContent = outcome.textContent = $('forge-auto-status').textContent = '';
-    delete result.dataset.outcome;
-    delete outcome.dataset.outcome;
-  }
+  const dialog = $('facility-dialog'), panel = $('forge-panel'), target = $('target');
+  const head = $('smith-result'), banner = $('strike-result');
+  let profile, role = null, stage = 'welcome', busy = false, session = 0, problem = '';
+  let finalTimer, pop;
   function weaponName(id, level) {
-    return level === steps.length ? WeaponGlow.ascendedNames[id] : weapons[id][1];
+    return level === GameForge.steps.length ? WeaponGlow.ascendedNames[id] : GameForge.weapons[id][1];
+  }
+  function label(id) {
+    const level = profile.levels[id] || 0;
+    return '+' + level + ' ' + weaponName(id, level);
+  }
+  const auto = createForgeAuto({
+    dialog, panel, state: () => ({role, profile, busy}), attempt: () => attempt(true),
+    render, interval: 0, onFinish: finishAuto
+  });
+
+  function showSmith(working) {
+    if (dialog.classList.contains('at-anvil') === working) return;
+    dialog.classList.toggle('at-anvil', working);
+    $('forge-motion').setAttribute('aria-label', working ? '모루에서 무기를 강화하는 대장장이' : '화덕 앞의 대장장이');
+    TownForgeScene.show(!working);
+  }
+  function choose(next, id = null) {
+    if (auto.active || busy) return;
+    stage = next;
+    role = id;
+    problem = $('announce').textContent = $('forge-auto-status').textContent = '';
+    showSmith(false);
+    if (role) target.value = Math.min(100, (profile.levels[role] || 0) + 1);
+    render();
+    $('forge-line').focus({preventScroll:true});
   }
   function render() {
-    $('forge-balance').textContent = profile?.mithril ?? '—';
-    $('forge-picker').hidden = role !== null;
-    $('forge-order').hidden = role === null;
-    $('forge-stage').textContent = role ? '02 / 02' : '01 / 02';
-    for (const item of $('forge-roles').children) {
-      const id = item.dataset.role, level = profile?.levels[id] || 0;
-      item.querySelector('strong').textContent = weaponName(id, level);
-      item.querySelector('b').textContent = '+' + level;
-      item.disabled = !profile;
+    const working = stage === 'auto' || stage === 'manual';
+    $('forge-greeting').hidden = working || stage === 'result';
+    banner.hidden = stage !== 'result';
+    $('result-done').disabled = busy;
+    $('stop').hidden = stage !== 'auto' || !auto.active;
+    $('stop').disabled = auto.stopping;
+    $('welcome').hidden = stage !== 'welcome';
+    panel.hidden = $('purse').hidden = stage === 'welcome';
+    $('weapons').hidden = stage !== 'weapons';
+    $('order').hidden = stage !== 'order';
+    $('balance').textContent = profile?.mithril ?? '—';
+    $('back').textContent = role ? '무기 다시 선택' : '뒤로';
+    for (const b of $('weapons').children) {
+      const id = b.dataset.weapon, level = profile?.levels[id] || 0;
+      b.firstElementChild.textContent = '+' + level;
+      b.lastChild.textContent = ' ' + weaponName(id, level);
+      b.setAttribute('aria-label', GameForge.weapons[id][0] + ' · ' + weaponName(id, level) + ' +' + level);
+      b.disabled = !profile;
     }
-    if (!role) return;
-    const level = profile?.levels[role] || 0, step = steps[level], locked = busy || auto.active;
-    $('forge-weapon').textContent = weaponName(role, level) + ' +' + level;
-    $('forge-change').disabled = locked;
-    goal.min = Math.min(100, level + 1);
-    goal.disabled = mode.disabled = locked || !step;
-    $('forge-mode-help').textContent = mode.checked ? '선택한 목표까지 한 번씩 시도합니다.' : '한 번 눌러 다음 단계에 한 번 도전합니다.';
-    $('forge-step').textContent = step ? '이번 시도  +' + level + ' → +' + (level + 1) : '최고 단계 달성';
-    $('forge-cost').textContent = step ? '미스릴 ' + step.cost + '개' : '—';
-    $('forge-attack').textContent = '+' + attackPercent(level) + '%' + (step ? ' → +' + attackPercent(level + 1) + '%' : '');
-    $('forge-chance').textContent = step ? step.chance + '%' : '—';
-    $('forge-hold').textContent = step ? step.hold + '%' : '—';
-    $('forge-reset').textContent = step ? step.reset + '%' : '—';
-    $('forge-reset').classList.toggle('at-risk', !!step?.reset);
-    const poor = step && profile && profile.mithril < step.cost;
-    const rule = $('forge-rule');
-    rule.classList.toggle('at-risk', !!step?.reset);
-    rule.textContent = !step ? '최종 외형 각성 · 공격 피해 2배' : poor ? '미스릴 ' + (step.cost - profile.mithril) + '개가 더 필요합니다.' :
-      step.reset ? '이번 시도에서 이 무기가 +0이 될 확률은 ' + step.reset + '%입니다.' :
-      mode.checked && goal.valueAsNumber > 80 ? '+80에 도달하면 초기화 위험 구간에 들어가기 전에 멈춥니다.' : '';
-    button.disabled = auto.active ? auto.stopping : busy || !profile || !step || poor || !goal.validity.valid;
-    button.toggleAttribute('data-running', auto.active);
-    button.textContent = auto.active ? (auto.stopping ? '중지 중…' : '자동 강화 중지') : busy ? '망치질 중…' : '강화하기';
+    if (working || stage === 'result') return;
+    if (!role) {
+      $('forge-line').textContent = stage === 'welcome' ? '어서 와! 오늘은 어떤 무기를 강화해줄까?' : '어떤 무기를 강화할까?';
+      return;
+    }
+    const level = profile.levels[role] || 0, step = GameForge.steps[level], goal = target.valueAsNumber;
+    target.min = Math.min(100, level + 1);
+    target.disabled = !step;
+    $('lower').disabled = !step || goal <= level + 1;
+    $('higher').disabled = !step || goal >= 100;
+    $('forge-line').textContent = step ? label(role) + ', 몇 강까지 강화해줄까?' : label(role) + ' · 이미 최고 단계야.';
+    $('terms').textContent = !step ? '최고 강화 단계에 도달했습니다.' : '1회 미스릴 ' + step.cost + '개  ·  성공 ' + step.chance + '%' +
+      (step.reset ? '  ·  +0 초기화 ' + step.reset + '%' : '') +
+      (profile.mithril < step.cost ? '  ·  미스릴 부족' : target.value && !target.validity.valid ? '  ·  목표 +' + (level + 1) + '~+100' :
+       level < 80 && goal > 80 ? '  ·  +80에서 위험 구간 진입 전 중지' : '');
+    $('terms').classList.toggle('risk', !!step?.reset);
+    $('manual').disabled = !step || profile.mithril < step.cost;
+    $('start').disabled = $('manual').disabled || !target.validity.valid;
   }
-
-  for (const [id,[owner]] of Object.entries(weapons)) {
-    const item = document.createElement('button');
-    item.type = 'button'; item.dataset.role = id;
-    const name = document.createElement('strong'), ownerLabel = document.createElement('small');
-    ownerLabel.textContent = owner;
-    item.append(name, ownerLabel, document.createElement('b'));
-    item.onclick = () => {
-      if (!profile || busy || auto.active) return;
-      role = id; mode.checked = false;
-      goal.value = Math.min(100, (profile.levels[id] || 0) + 1);
-      clearResult(); render();
-      $('forge-weapon').focus({preventScroll:true});
-    };
-    $('forge-roles').append(item);
-  }
-  $('forge-change').onclick = () => {
-    if (busy || auto.active) return;
-    const previous = role; role = null; clearResult(); render();
-    $('forge-roles').querySelector('[data-role="'+previous+'"]').focus({preventScroll:true});
-  };
-  goal.oninput = mode.onchange = render;
-  button.onclick = () => {
-    if (auto.active) { auto.stop(); return; }
-    if (!role || button.disabled || !goal.reportValidity()) return;
-    $('forge-auto-status').textContent = '';
-    dialog.scrollTop = 0;
-    if (mode.checked) auto.start(goal.valueAsNumber);
-    else enhance();
-  };
-
-  async function enhance() {
-    if (busy || !role || !profile || !dialog.open || panel.hidden || document.hidden) return;
-    const sequence = request, selected = role, level = profile.levels[role] || 0;
-    busy = true;
-    result.textContent = outcome.textContent = '';
-    delete result.dataset.outcome; delete outcome.dataset.outcome;
+  function showResult(title, tone, note) {
+    if (!dialog.open) return;
+    stage = 'result';
+    head.hidden = true;
+    banner.dataset.tone = tone;
+    $('result-heading').textContent = title;
+    $('result-weapon').textContent = label(role);
+    $('result-note').textContent = note;
+    $('announce').textContent = [title, label(role), note].filter(Boolean).join(' · ');
     render();
-    try {
-      const attempt = await GameForge.enhance(selected, level, 1);
-      if (sequence !== request || !dialog.open) return attempt;
-      if (attempt.attempts) await TownForgeScene.hammerThree();
-      if (sequence !== request || !dialog.open) return attempt;
-      profile = attempt.profile;
-      const now = profile.levels[selected] || 0, name = weaponName(selected, now);
-      const headline = attempt.status === 'success' ? '강화 성공!!' : '강화 실패ㅠㅠ';
-      const messages = {
-        success: headline + ' · ' + name + ' +' + now,
-        failure: headline + ' · ' + name + ' +' + level + ' 유지',
-        reset: headline + ' · ' + name + ' +' + level + ' → +0',
-        changed: '무기 단계가 변경되었습니다. 다음 단계를 확인하세요.',
-        max: '이미 최고 단계입니다.', poor: '미스릴이 부족합니다.'
-      };
-      if (attempt.attempts) {
-        outcome.dataset.outcome = attempt.status;
-        outcome.textContent = headline;
+    if (!busy) $('result-done').focus({preventScroll:true});
+  }
+  function showHit(status) {
+    const success = status === 'success';
+    head.dataset.tone = success ? 'success' : 'failure';
+    head.firstElementChild.textContent = success ? '성공!' : '실패 ㅠ';
+    head.lastElementChild.textContent = label(role);
+    head.hidden = false;
+    // Repeat the small bounce even for consecutive identical rolls.
+    pop?.cancel();
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      pop = head.animate([{translate:'0 4px', opacity:.8}, {translate:'0 0', opacity:1}], {duration:160});
+    }
+    $('announce').textContent = head.firstElementChild.textContent + ' ' + label(role);
+  }
+  function finishAuto(reason, run) {
+    if (!dialog.open) return;
+    const note = (problem || reason) + ' · ' + run.count + '회 시도';
+    // Keep the last impact over the smith long enough to read before the recap.
+    finalTimer = setTimeout(() => showResult('최종 결과', 'final', note), head.hidden ? 0 : 520);
+  }
+  async function attempt(automatic) {
+    if (!role || busy || !dialog.open || document.hidden) return;
+    const ticket = session, selected = role, level = profile.levels[selected] || 0;
+    const current = () => ticket === session && dialog.open;
+    let roll;
+    busy = true;
+    stage = automatic ? 'auto' : 'manual';
+    showSmith(true);
+    render();
+    if (automatic && head.hidden) $('stop').focus({preventScroll:true});
+    async function resolveHit() {
+      try {
+        const result = await GameForge.enhance(selected, level, 1);
+        if (!current()) return result;
+        profile = result.profile;
+        if (!result.attempts) {
+          problem = {poor:'미스릴이 부족해.', changed:'무기 단계가 변경되었어.', max:'이미 최고 단계야.'}[result.status];
+        } else if (automatic) {
+          showHit(result.status);
+        } else {
+          const success = result.status === 'success';
+          const note = {success:'', failure:'강화 단계 유지', reset:'강화 단계 초기화'}[result.status];
+          showResult(success ? '성공!' : '실패!', success ? 'success' : 'failure', note);
+        }
+        return result;
+      } catch {
+        problem = '강화 결과를 저장하지 못했어. 다시 시도해 줘.';
       }
-      result.dataset.outcome = attempt.status;
-      result.textContent = messages[attempt.status] + (attempt.spent ? ' · 미스릴 ' + attempt.spent + '개 소모' : '');
-      if (!auto.active && goal.valueAsNumber <= now) goal.value = Math.min(100, now + 1);
-      return attempt;
-    } catch { if (sequence === request) result.textContent = '저장하지 못했습니다. 다시 시도해 주세요.'; }
-    finally { if (sequence === request) { busy = false; render(); } }
-  }
-  async function readProfile() {
-    const sequence = ++request;
+    }
     try {
-      const saved = await GameForge.read();
-      if (sequence !== request) return;
-      profile = saved;
-      render();
-    } catch { if (sequence === request) result.textContent = '저장 데이터를 열지 못했습니다. 대장간에 다시 입장해 주세요.'; }
+      await TownForgeScene.hammer(automatic ? 1 : 3, () => {
+        if (current() && !document.hidden && !(automatic && auto.stopping)) roll = resolveHit();
+      });
+      return await roll;
+    } finally {
+      if (current()) {
+        busy = false;
+        if (!automatic && stage !== 'result') {
+          stage = 'order';
+          $('forge-auto-status').textContent = problem || '강화가 중단되었어.';
+        }
+        render();
+        if (stage === 'result') $('result-done').focus({preventScroll:true});
+      }
+    }
   }
-  function open() {
-    role = null; profile = null; mode.checked = false; clearResult(); render(); readProfile();
+  for (const [id, weapon] of Object.entries(GameForge.weapons)) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.weapon = id;
+    b.append(document.createElement('b'), document.createTextNode(' ' + weapon[1]));
+    b.onclick = () => choose('order', id);
+    $('weapons').append(b);
   }
-  dialog.addEventListener('close', () => { request++; busy = false; clearResult(); });
-  document.addEventListener('visibilitychange', () => {
-    if (dialog.open && !panel.hidden && !document.hidden && !busy && !auto.active) readProfile();
+  $('forge-enter').onclick = () => choose('weapons');
+  $('back').onclick = () => {
+    const previous = role;
+    choose(role ? 'weapons' : 'welcome');
+    (previous ? $('weapons').querySelector('[data-weapon="'+previous+'"]') : $('forge-enter')).focus({preventScroll:true});
+  };
+  for (const b of dialog.querySelectorAll('[data-exit]')) b.onclick = () => dialog.close();
+  target.oninput = render;
+  for (const [id, delta] of [['lower',-1],['higher',1]]) $(id).onclick = () => {
+    const min = Number(target.min);
+    target.value = Math.min(100, Math.max(min, Number.isInteger(target.valueAsNumber) ? target.valueAsNumber + delta : min));
+    render();
+  };
+  $('manual').onclick = () => { problem = ''; attempt(false); };
+  $('start').onclick = () => {
+    if ($('start').disabled || !target.reportValidity()) return;
+    problem = '';
+    auto.start(target.valueAsNumber);
+  };
+  $('stop').onclick = () => { auto.stop(); TownForgeScene.cancelHammer(); };
+  $('result-done').onclick = () => {
+    stage = 'order';
+    const minimum = Math.min(100, (profile.levels[role] || 0) + 1);
+    if (target.valueAsNumber < minimum) target.value = minimum;
+    $('forge-auto-status').textContent = '';
+    showSmith(false); render(); $('forge-line').focus({preventScroll:true});
+  };
+  dialog.addEventListener('close', () => {
+    session++; clearTimeout(finalTimer); location.replace(new URL('town.html',document.baseURI));
   });
-  window.TownForge = {open};
+  dialog.showModal(); TownForgeScene.show(true); render();
+  GameForge.read().then(saved => {profile = saved; render();}).catch(() => {
+    $('forge-line').textContent = '미스릴을 불러오지 못했어. 다시 열어 줘.';
+  });
 })();

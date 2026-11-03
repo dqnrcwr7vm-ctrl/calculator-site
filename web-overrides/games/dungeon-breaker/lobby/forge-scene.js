@@ -59,13 +59,16 @@
         swing.frame++;
         if (swing.frame === poses.length) {
           swing.frame = 0;
-          if (++swing.completed === 3) finish();
+          if (++swing.completed === swing.total) finish();
         } else if (swing.frame === 4) strike = true;
       }
     }
     lastTime = time;
     paint(reduced.matches ? 0 : Math.floor(time/115)%6, swing?.frame ?? 0);
-    if (strike) window.DungeonUIAudio?.play('forge-hammer');
+    if (strike) {
+      window.DungeonUIAudio?.play('forge-hammer');
+      if (swing.completed + 1 === swing.total) swing.onLastImpact?.();
+    }
     if (swing || !reduced.matches) raf = requestAnimationFrame(tick);
   }
   function restart() {
@@ -82,17 +85,24 @@
     loadArt().then(restart);
     window.DungeonUIAudio?.prepare?.('forge-hammer');
   }
-  async function hammerThree() {
+  async function hammer(total, onLastImpact) {
     const current = session;
     await loadArt();
-    if (current !== session || !art || !dialog.open || welcome) return;
+    if (current !== session || !art || !dialog.open || welcome || swing || (onLastImpact && document.hidden)) return;
     await new Promise(resolve => {
-      swing = {frame:0, elapsed:0, completed:0, resolve};
+      swing = {frame:0, elapsed:0, completed:0, total, onLastImpact, resolve};
       restart();
     });
   }
   dialog.addEventListener('close', () => { session++; cancelAnimationFrame(raf); finish(); });
-  document.addEventListener('visibilitychange', restart);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && swing?.onLastImpact) finish();
+    restart();
+  });
   reduced.addEventListener('change', restart);
-  window.TownForgeScene = {show, hammerThree};
+  function cancelHammer() {
+    session++; // Also cancel a swing still waiting for its artwork to load.
+    finish();
+  }
+  window.TownForgeScene = {show, hammerThree: () => hammer(3), hammer, cancelHammer};
 })();

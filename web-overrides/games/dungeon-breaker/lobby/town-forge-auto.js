@@ -1,6 +1,6 @@
-/* Auto enhance uses the same single-attempt transaction and presentation as a manual strike. */
+/* Each automatic attempt uses a single weapon transaction. */
 'use strict';
-window.createForgeAuto = function ({dialog, panel, state, attempt, render}) {
+window.createForgeAuto = function ({dialog, panel, state, attempt, render, onFinish, interval = 650}) {
   const status = document.getElementById('forge-auto-status');
   let run = null, timer = 0;
   function visible() { return dialog.open && !panel.hidden && !document.hidden; }
@@ -11,6 +11,7 @@ window.createForgeAuto = function ({dialog, panel, state, attempt, render}) {
     clearTimeout(timer);
     run = null;
     status.textContent = reason + ' · ' + progress(r);
+    onFinish?.(reason, r);
     render();
   }
   function stop(reason = '자동 강화 중지') {
@@ -42,7 +43,7 @@ window.createForgeAuto = function ({dialog, panel, state, attempt, render}) {
     if (result.profile.mithril < GameForge.steps[level].cost) { finish(r, '미스릴 부족으로 중지'); return; }
     if (!visible()) { finish(r, '대장간을 벗어나 중지'); return; }
     status.textContent = '자동 강화 중 · 목표 +' + r.goal + ' · ' + progress(r);
-    timer = setTimeout(() => next(r), 650);
+    timer = setTimeout(() => next(r), interval);
   }
   function start(target) {
     const {role, profile, busy} = state();

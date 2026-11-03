@@ -120,6 +120,7 @@ function drawSprite(index,frame,x,y,height,clip='idle'){
  const draw=(...args)=>index===4&&window.MonsterRaster?window.MonsterRaster.image(ctx,...args):ctx.drawImage(...args);
  const [sw,sh]=a.actions?.[clip]?.size||a.size;
  const left=Math.round(x-anchor[0]*scale),top=Math.round(y-anchor[1]*scale),w=Math.round(sw*scale),h=Math.round(sh*scale);
+ if(index===4&&config.contractStone){window.ContractStones.draw(ctx,im,left,top,w,h,clip,frame,elapsed,config.contractStone.wardAt,hurtStarted);return;}
  draw(im,left,top,w,h);
  if(index<4&&equippedWeaponLevels[a.id])WeaponGlow.draw(ctx,a.id,clip,frame,equippedWeaponLevels[a.id],im,left,top,w,h,elapsed);
 }
@@ -187,8 +188,16 @@ function startAction(kind,preview=false,targetConfirmed=false){
 }
 function setDemo(value){if(value&&(finisher||window.ArcherSkills?.busy||window.WizardSkills?.busy||window.HealerSkills?.busy))return;demo=value;document.querySelector('#demo').textContent=demo?'■ 시연 중지':'▶ 연속 시연';document.querySelector('#demo').setAttribute('aria-pressed',demo);if(demo){demoIndex=0;nextDemo=elapsed;if(!current)startAction(demoActions()[(demoIndex++)%demoActions().length]);}buttons();}
 function updatePhase(state){const label=current.def.clip==='combinedAssembly'?'초 합체! · 파츠 조립 / 탑승':current.def.clip==='combinedDrill'&&state.phase==='advancing'?'적 앞으로 돌진':state.phase==='charging'?'가슴 빔 충전 · 다음 턴 발사':state.phase==='beam-recovery'?'가슴 빔 발사 완료 · 턴 종료 대기':state.phase==='acting'?current.def.name+' 사용':phaseNames[state.phase];if(label===lastPhase)return;lastPhase=label;document.querySelector('#phase-label').textContent=label;document.querySelector('#message').textContent=current.def.clip==='item'?'제자리에서 물약 사용':label;}
+function primaryPosition(){
+ const pos={...positions[4],...(runState.round<3?{y:535,h:enemy().height}:{})};
+ if(config.contractStone){
+  const now=bossHp<=0?(mainEnemyHit.hitAt??elapsed):elapsed;
+  pos.y-=window.ContractStones.hoverHeight(now,pos.h);
+ }
+ return pos;
+}
 function enemyTargets(){
- const p={...positions[4],...(runState.round<3?{y:535,h:enemy().height}:{})};
+ const p=primaryPosition();
  return [{id:'primary',name:enemy().name,maxHp:enemy().max??enemy().hp,isBoss:config.isBoss??runState.round===3,element:enemy().element??assets[4].element??'neutral',attackType:enemy().attackType||(runState.round<3?'melee':'ranged'),...p,...mainEnemyHit,get hp(){return bossHp;},set hp(value){bossHp=value;}},...(window.EnemyFormation?.units||[])];
 }
 function damageEnemyTargets(targets,amount,area=false,hit={}){
@@ -199,6 +208,7 @@ function damageEnemyTargets(targets,amount,area=false,hit={}){
  for(const target of living){
   let received=window.PartyMonsterBalance?.resolveHit?.(target,amount,hit);
   if(!received){const damage=window.PartyMonsterBalance?.incoming?.(target,amount,hit)??amount;received={damage,landed:damage>0};}
+  if(config.contractStone&&!received.landed&&amount>0)config.contractStone.wardAt=elapsed;
   const dealt=window.PartyTurns?.defendEnemy(target,received.damage)??received.damage;
   target.hp=Math.max(0,target.hp-dealt);
   if(received.landed)target.hitAt=elapsed;
@@ -279,6 +289,7 @@ function showClear(){
  document.querySelector('#replay-clear').focus({preventScroll:true});
 }
 function resetBattle(){
+ if(config.contractStone)delete config.contractStone.wardAt;
  window.DungeonVoices?.reset();window.DungeonCombatAudio?.reset();
  window.BattleDeathPresentation=null;
  window.PartyPortraits?.reset();
@@ -468,7 +479,13 @@ function render(now){
   const actor={...positions[0],...(state?{x:state.x,y:state.y}:{})},scene=document.querySelector('#scene');
   scene.dataset.beamPhase=combinedMech?.beam?.phase||'';scene.dataset.combined=String(!!combinedMech?.active);scene.dataset.combineTurns=String(combinedMech?.remainingTurns||0);scene.dataset.combatTurn=String((robotCombat?.turn||0)+1);
   scene.dataset.phase=state?.phase||'idle';scene.dataset.action=current?.kind||'';scene.dataset.actorX=actor.x.toFixed(2);scene.dataset.actorY=actor.y.toFixed(2);scene.dataset.actionFrame=state?.phase==='acting'?String(frameAt(current.clip,state.local,false)):'-1';
-  const renderPositions=[actor,...positions.slice(1)].map(p=>({...p}));if(window.PartyBasicActions)renderPositions.slice(0,4).forEach((p,i)=>{const h=window.PartyBasicActions.pose(i,elapsed);if(h?.x!==undefined)Object.assign(p,{x:h.x,y:h.y});});if(window.PartyHero){const h=window.PartyHero.pose(window.PartyHero.caster,elapsed);if(h?.x!==undefined)Object.assign(renderPositions[window.PartyHero.caster],{x:h.x,y:h.y});}if(runState.round<3)renderPositions[4]={...positions[4],y:535,h:enemy().height};renderPositions.forEach((p,i)=>{ctx.fillStyle=i===4?'#02080d85':'#02080d65';ctx.beginPath();ctx.ellipse(p.x,p.y+6,i===4?150:65,i===4?22:13,0,0,Math.PI*2);ctx.fill();});
+  const renderPositions=[actor,...positions.slice(1)].map(p=>({...p}));if(window.PartyBasicActions)renderPositions.slice(0,4).forEach((p,i)=>{const h=window.PartyBasicActions.pose(i,elapsed);if(h?.x!==undefined)Object.assign(p,{x:h.x,y:h.y});});if(window.PartyHero){const h=window.PartyHero.pose(window.PartyHero.caster,elapsed);if(h?.x!==undefined)Object.assign(renderPositions[window.PartyHero.caster],{x:h.x,y:h.y});}renderPositions[4]=primaryPosition();
+  renderPositions.forEach((p,i)=>{
+   if(i===4&&config.contractStone){
+    const fade=bossHp>0?1:Math.max(0,1-(elapsed-(mainEnemyHit.hitAt??0))/duration(assets[4].actions.defeated));
+    window.ContractStones.drawShadow(ctx,positions[4],elapsed,fade);return;
+   }
+   ctx.fillStyle=i===4?'#02080d85':'#02080d65';ctx.beginPath();ctx.ellipse(p.x,p.y+6,i===4?150:65,i===4?22:13,0,0,Math.PI*2);ctx.fill();});
   ctx.shadowColor='#40e5d1';ctx.shadowBlur=13;ring(actor.x,actor.y+2,85,17,'#66ffe9');ctx.shadowBlur=0;
   if(!current){ctx.fillStyle='#ffe3a0';ctx.beginPath();ctx.moveTo(actor.x-12,actor.y-242);ctx.lineTo(actor.x+12,actor.y-242);ctx.lineTo(actor.x,actor.y-225);ctx.closePath();ctx.fill();}
   for(const r of robotCombat?.robots||[])window.RobotCombat.position(r);

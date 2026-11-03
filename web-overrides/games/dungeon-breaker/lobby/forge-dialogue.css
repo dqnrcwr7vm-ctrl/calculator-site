@@ -1,0 +1,83 @@
+.forge-plaza{min-height:100dvh;background:#292422 url('assets/town-plaza-v1.webp') center/cover no-repeat;image-rendering:pixelated}
+#facility-dialog.at-forge[open]{width:min(824px,calc(100vw - 20px));display:block;padding:0;max-height:calc(100dvh - 12px)}
+#facility-dialog .facility-intro{display:block}
+#facility-dialog .forge-scene{height:clamp(140px,min(50vw,48dvh),395px);min-height:0}
+#facility-dialog.at-anvil .forge-scene{background-image:url('assets/forge-v1/hot-iron-strike.webp');background-position:center 75%}
+#facility-dialog.at-anvil .forge-scene::before,#facility-dialog.at-anvil .forge-scene::after{display:none}
+#facility-dialog.at-anvil #forge-motion{object-position:center 75%}
+#facility-dialog .forge-dialogue{display:block;min-height:136px;padding:21px 18px 12px}
+#facility-dialog #forge-panel{padding:0}
+#facility-dialog [hidden]{display:none!important}
+#forge-line{font-size:clamp(15px,2vw,19px);line-height:1.5;margin:0 0 12px;color:#ffedce;word-break:keep-all}
+#facility-dialog #welcome{width:auto;justify-content:flex-end;margin-top:8px}
+#facility-dialog #welcome button{flex:none;min-width:84px}
+.purse{position:absolute;top:0;right:13px;transform:translateY(-55%);background:#2d2929;border:1px solid #887258;padding:2px 8px;color:#cee7df;font-size:11px;white-space:nowrap}.purse b{color:#c9f3ed}
+#weapons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#weapons button,.stepper button,#manual,#start{font:inherit;font-size:14px;border:1px solid #897254;box-shadow:inset 0 0 0 2px #312a29;color:#f4e3c6;background:#393032;min-height:40px}
+#weapons button{text-align:left;padding:6px 12px;white-space:nowrap}
+#weapons button b{color:#edc483;font-weight:400;margin-right:8px}
+#weapons button:is(:hover,:focus-visible),.stepper button:hover{background:#51402e;border-color:#e7bc7d}
+.order-row,.stepper,.dialogue-foot,.nav{display:flex;align-items:center;gap:8px}
+.order-row{gap:12px}.order-row label{font-size:13px;color:#d4c1a4}.stepper{gap:0}.stepper button{padding:0;width:34px;font-size:17px}
+.stepper span{display:flex;align-items:center;justify-content:center;gap:1px;background:#19171b;color:#ffe4a6;border-block:1px solid #897254;height:40px;font-size:15px}
+#target{width:3.3em;font:inherit;text-align:center;appearance:textfield;color:inherit;background:transparent;border:0}#target::-webkit-inner-spin-button{appearance:none}
+#start{padding:6px 18px;background:#e8c48b;color:#2b2019;box-shadow:inset 0 0 0 2px #b49261;border-color:#ffdc9c}
+#facility-dialog button:disabled{opacity:.5;cursor:default}#terms,#forge-auto-status{margin:5px 0 0;line-height:1.55;font-size:11px;color:#cfbd9e}
+#terms.risk{color:#ffb79c}.dialogue-foot{justify-content:flex-end;margin-top:6px;gap:8px}#forge-auto-status{margin:0 auto 0 0;color:#c1e1d5}
+.nav button{font:inherit;font-size:12px;color:#c9b99f;background:transparent;border:0;padding:6px 9px;min-height:32px}.nav button:hover{color:#ffedce}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:580px){#weapons{grid-template-columns:repeat(2,minmax(0,1fr))}#weapons button{font-size:13px;padding:5px 8px}#facility-dialog .forge-dialogue{padding:17px 11px 8px}.order-row{gap:6px;flex-wrap:wrap}.order-row label{font-size:12px}#start{padding:5px 9px}.dialogue-foot{flex-wrap:wrap}.nav{margin-left:auto}.purse{font-size:10px}}
+@media(max-height:480px) and (orientation:landscape){#facility-dialog .forge-scene{height:clamp(70px,calc(100dvh - 215px),215px)}#facility-dialog #forge-greeting{padding:12px 9px 7px}#facility-dialog .forge-dialogue{min-height:125px;padding:14px 12px 6px}#weapons button{min-height:32px}#forge-line{margin-bottom:5px}}
+
+/* Keep the result anchored to the smith at (222, 120) on the 384 × 256 cover image. */
+#facility-dialog.at-anvil .forge-scene{container-type:size}
+#smith-result{
+  position:absolute;z-index:1;left:calc(50% + max(7.8125cqw,11.71875cqh));
+  top:max(60px,calc(75% - max(18.75cqw,28.125cqh)));transform:translate(-50%,-100%);
+  display:grid;justify-items:center;gap:3px;color:#ffe2a0;
+  font:700 clamp(19px,3.3cqw,30px)/1.13 TownPixel,sans-serif;white-space:nowrap;
+}
+#smith-result .weapon-tag,#strike-result[data-tone=final] .weapon-tag{
+  width:max-content;padding:.12em .55em .17em;border:1px solid #cfaa70;
+  color:#fff1cf;background:#251c18f5;box-shadow:0 2px 0 #201512;text-shadow:none;
+}
+#smith-result .weapon-tag{font-size:clamp(12px,1.9cqw,15px);font-weight:400}
+#smith-result[data-tone=failure]{color:#ffab99}
+.order-actions{display:flex;gap:6px;margin-left:auto}
+#manual{padding:5px 12px}
+#stop,#result-done{font:400 13px TownPixel,sans-serif;color:#ffebbe;min-height:36px;padding:6px 14px}
+#stop{position:absolute;right:clamp(8px,2vw,20px);top:clamp(10px,2vw,20px);background:#2a2120;border:1px solid #b38b57}
+#strike-result{
+  position:fixed;z-index:5;top:50%;left:50%;transform:translate(-50%,-50%);
+  display:grid;justify-items:center;gap:5px;width:min(94vw,480px);padding:16px 12px 13px;text-align:center;
+  color:#ffdf81;font-family:TownPixel,sans-serif;
+  animation:forge-result-in .16s ease-out both;
+}
+#strike-result[data-tone=final],#smith-result{
+  text-shadow:-1px -1px #231713,1px -1px #231713,-1px 1px #231713,1px 1px #231713,0 3px 1px #190f0c;
+}
+#strike-result:not([data-tone=final]){
+  background:linear-gradient(90deg,transparent,#211713f5 15% 85%,transparent);
+  text-shadow:0 2px 0 #542913,1px 3px 1px #140f11;
+}
+#strike-result:not([data-tone=final])::before,#strike-result:not([data-tone=final])::after{
+  content:"";position:absolute;inset:0 8% auto;height:2px;
+  background:linear-gradient(90deg,transparent,currentColor 25% 75%,transparent);
+}
+#strike-result:not([data-tone=final])::after{inset:auto 8% 0}
+#strike-result[data-tone=failure]{color:#ff9c8a;background:linear-gradient(90deg,transparent,#2a151af7 15% 85%,transparent)}
+#result-heading{font-size:clamp(48px,8vw,76px);line-height:1.13}
+#result-weapon{font-size:clamp(21px,3vw,31px);line-height:1.3;color:#fff2d1}
+#result-note{max-width:90%;color:#ffedcd;font-size:clamp(11px,1.5vw,14px);line-height:1.5;word-break:keep-all}
+#result-note:empty{display:none}
+#strike-result:not([data-tone=final]) #result-note{color:#e3cbad}
+#result-done{margin-top:2px;border:0;background:transparent;text-shadow:inherit;text-decoration:underline;text-underline-offset:4px}
+#strike-result:not([data-tone=final]) #result-done{margin-top:5px;border:1px solid #b38b57;background:#2a2120;text-shadow:none;text-decoration:none}
+#result-done:focus-visible{outline-offset:2px}
+#strike-result[data-tone=final] #result-heading{font-size:clamp(20px,3.2vw,30px);font-weight:400}
+#strike-result[data-tone=final] #result-weapon{font-size:clamp(32px,5.2vw,52px);color:#ffe1a0}
+@keyframes forge-result-in{from{opacity:0;scale:1.035}to{opacity:1;scale:1}}
+@media(prefers-reduced-motion:reduce){#strike-result{animation:none}}
+@media(max-width:580px){#stop{top:auto;bottom:8px;right:8px;padding:4px 10px;font-size:12px}}
+@media(max-width:390px){.order-actions{gap:4px}#manual,#start{font-size:12px;padding-inline:7px}}
+@media(max-height:480px) and (orientation:landscape){#facility-dialog.at-anvil .forge-scene{height:min(80dvh,340px)}}

@@ -31,7 +31,7 @@
    const campaign=root.GalleonCampaign;
    if(started||!campaign||!root.GameImages||campaign.floor>=9)return;
    started=true;
-   const files=nextFiles(root.DUNGEON_COMBAT_DATA,root.ActiveDungeon.id,campaign.floor,root.BOSS_ATTACK_DATA);
+   const files=campaign.state.contract&&root.ContractStones?.FLOORS.includes(campaign.floor+1)?[root.ContractStones.SPRITE]:nextFiles(root.DUNGEON_COMBAT_DATA,root.ActiveDungeon.id,campaign.floor,root.BOSS_ATTACK_DATA);
    // Two low-priority requests leave bandwidth and decode time for active play.
    // Failed speculative loads are retried normally by the next floor's gate.
    let next=0,complete=0;

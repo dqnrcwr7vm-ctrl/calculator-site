@@ -6,7 +6,7 @@
  const allNames=Object.values(window.MONSTER_BALANCE_DATA?.monsters||{}).map(m=>m.name).filter(Boolean);let fontDirty=true;
  function fitNames(){measure.font='16px Galmuri11, monospace';const widest=Math.max(1,...allNames.map(n=>measure.measureText(n).width));layer.style.setProperty('--enemy-name-size',String(Math.min(16,180/widest*16)/16));fontDirty=false;}
  document.fonts.ready.then(()=>{fontDirty=true;});
- function bottom(e){const a=e.spriteAsset||window.BATTLE_ASSETS?.[4],b=a?.bounds,anchor=a?.anchor;const head=b?e.y+(b[1]-(anchor?.[1]??b[3]))*e.h/(b[3]-b[1]):e.y-e.h;return Math.max(132,head-12);}
+ function bottom(e){const a=e.spriteAsset||window.BATTLE_ASSETS?.[4],b=a?.bounds,anchor=a?.anchor;const head=b?e.y+(b[1]-(anchor?.[1]??b[3]))*e.h/(b[3]-b[1]):e.y-e.h;return Math.max(132,head-(a?.statusClearance??12));}
  window.EnemyStatus={statusTop:e=>bottom(e)-44,update(enemies,hidden=false){
   layer.hidden=hidden;for(const e of enemies)if(!allNames.includes(e.name)){allNames.push(e.name);fontDirty=true;}if(fontDirty)fitNames();const living=new Set();
   for(const e of enemies){if(e.hp<=0)continue;living.add(e.id);let p=plates.get(e.id);

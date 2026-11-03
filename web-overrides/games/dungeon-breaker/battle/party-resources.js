@@ -44,7 +44,11 @@ class ManaPool{
 }
 if(typeof module==='object'&&module.exports)module.exports={CHARACTERS,COSTS,ROBOTS,SINGLE_TARGET_DAMAGE,ROBOT_DAMAGE,applySingleTargetBalance,ManaPool};
 if(!root.document)return;
-const enabled=new URLSearchParams(location.search).get('campaign')==='1',pool=new ManaPool();
+const enabled=new URLSearchParams(location.search).get('campaign')==='1';
+if(root.GalleonCampaign?.statMultiplier){
+ for(const c of Object.values(CHARACTERS))for(const stat of ['hp','mp'])c[stat]=Math.round(c[stat]*root.GalleonCampaign.statMultiplier(stat));
+}
+const pool=new ManaPool();
 if(enabled)applySingleTargetBalance(root.MONSTER_BALANCE_DATA);
 const native=role=>role==='hero'?root.PartyHero:role==='wizard'?root.WizardSkills:null;
 const api=root.PartyResources={enabled,CHARACTERS,COSTS,ROBOTS,cost:(role,id)=>enabled?pool.cost(role,id):0,

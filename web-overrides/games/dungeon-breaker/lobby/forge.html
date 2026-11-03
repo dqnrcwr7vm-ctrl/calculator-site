@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DUNGEON BREAKER · 대장간</title><link rel="stylesheet" href="town-facilities.css?v=weapon-order-v1"><link rel="stylesheet" href="forge-dialogue.css?v=live-sync-20261103">
+<script src="../game-navigation.js"></script></head><body><main class="forge-plaza" aria-label="마을 광장"></main>
+<dialog id="facility-dialog" class="at-forge forge-welcome" aria-labelledby="facility-title" aria-describedby="forge-line">
+ <header class="facility-intro">
+  <div class="forge-scene"><canvas id="forge-motion" role="img" aria-label="화덕 앞의 대장장이"></canvas><div id="smith-result" hidden aria-hidden="true"><strong></strong><span class="weapon-tag"></span></div></div>
+  <h2 id="facility-title">대장간</h2><button type="button" id="stop" hidden>자동 강화 중지</button>
+ </header>
+ <section id="forge-greeting" aria-labelledby="forge-speaker"><div class="forge-dialogue">
+  <h3 id="forge-speaker">대장장이</h3><span class="purse" id="purse" hidden>미스릴 <b id="balance">—</b>개</span>
+  <p id="forge-line" tabindex="-1">어서 와! 오늘은 어떤 무기를 강화해줄까?</p>
+  <div id="welcome" class="forge-choices"><button id="forge-enter" type="button">강화하기</button><button type="button" data-exit>나가기</button></div>
+  <section id="forge-panel" hidden aria-label="강화 주문">
+   <div id="weapons" role="group" aria-label="강화할 무기 선택"></div>
+   <div id="order" hidden>
+    <div class="order-row">
+     <label for="target">목표 강화</label>
+     <div class="stepper"><button id="lower" aria-label="목표 한 단계 낮추기" type="button">−</button><span>+<input id="target" type="number" min="1" max="100" step="1" required aria-label="목표 강화 수치" inputmode="numeric"></span><button id="higher" aria-label="목표 한 단계 높이기" type="button">+</button></div>
+     <div class="order-actions"><button id="manual" type="button">1회 강화</button><button id="start" class="primary" type="button">자동 강화</button></div>
+    </div>
+    <p id="terms"></p>
+   </div>
+   <div class="dialogue-foot"><p id="forge-auto-status" role="status" aria-live="polite"></p><div class="nav"><button type="button" id="back">뒤로</button><button type="button" data-exit>나가기</button></div></div>
+  </section>
+ </div></section>
+ <section id="strike-result" hidden aria-labelledby="result-heading" aria-describedby="result-weapon result-note">
+  <strong id="result-heading"></strong><b id="result-weapon" class="weapon-tag"></b><small id="result-note"></small>
+  <button type="button" id="result-done">확인</button>
+ </section>
+ <span id="announce" role="status" aria-live="polite" class="sr-only"></span>
+</dialog>
+<script src="../game-data/forge.js?v=forge-100-v2"></script><script src="../game-data/weapon-glow.js?v=forge-combat-poses-v3"></script><script src="forge-scene.js?v=live-sync-20261103"></script><script src="town-forge-auto.js?v=live-sync-20261103"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=live-sync-20261103"></script><script src="../audio/ui-player.js?v=forge-fx-v1"></script><script src="town-forge.js?v=live-sync-20261103"></script>
+</body></html>

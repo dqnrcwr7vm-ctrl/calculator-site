@@ -7,46 +7,13 @@
 <button class="facility shop" data-facility="shop" aria-label="상점" aria-haspopup="dialog" style="--x:16%;--y:72%"><span class="pennant"><img class="badge-art" src="assets/badges/town-shop-shaded-v3.svg" alt="" draggable="false"></span></button>
 <button class="facility guild" data-facility="guild" aria-label="길드사무소" aria-haspopup="dialog" style="--x:15%;--y:42%"><span class="pennant"><img class="badge-art" src="assets/badges/town-guild-shaded-v3.svg" alt="" draggable="false"></span></button>
 <button class="facility board" data-facility="board" aria-label="게시판" aria-haspopup="dialog" style="--x:49%;--y:36%"><span class="pennant"><img class="badge-art" src="assets/badges/town-board-shaded-v3.svg" alt="" draggable="false"></span></button>
-<button class="facility forge" data-facility="forge" aria-label="대장간" aria-haspopup="dialog" style="--x:87%;--y:56%"><span class="pennant"><img class="badge-art" src="assets/badges/town-forge-shaded-v3.svg" alt="" draggable="false"></span></button>
+<a class="facility forge" data-facility="forge" aria-label="대장간" href="forge.html" style="--x:87%;--y:56%"><span class="pennant"><img class="badge-art" src="assets/badges/town-forge-shaded-v3.svg" alt="" draggable="false"></span></a>
 </section></div>
 <a class="brand" href="../index.html" aria-label="DUNGEON BREAKER 메인 화면"><img src="../imagegen/dungeon-breaker-pixel-logo-transparent-v1.webp" width="1774" height="887" alt="DUNGEON BREAKER"></a>
 </main>
 <dialog id="facility-dialog" aria-labelledby="facility-title" aria-describedby="facility-description"><button class="close" aria-label="닫기">×</button>
 <header class="facility-intro">
-  <div class="forge-scene" role="img"><canvas id="forge-motion" aria-hidden="true"></canvas><span id="forge-outcome" aria-hidden="true"></span></div>
   <h2 id="facility-title"></h2><div class="dialog-rule" aria-hidden="true">◆</div><p id="facility-description"></p>
 </header>
-<section id="forge-greeting" aria-labelledby="forge-speaker">
-  <div class="forge-dialogue">
-    <h3 id="forge-speaker">대장장이</h3>
-    <p id="forge-greeting-line">어서 와! 오늘은 어떤 무기를 벼려 줄까?</p>
-    <div class="forge-choices">
-      <button id="forge-enter" type="button">무기 선택</button>
-      <button id="forge-leave" type="button">나가기</button>
-    </div>
-  </div>
-</section>
-<section id="forge-panel" aria-label="무기 강화" hidden>
-  <div class="forge-heading"><span id="forge-stage">01 / 02</span><span class="forge-wallet">미스릴 <b id="forge-balance">—</b>개</span></div>
-  <section id="forge-picker" aria-labelledby="forge-pick-heading">
-    <h3 id="forge-pick-heading" tabindex="-1">강화할 무기 선택</h3>
-    <div id="forge-roles"></div>
-  </section>
-  <section id="forge-order" aria-labelledby="forge-weapon" hidden>
-    <div class="forge-selected"><h3 id="forge-weapon" tabindex="-1"></h3><button id="forge-change" type="button">무기 변경</button></div>
-    <div id="forge-settings">
-      <label class="forge-goal" for="forge-auto-target">목표 강화 수치 <span>+ <input id="forge-auto-target" type="number" inputmode="numeric" min="1" max="100" step="1" required></span></label>
-      <label class="forge-mode"><input id="forge-auto" type="checkbox" aria-describedby="forge-mode-help"> 자동 강화</label>
-      <p id="forge-mode-help"></p>
-    </div>
-    <div class="forge-details">
-      <strong id="forge-step"></strong>
-      <dl><div><dt>1회 비용</dt><dd id="forge-cost"></dd></div><div><dt>공격 피해</dt><dd id="forge-attack"></dd></div><div><dt>성공</dt><dd id="forge-chance"></dd></div><div><dt>단계 유지</dt><dd id="forge-hold"></dd></div><div><dt>+0 초기화</dt><dd id="forge-reset"></dd></div></dl>
-    </div>
-    <p id="forge-rule"></p>
-    <button id="forge-submit" type="button" disabled>강화하기</button>
-  </section>
-  <p id="forge-result" role="status" aria-live="polite"></p>
-  <p id="forge-auto-status" role="status" aria-live="polite"></p>
-</section><p class="preparing">시설 내부를 준비하고 있습니다.</p><button class="return">광장으로 돌아가기</button></dialog>
-<script src="../game-data/forge.js?v=forge-100-v2"></script><script src="../game-data/weapon-glow.js?v=forge-combat-poses-v3"></script><script src="forge-scene.js?v=forge-fx-v1"></script><script src="town-forge-auto.js?v=weapon-order-v1"></script><script src="town-forge.js?v=weapon-order-v1"></script><script src="town-facilities.js?v=weapon-order-v1"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=20261029"></script><script src="../audio/ui-player.js?v=forge-fx-v1"></script><script type="module" src="community/forum.js?v=2"></script></body></html>
+<p class="preparing">시설 내부를 준비하고 있습니다.</p><button class="return">광장으로 돌아가기</button></dialog>
+<script src="town-facilities.js?v=live-sync-20261103"></script><script src="../music/catalog.js?v=20261029"></script><script src="../music/player.js?v=20261029"></script><script src="../music/page.js?v=live-sync-20261103"></script><script src="../audio/ui-player.js?v=forge-fx-v1"></script><script type="module" src="community/forum.js?v=2"></script></body></html>

@@ -88,6 +88,9 @@
 .game-view #clear-overlay.simple-clear .clear-panel:before{top:0}
 .game-view #clear-overlay.simple-clear .clear-panel:after{top:auto;bottom:0}
 .game-view #clear-overlay.simple-clear #clear-title{margin:0}
+.game-view.campaign-mode #clear-overlay.simple-clear .clear-panel>.clear-description{
+ display:block;margin:.5em 0 0;color:#b4f1ff;font:400 clamp(12px,1.4cqw,21px)/1.4 Galmuri11,monospace;
+}
 .game-view #clear-overlay:not(.simple-clear) .clear-panel{
  background:linear-gradient(120deg,#140c22f7,#08060ffb 55%,#1d1229f7);
  border:2px solid #e3bc6b;box-shadow:0 0 0 4px #120b1b,0 0 0 5px #846330,0 14px 70px #000c;
@@ -131,11 +134,11 @@
 .enemy-status-bar{height:clamp(3px,.45cqw,8px);background:#260e1c;border:1px solid #6e4857;overflow:hidden}
 .enemy-status-bar i{display:block;height:100%;background:linear-gradient(#ff9090,#c53451)}
 
-/* Keep boss traits away from tall monsters' overhead health/status rows. */
-.game-view #boss-affixes{left:2.3cqw;right:auto!important;top:21%!important;max-width:42%!important}
+/* Enhancements follow the boss plate directly below its health bar. */
+.enemy-status-affixes{position:absolute;left:50%;top:calc(100% + .35cqw);transform:translateX(-50%);width:max-content;max-width:26cqw;padding:.25cqw .5cqw;color:#f5d7ff;background:#1e1535ed;border:1px solid #9375a27a;box-shadow:0 2px 5px #0007;text-align:center;word-break:keep-all;font:clamp(9px,.85cqw,14px)/1.6 Galmuri11,monospace;pointer-events:none}
+.enemy-status-affixes[hidden]{display:none}
 
+/* All monster plates share a font fitted to the longest catalog name. */
 .enemy-status-name{font-size:calc(var(--enemy-name-size,1)*1cqw);text-overflow:clip}
 
-.game-view.campaign-mode #clear-overlay.simple-clear .clear-panel>.clear-description{
- display:block;margin:.5em 0 0;color:#b4f1ff;font:400 clamp(12px,1.4cqw,21px)/1.4 Galmuri11,monospace;
-}
+.game-view .location .contract-stone-hint{display:block;margin-top:.45em;padding:.35em .6em;width:max-content;max-width:75vw;background:#0d190fea;border-left:2px solid #a4d365;color:#e4f3c8;font:500 clamp(10px,1cqw,16px)/1.4 Galmuri11,monospace;white-space:nowrap}
