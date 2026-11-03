@@ -1,4 +1,4 @@
-:host { color:#f4e7c9; font:15px/1.55 TownPixel,monospace; }
+:host { color:#f4e7c9; font:15px/1.55 TownBoardPixel,TownPixel,monospace; }
 * { box-sizing:border-box; }
 [hidden] { display:none !important; }
 button,input,textarea,select { font:inherit; } button { cursor:pointer; }

@@ -1,8 +1,8 @@
-export const boardView = `<link rel="stylesheet" href="community/forum.css?v=1">
+export const boardView = `<link rel="stylesheet" href="community/forum.css?v=2">
 <dialog id="board" aria-labelledby="heading">
   <div class="board-wrap">
     <header class="head">
-      <img class="banner" src="../assets/badges/town-board-shaded-v3.svg" alt="">
+      <img class="banner" src="assets/badges/town-board-shaded-v3.svg" alt="">
       <div class="titles"><small>광장 <i>◆</i> 모험가 길드</small><h1 id="heading">마을 게시판</h1></div>
       <button class="leave" id="leave" aria-label="게시판 닫고 광장으로"><span>광장으로</span> ×</button>
     </header>

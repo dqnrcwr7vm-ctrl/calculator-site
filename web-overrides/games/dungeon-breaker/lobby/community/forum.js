@@ -1,5 +1,10 @@
-import { boardView } from './view.js';
+import { boardView } from './view.js?v=2';
 
+// The board uses the two approved pixel-font weights inside its shadow root.
+for (const [weight, file] of [['400', 'Galmuri11'], ['700', 'Galmuri11-Bold']]) {
+  const url = new URL('../../fonts/' + file + '.woff2', import.meta.url);
+  document.fonts.add(new FontFace('TownBoardPixel', 'url("' + url + '")', {weight}));
+}
 const marker = document.querySelector('[data-facility="board"]');
 const host = document.createElement('div');
 document.body.append(host);
