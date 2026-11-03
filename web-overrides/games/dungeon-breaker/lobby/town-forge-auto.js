@@ -1,10 +1,8 @@
 /* Auto enhance uses the same single-attempt transaction and presentation as a manual strike. */
 'use strict';
 window.createForgeAuto = function ({dialog, panel, state, attempt, render}) {
-  const button = document.getElementById('forge-auto');
-  const goal = document.getElementById('forge-auto-target');
   const status = document.getElementById('forge-auto-status');
-  let run = null, timer = 0, selectedRole = null;
+  let run = null, timer = 0;
   function visible() { return dialog.open && !panel.hidden && !document.hidden; }
   function progress(r) {
     return r.count + '회 시도 · 미스릴 ' + r.spent + '개 소모';
@@ -46,35 +44,18 @@ window.createForgeAuto = function ({dialog, panel, state, attempt, render}) {
     status.textContent = '자동 강화 중 · 목표 +' + r.goal + ' · ' + progress(r);
     timer = setTimeout(() => next(r), 650);
   }
-  function refresh() {
-    const {role, profile, busy} = state(), level = profile?.levels[role] || 0;
-    if (!profile && !run) selectedRole = null;
-    if (profile && selectedRole !== role) {
-      selectedRole = role;
-      goal.value = [30, 60, 80, 100].find(n => n > level) || 100;
-      status.textContent = '';
-    }
-    goal.min = String(Math.min(100, level + 1));
-    goal.disabled = !!run || busy || !profile || level >= 100;
-    button.textContent = run ? (run.reason ? '중지 중…' : '자동 강화 중지') : '자동 강화';
-    button.setAttribute('aria-pressed', String(!!run));
-    const step = GameForge.steps[level];
-    button.disabled = run ? !!run.reason : busy || !profile || !step || profile.mithril < step.cost || !goal.validity.valid;
-  }
-  goal.addEventListener('input', refresh);
-  button.onclick = () => {
-    if (run) { stop(); return; }
+  function start(target) {
     const {role, profile, busy} = state();
-    if (!profile || busy || !visible() || !goal.reportValidity()) return;
-    const level = profile.levels[role] || 0, target = goal.valueAsNumber;
-    if (!(target > level && target <= 100) || profile.mithril < GameForge.steps[level]?.cost) return;
+    if (run || !role || !profile || busy || !visible()) return;
+    const level = profile.levels[role] || 0;
+    if (!Number.isInteger(target) || target <= level || target > 100 || profile.mithril < GameForge.steps[level].cost) return;
     run = {role, start:level, goal:target, count:0, spent:0, pending:false, reason:''};
     status.textContent = '자동 강화 시작 · 목표 +' + target;
     render();
     next(run);
-  };
+  }
   dialog.addEventListener('close', () => stop('대장간을 닫아 중지'));
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop('화면을 벗어나 중지'); });
   window.addEventListener('pagehide', () => stop('화면을 벗어나 중지'));
-  return {get active(){return !!run;}, refresh};
+  return {get active(){return !!run;}, get stopping(){return !!run?.reason;}, start, stop};
 };

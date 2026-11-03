@@ -36,7 +36,7 @@
     panel.hidden = false;
     TownForgeScene.show(false);
     TownForge.open();
-    panel.querySelector('#forge-roles [aria-pressed="true"]').focus({preventScroll:true});
+    document.getElementById('forge-pick-heading').focus({preventScroll:true});
   });
   dialog.querySelector('#forge-leave').addEventListener('click', () => dialog.close());
   dialog.querySelector('.close').addEventListener('click', () => dialog.close());

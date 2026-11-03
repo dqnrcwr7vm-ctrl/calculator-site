@@ -1,142 +1,135 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const dialog = $('facility-dialog'), canvas = $('forge-preview'), ctx = canvas.getContext('2d');
-  const button = $('forge-submit'), batch = $('forge-batch'), result = $('forge-result');
-  const looks = $('forge-looks');
-  const panel = $('forge-panel');
-  const outcome = $('forge-outcome');
-  let previewLevel = null;
+  const dialog = $('facility-dialog'), panel = $('forge-panel');
+  const button = $('forge-submit'), mode = $('forge-auto'), goal = $('forge-auto-target');
+  const result = $('forge-result'), outcome = $('forge-outcome');
   const {weapons, steps, attackPercent} = GameForge;
-  // Center the visible IDLE art in its untrimmed animation cell.
-  const framing = {hero:[.52,.66,.47], dwarf:[.50,.51,.74], archer:[.43,.53,.69],
-    wizard:[.46,.60,.54], priest:[.45,.52,.70], mechanic:[.47,.55,.65]};
-  const images = new Map();
-  let role = 'hero', profile, request = 0, busy = false, raf = 0;
-  const auto = createForgeAuto({
-    dialog, panel, state: () => ({role, profile, busy}), attempt: () => enhance(1, true), render
-  });
+  let role = null, profile, request = 0, busy = false;
+  const auto = createForgeAuto({dialog, panel, state: () => ({role, profile, busy}), attempt: enhance, render});
+
   function clearResult() {
-    result.textContent = outcome.textContent = '';
+    result.textContent = outcome.textContent = $('forge-auto-status').textContent = '';
     delete result.dataset.outcome;
     delete outcome.dataset.outcome;
   }
-  function draw(time) {
-    cancelAnimationFrame(raf);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const image = images.get(role);
-    if (!image?.naturalWidth || !image.complete) return;
-    const [cx,cy,extent] = framing[role], size = 146 / extent;
-    const left = 120 - cx*size, top = 88 - cy*size;
-    ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(image, left, top, size, size);
-    const level = previewLevel ?? (profile?.levels[role] || 0);
-    if (level) WeaponGlow.draw(ctx, role, 'idle', 0, level, image, left, top, size, size, time);
-    if (level >= 30 && dialog.open && !panel.hidden && !document.hidden && !matchMedia('(prefers-reduced-motion: reduce)').matches)
-      raf = requestAnimationFrame(draw);
+  function weaponName(id, level) {
+    return level === steps.length ? WeaponGlow.ascendedNames[id] : weapons[id][1];
   }
   function render() {
-    const level = profile?.levels[role] || 0, step = steps[level];
     $('forge-balance').textContent = profile?.mithril ?? '—';
-    for (const target of $('forge-roles').children) {
-      const id = target.dataset.role;
-      target.setAttribute('aria-pressed', String(id === role));
-      target.querySelector('small').textContent = '+' + (profile?.levels[id] || 0);
-      target.disabled = busy || auto.active;
+    $('forge-picker').hidden = role !== null;
+    $('forge-order').hidden = role === null;
+    $('forge-stage').textContent = role ? '02 / 02' : '01 / 02';
+    for (const item of $('forge-roles').children) {
+      const id = item.dataset.role, level = profile?.levels[id] || 0;
+      item.querySelector('strong').textContent = weaponName(id, level);
+      item.querySelector('b').textContent = '+' + level;
+      item.disabled = !profile;
     }
-    const shown = previewLevel ?? level;
-    const weapon = shown === 100 ? WeaponGlow.ascendedNames[role] : weapons[role][1];
-    $('forge-weapon').textContent = weapon + ' +' + shown;
-    $('forge-preview-label').textContent = previewLevel === null ? '장착 중' : '외형 미리보기';
-    for (const tab of looks.children) {
-      tab.disabled = busy || auto.active;
-      tab.setAttribute('aria-pressed', String(tab.value === String(previewLevel ?? '')));
-    }
-    $('forge-step').textContent = step ? '+' + level + ' → +' + (level + 1) : '+' + level + ' · 최고 단계';
+    if (!role) return;
+    const level = profile?.levels[role] || 0, step = steps[level], locked = busy || auto.active;
+    $('forge-weapon').textContent = weaponName(role, level) + ' +' + level;
+    $('forge-change').disabled = locked;
+    goal.min = Math.min(100, level + 1);
+    goal.disabled = mode.disabled = locked || !step;
+    $('forge-mode-help').textContent = mode.checked ? '선택한 목표까지 한 번씩 시도합니다.' : '한 번 눌러 다음 단계에 한 번 도전합니다.';
+    $('forge-step').textContent = step ? '이번 시도  +' + level + ' → +' + (level + 1) : '최고 단계 달성';
+    $('forge-cost').textContent = step ? '미스릴 ' + step.cost + '개' : '—';
     $('forge-attack').textContent = '+' + attackPercent(level) + '%' + (step ? ' → +' + attackPercent(level + 1) + '%' : '');
     $('forge-chance').textContent = step ? step.chance + '%' : '—';
     $('forge-hold').textContent = step ? step.hold + '%' : '—';
     $('forge-reset').textContent = step ? step.reset + '%' : '—';
     $('forge-reset').classList.toggle('at-risk', !!step?.reset);
-    $('forge-cost').textContent = step ? step.cost + '개' : '—';
-    button.disabled = busy || auto.active || !profile || !step || profile.mithril < step.cost;
-    button.textContent = busy ? '강화 중…' : !step ? '최고 단계 달성' :
-      profile && profile.mithril < step.cost ? '미스릴 ' + (step.cost - profile.mithril) + '개 부족' : '1회 강화';
-    const count = step ? Math.min(10, Math.floor((profile?.mithril || 0) / step.cost)) : 0;
-    batch.dataset.limit = count;
-    batch.hidden = !step || step.chance === 100;
-    batch.disabled = button.disabled || count < 2;
-    batch.textContent = count >= 2 ? '최대 ' + count + '회 · ' + count * step.cost + '개' : '최대 10회 시도';
+    const poor = step && profile && profile.mithril < step.cost;
     const rule = $('forge-rule');
     rule.classList.toggle('at-risk', !!step?.reset);
-    rule.textContent = !step ? '최종 외형 각성 · 이 캐릭터의 공격 피해 2배' : step.reset ?
-      '매 시도마다 이 무기가 +0으로 돌아갈 확률 ' + step.reset + '%. 연속 시도는 성공 또는 초기화 즉시 멈춥니다.' :
-      '+80 → +81부터 초기화 위험이 생깁니다. 연속 시도는 한 단계 성공하면 멈춥니다.';
-    if (!images.has(role)) {
-      const image = new Image();
-      image.onload = () => draw(performance.now());
-      image.src = weapons[role][2];
-      images.set(role, image);
-    }
-    auto.refresh();
-    draw(performance.now());
+    rule.textContent = !step ? '최종 외형 각성 · 공격 피해 2배' : poor ? '미스릴 ' + (step.cost - profile.mithril) + '개가 더 필요합니다.' :
+      step.reset ? '이번 시도에서 이 무기가 +0이 될 확률은 ' + step.reset + '%입니다.' :
+      mode.checked && goal.valueAsNumber > 80 ? '+80에 도달하면 초기화 위험 구간에 들어가기 전에 멈춥니다.' : '';
+    button.disabled = auto.active ? auto.stopping : busy || !profile || !step || poor || !goal.validity.valid;
+    button.toggleAttribute('data-running', auto.active);
+    button.textContent = auto.active ? (auto.stopping ? '중지 중…' : '자동 강화 중지') : busy ? '망치질 중…' : '강화하기';
   }
-  for (const [id, [name]] of Object.entries(weapons)) {
-    const target = document.createElement('button');
-    target.type = 'button'; target.dataset.role = id; target.textContent = name;
-    target.append(document.createElement('small'));
-    target.onclick = () => { role = id; previewLevel = null; clearResult(); render(); };
-    $('forge-roles').append(target);
+
+  for (const [id,[owner]] of Object.entries(weapons)) {
+    const item = document.createElement('button');
+    item.type = 'button'; item.dataset.role = id;
+    const name = document.createElement('strong'), ownerLabel = document.createElement('small');
+    ownerLabel.textContent = owner;
+    item.append(name, ownerLabel, document.createElement('b'));
+    item.onclick = () => {
+      if (!profile || busy || auto.active) return;
+      role = id; mode.checked = false;
+      goal.value = Math.min(100, (profile.levels[id] || 0) + 1);
+      clearResult(); render();
+      $('forge-weapon').focus({preventScroll:true});
+    };
+    $('forge-roles').append(item);
   }
-  for (const tab of looks.children) tab.onclick = () => {
-    previewLevel = tab.value ? Number(tab.value) : null;
-    render();
+  $('forge-change').onclick = () => {
+    if (busy || auto.active) return;
+    const previous = role; role = null; clearResult(); render();
+    $('forge-roles').querySelector('[data-role="'+previous+'"]').focus({preventScroll:true});
   };
-  button.onclick = () => enhance(1);
-  batch.onclick = () => enhance(Number(batch.dataset.limit));
-  async function enhance(limit, automatic = false) {
-    if (busy || !profile || !dialog.open || panel.hidden || document.hidden || (!automatic && button.disabled)) return;
+  goal.oninput = mode.onchange = render;
+  button.onclick = () => {
+    if (auto.active) { auto.stop(); return; }
+    if (!role || button.disabled || !goal.reportValidity()) return;
+    $('forge-auto-status').textContent = '';
+    dialog.scrollTop = 0;
+    if (mode.checked) auto.start(goal.valueAsNumber);
+    else enhance();
+  };
+
+  async function enhance() {
+    if (busy || !role || !profile || !dialog.open || panel.hidden || document.hidden) return;
     const sequence = request, selected = role, level = profile.levels[role] || 0;
-    busy = true; previewLevel = null; clearResult(); render();
+    busy = true;
+    result.textContent = outcome.textContent = '';
+    delete result.dataset.outcome; delete outcome.dataset.outcome;
+    render();
     try {
-      const attempt = await GameForge.enhance(selected, level, limit);
+      const attempt = await GameForge.enhance(selected, level, 1);
       if (sequence !== request || !dialog.open) return attempt;
       if (attempt.attempts) await TownForgeScene.hammerThree();
       if (sequence !== request || !dialog.open) return attempt;
       profile = attempt.profile;
-      const name = weapons[selected][1];
+      const now = profile.levels[selected] || 0, name = weaponName(selected, now);
       const headline = attempt.status === 'success' ? '강화 성공!!' : '강화 실패ㅠㅠ';
       const messages = {
-        success: headline + ' · ' + name + ' +' + (level+1),
+        success: headline + ' · ' + name + ' +' + now,
         failure: headline + ' · ' + name + ' +' + level + ' 유지',
-        reset: headline + ' · 초기화 · ' + name + ' +' + level + ' → +0',
+        reset: headline + ' · ' + name + ' +' + level + ' → +0',
         changed: '무기 단계가 변경되었습니다. 다음 단계를 확인하세요.',
         max: '이미 최고 단계입니다.', poor: '미스릴이 부족합니다.'
       };
-      result.dataset.outcome = attempt.status;
       if (attempt.attempts) {
         outcome.dataset.outcome = attempt.status;
         outcome.textContent = headline;
       }
-      result.textContent = messages[attempt.status] + (attempt.spent ? ' · ' + attempt.attempts + '회 / 미스릴 ' + attempt.spent + '개 소모' : '');
+      result.dataset.outcome = attempt.status;
+      result.textContent = messages[attempt.status] + (attempt.spent ? ' · 미스릴 ' + attempt.spent + '개 소모' : '');
+      if (!auto.active && goal.valueAsNumber <= now) goal.value = Math.min(100, now + 1);
       return attempt;
     } catch { if (sequence === request) result.textContent = '저장하지 못했습니다. 다시 시도해 주세요.'; }
     finally { if (sequence === request) { busy = false; render(); } }
   }
-  async function open() {
+  async function readProfile() {
     const sequence = ++request;
-    previewLevel = null; clearResult(); profile = null; render();
     try {
       const saved = await GameForge.read();
       if (sequence !== request) return;
       profile = saved;
-      if (!busy && !profile.mithril) result.textContent = `층 클리어 보상 · 일반 ${GameForge.reward(1)}개 / 중간 보스 ${GameForge.reward(4)}개 / 최종 보스 ${GameForge.reward(9)}개`;
-    } catch { result.textContent = '저장 데이터를 열지 못했습니다. 대장간에 다시 입장해 주세요.'; }
-    render();
+      render();
+    } catch { if (sequence === request) result.textContent = '저장 데이터를 열지 못했습니다. 대장간에 다시 입장해 주세요.'; }
   }
-  dialog.addEventListener('close', () => { request++; busy = false; clearResult(); cancelAnimationFrame(raf); });
+  function open() {
+    role = null; profile = null; mode.checked = false; clearResult(); render(); readProfile();
+  }
+  dialog.addEventListener('close', () => { request++; busy = false; clearResult(); });
   document.addEventListener('visibilitychange', () => {
-    if (dialog.open && !panel.hidden && !document.hidden && !busy) open();
+    if (dialog.open && !panel.hidden && !document.hidden && !busy && !auto.active) readProfile();
   });
   window.TownForge = {open};
 })();
