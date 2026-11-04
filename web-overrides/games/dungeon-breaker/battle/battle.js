@@ -277,7 +277,8 @@ function showClear(){
  // Campaign floors keep live buff state until it is checkpointed. Standalone
  // battles retain their original cleanup, and a new expedition starts fresh.
  if(!window.GalleonCampaign)window.HealerSkills?.reset();assets.slice(0,4).forEach((a,i)=>applyPartyHit(i,0));
- document.querySelector('.clear-description').textContent=window.GalleonCampaign&&window.GameForge?'미스릴 +'+GameForge.reward(GalleonCampaign.floor):enemy().name+' 처치';
+ const mithril=window.GalleonCampaign&&window.GameForge?GameForge.reward(GalleonCampaign.floor):0;
+ document.querySelector('.clear-description').textContent=mithril?'미스릴 +'+mithril:enemy().name+' 처치';
  const clearOverlay=document.querySelector('#clear-overlay');
  clearOverlay.classList.toggle('dungeon-complete',!!config.isFinalBoss);
  clearOverlay.style.setProperty('--clear-reveal','0');

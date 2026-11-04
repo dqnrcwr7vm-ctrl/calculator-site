@@ -83,7 +83,7 @@
     canvas.height = welcome ? 320 : 256;
     lastFire = lastPose = -1;
     loadArt().then(restart);
-    window.DungeonUIAudio?.prepare?.('forge-hammer');
+    for (const cue of ['forge-hammer', 'forge-success', 'forge-failure']) window.DungeonUIAudio?.prepare?.(cue);
   }
   async function hammer(total, onLastImpact) {
     const current = session;

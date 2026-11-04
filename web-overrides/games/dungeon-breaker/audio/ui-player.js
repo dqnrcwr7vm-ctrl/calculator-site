@@ -2,7 +2,11 @@
 (() => {
   'use strict';
   const base = new URL('ui-jsfxr-v1/wav/', document.currentScript.src);
-  const forgeHammer = new URL('forge-anvil-v1/hammer.wav', document.currentScript.src);
+  const forgeCues = new Map([
+    ['forge-hammer', new URL('forge-anvil-v1/hammer.wav', document.currentScript.src)],
+    ['forge-success', new URL('forge-result-v1/success.wav', document.currentScript.src)],
+    ['forge-failure', new URL('forge-result-v1/failure.wav', document.currentScript.src)]
+  ]);
   let shared;
   try { if (parent !== window && parent.GameScreen?.ownsFrame(window)) shared = parent.DungeonUIAudio; } catch {}
   if (!shared) {
@@ -16,13 +20,13 @@
     }
     function load(name) {
       if(buffers.has(name))return Promise.resolve(buffers.get(name));
-      if(!pending.has(name))pending.set(name,fetch(name==='forge-hammer'?forgeHammer:new URL('ui-'+name+'.wav',base)).then(r=>{if(!r.ok)throw Error(r.status);return r.arrayBuffer();}).then(b=>context.decodeAudioData(b)).then(b=>{buffers.set(name,b);return b;}).catch(()=>null).finally(()=>pending.delete(name)));
+      if(!pending.has(name))pending.set(name,fetch(forgeCues.get(name)||new URL('ui-'+name+'.wav',base)).then(r=>{if(!r.ok)throw Error(r.status);return r.arrayBuffer();}).then(b=>context.decodeAudioData(b)).then(b=>{buffers.set(name,b);return b;}).catch(()=>null).finally(()=>pending.delete(name)));
       return pending.get(name);
     }
     let lastMove=-Infinity;
     shared={unlock, get settings(){return {...settings};}, setSettings(next){settings={...settings,...next};settings.volume=Math.max(0,Math.min(1,settings.volume));if(gain)gain.gain.value=settings.muted?0:settings.volume;try{localStorage.setItem('dungeon-breaker-ui-audio',JSON.stringify(settings));}catch{}},
-      prepare(name){if(name==='forge-hammer'){unlock();if(context)load(name);}},
-      play(name){if((name!=='forge-hammer'&&!names.includes(name))||settings.muted||!settings.volume||document.hidden)return;unlock();if(!context)return;const at=performance.now(),ticket=epoch;if(name==='move'&&at-lastMove<75)return;if(name==='move')lastMove=at;
+      prepare(name){if(forgeCues.has(name)){unlock();if(context)load(name);}},
+      play(name){if((!forgeCues.has(name)&&!names.includes(name))||settings.muted||!settings.volume||document.hidden)return;unlock();if(!context)return;const at=performance.now(),ticket=epoch;if(name==='move'&&at-lastMove<75)return;if(name==='move')lastMove=at;
         load(name).then(buffer=>{if(!buffer||ticket!==epoch||performance.now()-at>400||settings.muted||document.hidden)return;const s=context.createBufferSource();s.buffer=buffer;s.connect(gain);active.add(s);s.onended=()=>active.delete(s);s.start();document.documentElement.dataset.uiSound=name;document.documentElement.dataset.uiSoundCount=String(+(document.documentElement.dataset.uiSoundCount||0)+1);window.dispatchEvent(new CustomEvent('uisoundplayed',{detail:{name}}));});},
       stop(){epoch++;active.forEach(s=>{try{s.stop();}catch{}});active.clear();}
     };

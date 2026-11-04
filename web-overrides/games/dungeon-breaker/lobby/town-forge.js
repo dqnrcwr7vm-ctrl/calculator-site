@@ -118,6 +118,9 @@
         const result = await GameForge.enhance(selected, level, 1);
         if (!current()) return result;
         profile = result.profile;
+        if (result.attempts && !document.hidden) {
+          window.DungeonUIAudio?.play(result.status === 'success' ? 'forge-success' : 'forge-failure');
+        }
         if (!result.attempts) {
           problem = {poor:'미스릴이 부족해.', changed:'무기 단계가 변경되었어.', max:'이미 최고 단계야.'}[result.status];
         } else if (automatic) {

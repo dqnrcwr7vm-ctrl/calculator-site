@@ -37,7 +37,7 @@
     if (level <= 99) return 24 + (level - 90) * 4;
     return 100;
   }
-  const reward = floor => floor === 9 ? 600 : [4, 8].includes(floor) ? 300 : 120;
+  const reward = floor => floor === 9 ? 600 : [4, 8].includes(floor) ? 300 : 0;
   let opening;
   function database() {
     if (!opening) opening = new Promise((resolve, reject) => {

@@ -72,6 +72,7 @@
  let awarding=false;
  async function creditFloor(){
   if(awarding)return;
+  if(!GameForge.reward(state.floor)){finishFloor();return;}
   awarding=true;
   try{
    await GameForge.claim(key,state.floor);
