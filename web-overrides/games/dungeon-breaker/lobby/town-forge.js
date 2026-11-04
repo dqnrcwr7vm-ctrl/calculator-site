@@ -136,6 +136,8 @@
       }
     }
     try {
+      await Promise.all(['forge-hammer','forge-success','forge-failure'].map(cue => window.DungeonUIAudio?.prepare?.(cue)));
+      if (!current() || document.hidden || (automatic && auto.stopping)) return;
       await TownForgeScene.hammer(automatic ? 1 : 3, () => {
         if (current() && !document.hidden && !(automatic && auto.stopping)) roll = resolveHit();
       });
