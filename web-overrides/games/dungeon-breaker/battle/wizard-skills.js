@@ -3,8 +3,18 @@
 const BALANCE={basic:1800,meteor:2500,burn:500,blizzard:1700,thunderstorm:1900,explosion:3000,chance:.3};
 class WizardStatuses{
  constructor(){this.reset();}
- reset(){this.turn=1;this.statuses=new Map();this.hole=null;this.ground=null;}
- inflict(id,kind,now){const s=this.statuses.get(id)||{};s[kind]=now;this.statuses.set(id,s);}
+ reset(){this.turn=1;this.statuses=new Map();this.lightningOpenings=new Set();this.hole=null;this.ground=null;}
+ inflict(id,kind,now,source=kind==='paralysis'?'lightning':null){
+  const statuses=this.statuses.get(id)||{};
+  statuses[kind]=now;
+  this.statuses.set(id,statuses);
+  if(source==='lightning'&&['paralysis','stun'].includes(kind))this.lightningOpenings.add(id);
+ }
+ followUpDamage(id,damage,hit={}){
+  if(damage<=0||hit.dot||!this.lightningOpenings.has(id))return damage;
+  this.lightningOpenings.delete(id);
+  return Math.round(damage*1.5);
+ }
  contained(id){return !!this.hole?.ids.includes(id);}
  canSelect(e){return e.hp>0&&!this.contained(e.id);}
  canAct(e){return this.canSelect(e)&&!this.statuses.has(e.id);}

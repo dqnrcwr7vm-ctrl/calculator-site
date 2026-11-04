@@ -211,7 +211,8 @@ function damageEnemyTargets(targets,amount,area=false,hit={}){
   let received=window.PartyMonsterBalance?.resolveHit?.(target,amount,hit);
   if(!received){const damage=window.PartyMonsterBalance?.incoming?.(target,amount,hit)??amount;received={damage,landed:damage>0};}
   if(config.contractStone&&!received.landed&&amount>0)config.contractStone.wardAt=elapsed;
-  const dealt=window.PartyTurns?.defendEnemy(target,received.damage)??received.damage;
+  let dealt=window.PartyTurns?.defendEnemy(target,received.damage)??received.damage;
+  dealt=window.WizardSkills?.model.followUpDamage(target.id,dealt,hit)??dealt;
   target.hp=Math.max(0,target.hp-dealt);
   if(received.landed)target.hitAt=elapsed;
   target.damage=dealt;target.damageElement=hit.element||null;target.damageSkill=hit.skillId||null;

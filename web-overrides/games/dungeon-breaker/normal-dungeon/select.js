@@ -7,7 +7,7 @@ function readSaved(){if(new URLSearchParams(location.search).get('newparty')==='
 function storeTeam(){sessionStorage.setItem(selectionKey,JSON.stringify(team));}
 function pick(i){if(team.some((v,j)=>v===i&&j!==slot))return;selected=i;render();}
 function edit(i){if(i>team.length||i>3)return;slot=i;selected=team[i]??ids.findIndex((_,j)=>!team.includes(j));render();}
-function confirm(){if(slot>=4)return;if(team.some((v,j)=>v===selected&&j!==slot))return;team[slot]=selected;storeTeam();slot=team.length===4?4:slot+1;selected=team[slot]??ids.findIndex((_,i)=>!team.includes(i));if(selected<0||slot===4)selected=team[3];render();}
+function confirm(){if(slot>=4)return;if(team.some((v,j)=>v===selected&&j!==slot))return;team[slot]=selected;storeTeam();slot=team.length===4?4:slot+1;selected=team[slot]??ids.findIndex((_,i)=>!team.includes(i));if(slot===4){start();return;}if(selected<0)selected=team[3];render();}
 function cancelSelection(){
  if(document.body.dataset.departing)return;
  if(slot<team.length){slot=team.length;selected=slot===4?team[3]:ids.findIndex((_,i)=>!team.includes(i));}
